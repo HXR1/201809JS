@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--<div id="butt" style="float: left; height: 200px; width: 200px;background: cornflowerblue; font-size: 30px; line-height: 200px; text-align: center"></div>-->
+<ul>
+    <li>111</li>
+    <li>222</li>
+    <li>333</li>
+</ul>
+<script>
+
+    var myLis = document.getElementsByTagName('li')
+    function clickFn() {
+        alert(this.title)
+    }
+    for (var i = 0; i < myLis.length; i++) {
+        myLis[i].title = '我是第'+(i + 1)+'个'
+        myLis[i].onclick = clickFn
+        // myLis[i].onclick = function () {alert(this.title)}
+    }
+
+
+
+
+
+
+
+
+
+
+
+//var butt = document.getElementById('butt')
+//var total = 0
+//function click2() {
+//    total++
+//    butt.innerHTML = total
+//}
+//butt.onclick = click2
+
+
+    //    console.log(window.a, 'window.aaaa') // undefined
+//    console.log(a, 'aaaa') // Error
+//
+//    var obj = {}
+//    var arr = []
+//    console.log(obj.a) // undefined
+//    console.log(arr[0]) // undefined
+
+//    console.log(a) // undefined
+//    console.log(window.b) // undefined
+//    console.log(b) // Error
+//    var a = '10';
+//    b = '12'
+
+</script>
+</body>
+</html>
