@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    //工厂模式 解决了批量生产的问题
+    //函数的功能：把所有的功能都封装在一个函数里，等下次需要实现这个功能时，只需要执行这个方法即可
+    function shirt(){
+        //1.创建一个对象
+        var obj = {};
+        //2.给对象添加属性
+        obj.size = "XXL";
+        obj.material ="棉";
+        obj.fn = function(){console.log("fn")};
+        //3.返回对象
+        return obj;
+    }
+    for(var i = 0;i<1000;i++){
+        console.log(shirt());
+    }
+    //document.createElement("div");//用工厂模式来实现
+    //生产出来的都是T-shirt,是没有品牌 ，都是对象，不知道是对象中哪一种
+    //对象(object,array,regExp,Date...)
+
+
+</script>

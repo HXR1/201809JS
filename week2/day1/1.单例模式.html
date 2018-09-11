@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<button id="btn">提交</button>
+</body>
+</html>
+<script>
+        //单例模式是门户大开型
+        //login模块
+        var login = { //login命名空间中
+            username:"lily",
+            password:"123456",
+            email:function(){
+                console.log("email")
+            },
+            fn1:function(){
+                this.email(); //调用同一模块中的方法 this.方法名
+                console.log("fn1")
+            }
+        };
+        login.fn1();
+        var register = {
+            username:"lucy",
+            password:"123456",
+            fn2:function(){
+                //验证邮箱
+                login.email();//不同模块之间调用 模块名.方法名
+                console.log(this.username);
+            }
+        }
+        register.fn2();
+
+        btn.onclick = function(){
+            console.log(login.username);
+            console.log(login.password);
+
+        }
+
+
+
+</script>

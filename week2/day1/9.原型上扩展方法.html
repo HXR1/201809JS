@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    console.dir(Object.prototype);
+    var obj = {};
+    //console.log(obj.toString());//"[object Object]"
+    var ary =[1,2];
+    //console.log(ary.toString());//"1,2"
+    //console.log(Array.prototype);
+    /*Array.prototype.toString = function(){
+        //this 指的实例
+        return this.join("+");
+    }*/
+    //Array.prototype = {};这种对内置类批量修改的方式不支持
+    //内置类原型上的方法可以一个一个的修改，但是不能批量修改
+    //__proto__ IE浏览器不支持
+   // console.log(ary.toString())
+
+    //random(4) 随机删除数组四项，最终把删除的内容放在一个新数组中返回，原有数组发生改变
+    /*Array.prototype.random = function(n){
+        //this指实例ary
+        var res = [];
+        for(var i = 0;i<n;i++){
+            //随机的索引
+            var index = Math.floor(Math.random()*this.length);
+            res.push(this.splice(index,1)[0])
+        }
+        return res;
+    };*/
+    Array.prototype.random = function(n){
+        var res = [];
+        for(var i = 0;i<n;i++){
+            var index = Math.floor(Math.random()*this.length);
+            //用最后一项代替索引是index这一项，然后再把最后一项删了
+            var val = this[index];
+            this[index] = this[this.length-1];
+            this.length--;
+            res.push(val);
+        }
+        return res;
+    };
+    var ary = [10,20,25,36,34,15];
+   /* var res = ary.random(4);
+    console.log(ary,res);*/
+   Array.prototype.push = function(value){
+       this[this.length] = value;
+       return this; //实现链式调用的关键
+   };
+   //链式写法
+   var res = ary.random(4).push(55).sort(function(a,b){
+       return a-b;
+   });
+    console.log(res);
+
+   //思考题 (5).plus(2).minus(3)
+
+</script>

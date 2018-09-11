@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    function Person(name,age){
+        this.name = name;
+        this.age = age;
+    }
+    Person.prototype.writeCss = function(){
+        console.log("writeCss");
+    };
+    var p1 = new Person("lily",20);
+    var p2 = new Person("lucy",18);
+    //console.log(Person.prototype.__proto__ == Object.prototype);//true
+    //console.log(p1.__proto__ == Person.prototype);//true
+    //console.log(p1.__proto__.__proto__ == Object.prototype);//true
+    //console.log(p1.hasOwnProperty("writeCss"));//false
+    //console.log(Object.prototype.isPrototypeOf(p1));//true
+
+
+    //思考：封装一个方法 hasPublicProperty 用来检测某个属性是否是公有的
+    function hasPublicProperty(obj,attr){
+        /*if(attr in obj){
+            if(obj.hasOwnProperty(attr)){
+                return false
+            }else{
+                return true;
+            }
+        }else{
+            return false
+        }*/
+        //attr是obj的属性 attr不是obj私有的 这样才是公有的
+       return  (attr in obj) && !obj.hasOwnProperty(attr);
+    }
+    console.log("hasOwnProperty" in p1);//属性是否在p1对象的原型链上
+    console.log(hasPublicProperty(p1, "hasOwnProperty"));//true
+    console.log(hasPublicProperty(p1, "name"));//false
+
+
+</script>

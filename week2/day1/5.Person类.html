@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    //为了跟普通函数区别开来，构造函数首字母要大写
+    function Person(name,age){
+        //1.创建对象 （系统自己创建对象）
+        //2.给对象添加属性 （对象用this表示）
+//        var name="rose";
+        this.name =name;
+        this.age = age;
+        //3.返回对象  （系统自己返回对象）
+    }
+
+    Person.prototype.writeCss = function(){//放在原型上是所有实例功能的属性
+        console.log('writeCss');
+    };
+    //Person();//这个Person就是普通函数，函数中的this是window
+    var p1 = new Person("lily",20);//通过new去运行的函数才称为构造函数(类)  Person构造函数或Person类  p1指的是返回的对象，也就是实例
+    var p2 = new Person("lucy",18);
+   //console.log(p1.writeCss == p2.writeCss);
+    console.log(p1);
+
+    //构造函数的细节知识点
+    //1.new 运行函数时，若不需要传参，小括号可省略
+    //2.构造函数中this指的是实例，实例只跟this.xxx有关,跟私有变量无关
+    //3.构造函数定义的属性都是私有属性，所有实例都有的功能放在原型上
+    //4.return不用写，若非写，return 后面跟基本类型数据对实例没影响，若return 后面跟引用类型的数据会把系统返回的实例覆盖
+</script>

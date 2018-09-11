@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    function Person(name,age){
+        this.name = name;
+        this.age = age;
+    }
+   /* Person.prototype.writeCss = function(){
+        console.log("writeCss");
+
+    }
+    Person.prototype.writeJs = function(){
+        console.log("writeJs");
+    }
+    Person.prototype.speakEnglish = function(){
+        console.log("speakEnglish");
+    }*/
+    //批量的设置原型上的属性
+
+    Person.prototype = { //重写原型对象
+        constructor:Person, //记得添加constructor
+        writeCss:function(){
+            console.log("writeCss");
+        },
+        writeJs:function(){
+            console.log("writeJs");
+        },
+        speakEnglish:function(){
+            console.log("speakEnglish");
+        }
+    };
+    var p1 = new Person("lily",20);
+    p1.writeCss();
+    console.log(p1.constructor);
+</script>
