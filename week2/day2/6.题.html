@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    function fn1(){
+        console.log(1)
+    }
+    function fn2(){
+        console.log(2);
+    }
+   /* fn1.call(fn2);1*/
+    fn1.call.call.call.call(fn2);
+    Function.prototype.call.call(fn2);
+
+
+</script>

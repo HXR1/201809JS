@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    //console.dir(Function.prototype);
+    //call apply bind  Function类原型上方法  实例去调用
+    function fn(a,b){
+        console.log(this);
+        //console.log(this+a+b);//{10}.valueOf()->10
+        console.log(this+a+b);//"[object Object]2030"
+    }
+    //Function.prototype.call;
+    //fn.call  实例调用原型上的方法
+    /*Function.prototype.call = function(){
+        //1.把实例（点前面的方法）中的this改成第一个参数
+        //2.让实例运行
+    }*/
+
+    //call();//这样表示在全局下有个方法是call
+    fn.call(10,20,30); //()让call运行  将fn中this改成{}
+    fn.apply({},[20,30]);//传参时是打包式，但是实参传给形参时，还得把实参里所有的内容拿出来，一个一个的给形参,第一项给第一个形参，第二项给第二个形参...
+
+
+
+</script>

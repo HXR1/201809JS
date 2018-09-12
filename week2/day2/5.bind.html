@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    //柯里化函数（预处理思想）
+    //bind方法的第一个参数也是用来改变点前面方法的this关键字,传参方式跟call方法传参一样都是散列式
+    function fn(a,b,c){
+        console.log(this,a,b,c);
+    }
+    var res = fn.bind({},10,20);//把所有的参数传给点前面方法后返回一个需要执行的小函数，想要执行时自己手动执行
+    res(30);
+    res(50);
+    Function.prototype.bind = function(context){
+        //把从第二个参数开始所有实参拿到
+        //实例（this）保存下来
+        return function(){
+           //把小函数的所有参数跟上面参数合并
+            //实例.apply(context,所有的参数)
+        }
+    }
+</script>

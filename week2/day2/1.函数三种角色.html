@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+   var obj = {};//obj相当于对象名
+   /*function fn(a,b){
+     return a+b;
+   }*/
+   var fn = new Function("a","b","return a+b");
+   console.log(fn); //所有的函数都是Function类的实例
+   //若函数当成对象时，函数名就相当于对象名
+   //当成函数时，有一个属性prototype,指向于原型对象
+   //当成对象时，有一个属性__proto__,指向所属类的原型
+    fn.aa = 55;
+   console.log(fn.aa);
+
+   //var ary = new Array("a"); //ary是Array类的实例
+
+  // console.log(Function.__proto__ == Function.prototype);
+  // console.log(fn.__proto__ == Function.prototype);
+
+   //instanceof 一个对象是否在另一个对象的原型链上
+   console.log(Function instanceof Object);//true
+   console.log(Function.prototype.__proto__ == Object.prototype);
+   console.log(Function.__proto__.__proto__ == Object.prototype);
+
+   console.log(Object instanceof Function);//true
+   console.log(Object.__proto__ == Function.prototype);
+
+
+</script>
