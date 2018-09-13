@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--li按照分数从小到大排列-->
+<ul id="list">
+    <li>98</li>
+    <li>89</li>
+    <li>72</li>
+    <li>86</li>
+</ul>
+</body>
+</html>
+<script>
+    var oUl = document.getElementById("list");
+    var oLis = oUl.getElementsByTagName("li");
+    //1.类数组转换成数组
+    var aLis = [].slice.call(oLis);
+    //2.排序 sort
+    aLis.sort(function(a,b){  //让li按照内容进行排序
+       return  a.innerHTML - b.innerHTML
+    });
+
+    //3.把排好的数组的每一项重新添加到页面
+    for(var i = 0;i<aLis.length;i++){
+        var cur = aLis[i];
+        oUl.appendChild(cur); //若没有则表示添加，若有呢则表示移动
+    }
+    //为什么能发现从数组中添加的li是原来页面上li?->DOM映射
+</script>

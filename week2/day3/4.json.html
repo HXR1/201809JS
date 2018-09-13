@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    //普通的对象
+    var obj = {name:"lily",age:18,gender:'女',hobby:"sleep"};
+    //json格式的对象
+    var obj = {"name":"lily","age":18,"gender":"女","hobby":"sleep"};
+    //json格式的字符串
+    var str = '{"name":"lily","age":18,"gender":"女","hobby":"sleep"}';
+    var str = "abc";
+
+    var ary = [  //多维数组
+        {"name":"lily","age":18,"gender":"女","hobby":[1,2,{"a":1}]},
+        {"name":"lily","age":18,"gender":"女","hobby":"sleep"},
+        {"name":"lily","age":18,"gender":"女","hobby":"sleep"},
+        {"name":"lily","age":18,"gender":"女","hobby":"sleep"}
+    ];
+
+    //json格式的字符串
+    var str = '[{"name":"lily","age":18,"gender":"女","hobby":"sleep"},{"name":"lily","age":18,"gender":"女","hobby":"sleep"},{"name":"lily","age":18,"gender":"女","hobby":"sleep"},{"name":"lily","age":18,"gender":"女","hobby":"sleep"}]';
+
+    //window下提供了一个对象，这个对象下有两个方法，对JSON格式的字符串和JSON格式的对象进行转换
+    //JSON.parse()  将JSON格式的字符串转换成对象
+    //JSON.stringify() 将对象转换成JSON格式的字符串
+    var str ='{"name":"lily"}';
+    console.log(JSON.parse(str));
+
+    //ie低版本浏览器不支持 JSON对象
+    function toJSON(str){//将JSON格式的字符串转换成JSON格式的对象
+        return  "JSON" in window ?JSON.parse(str):eval("("+str+")");
+    }
+    //思考题：对多维数组进行深度拷贝（递归调用）
+</script>

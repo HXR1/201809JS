@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<ul id="list">
+    <li>111</li>
+    <li>222</li>
+    <li>333</li>
+    <li>44</li>
+    <li>555</li>
+</ul>
+</body>
+</html>
+<script>
+    var oUl = document.getElementById("list");
+    var oLis = oUl.getElementsByTagName("li");
+    //var ary = [].slice.call(oLis); //ie低版本浏览器不支持
+    //console.log(ary);
+    //JS中一旦遇到错误，下面的代码都不再执行
+    //遇到错误后需要捕获浏览器异常
+    try{
+        var ary = [].slice.call(oLis);
+    }catch(e){//一旦JS代码错误会被catch给捕获，而不会再在浏览器中抛出异常
+        console.log(e.message);//将错误信息打印出来
+        //在catch语句中可以对错误信息进行另外一种方式处理
+        var ary = [];
+        for(var i = 0;i<oLis.length;i++){
+           ary[ary.length] = oLis[i];
+        }
+    }finally {}//不管代码正确与否都会走到finally,一般都不用
+    console.log(ary);
+    console.log(1);
+
+    //调试代码时 需要手动让浏览器抛出异常，阻止代码运行
+    throw new Error("变量a不存在");
+    throw new ReferenceError("引用类型错误");
+    throw new RangeError("范围错误");
+    throw new TypeError("类型错误");
+    console.log(2);
+</script>

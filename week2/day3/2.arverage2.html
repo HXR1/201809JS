@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    function average(){
+        //把类数组转换成数组
+        //若原有数组发生改变，类数组间接调用数组方法时，改变是类数组
+//        var res = Array.prototype.slice.call(arguments,0);
+//        console.log(arguments);
+//        var res = Array.prototype.push.call(arguments,11,"b");
+//        console.log(arguments);
+//        var res = Array.prototype.pop.call(arguments);
+//        console.log(arguments);
+//        [].sort.call(arguments,function(a,b){
+//            return a-b;
+//        });
+//        console.log(arguments);
+
+       /* [].sort.call(arguments,function(a,b){
+            return a-b;
+        });
+        [].pop.call(arguments);
+        [].shift.call(arguments);
+       return eval([].join.call(arguments,"+"))/arguments.length.toFixed(2)*/
+
+       var ary = [].slice.call(arguments);
+       ary.sort(function(a,b){return a-b});
+       ary.pop();
+       ary.shift();
+       return  eval(ary.join("+"))/ary.length.toFixed(2);
+    }
+
+    function average1(a,b,...arr){//剩余运算符 reset参数
+        console.log(a,b,arr);//[10,20,50,2,5,18,9]
+        console.log(arr instanceof Array);//es6
+
+        console.log([...arguments]);//扩展运算符
+    }
+    average1(10,20,50,2,5,18,9);
+
+
+</script>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<ul id="list">
+
+</ul>
+</body>
+</html>
+<script>
+    //获取数据
+    var xhr = new XMLHttpRequest();
+    xhr.open("get","./data.json",false);
+    var data = null;
+    xhr.onreadystatechange = function(){
+        if(xhr.readyState==4 && /^2\d{2}$/.test(xhr.status)){
+            data = JSON.parse(xhr.responseText);
+        }
+    }
+    xhr.send(null);
+
+    //绑定数据方法一：字符串拼接
+    //有几条数据就应该有几个li,每个li的内容是每条数据里title字段的值
+    /*var str ="";//用来累加li字符串
+    for(var i = 0;i<data.length;i++){
+        var cur = data[i];//每条数据，cur是数组中每个对象
+        //str+="<li>"+cur.title+"</li>"; //字符串拼接
+        str+=`<li>${cur.title}</li>`; //es6的模板字符串  变量放在${}里
+    }
+   var oUl = document.getElementById("list");
+   oUl.innerHTML = str;*/
+
+   //绑定数据方法二：DOM的方式
+    var oUl = document.getElementById("list");
+    var frg = document.createDocumentFragment();//文档碎片
+    for(var i = 0;i<data.length;i++){
+        var cur = data[i];
+        var oLi = document.createElement("li");
+        oLi.innerHTML = cur.title;
+        frg.appendChild(oLi);
+    }
+    oUl.appendChild(frg);//只会渲染一次
+    //回流 页面布局发生改变时，页面所有的内容都会重新渲染
+    //会流 某个元素的外观发生变化，只会对这个元素重新渲染
+
+
+
+</script>

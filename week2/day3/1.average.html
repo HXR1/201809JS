@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    //1.对象的数字属性名是从0开始依次递增，2.有length属性 这样对象称为类数组 arguments和元素集合
+    function average(){
+        //console.log(arguments instanceof Array);//false 检测arguments对象是否属于Array类
+
+        //先把类数组转换成数组
+        var ary = [];
+        for(var i = 0;i<arguments.length;i++){
+            ary.push(arguments[i])
+        }
+        console.log(ary);
+
+       //把类数组的最后一项删除，并把删除的内容保存下来
+        var res = arguments[arguments.length-1];
+        delete arguments[arguments.length-1];
+        console.log(arguments,res);
+
+       //思考：截取类数组，从索引1~3,返回截取的内容
+       //由此推算出：类数组若想实现跟数组一样的操作，例如，排序，截取，删除，增加等等 必须得把这些功能全部实现一遍
+       //想的解决办法:类数组间接的去调用数组的方法
+
+       Array.prototype.slice = function(){
+           //实现克隆数组
+           //实例用this表示
+           var arr = [];
+           for(var i = 0;i<this.length;i++){
+              arr.push(this[i]) ;
+           }
+           return arr;
+
+           //由此可以看出，类数组和数组克隆的逻辑一样，仅仅是操作的主体不一样，一个是arguments,一个是数组，想要实现类数组间接调用数组的方法，只需改变执行主体，把this改成arguments
+       };
+       var ary = [12,5,7];
+       var res = ary.slice();
+
+    }
+    average(10,20,50,2,5,18,9);
+
+</script>
