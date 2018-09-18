@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+
+<script>
+   // ->以1开头的11位的手机号码
+    var reg = /^1\d{10}$/
+
+   //->身份号码：前17位是数字,最后一位是数字或者X
+    var reg = /^\d{17}(\d|X)$/;
+    var reg = /^\d{17}[\dX]$/
+
+   //->有效数字的正则 整数,0,小数  +11.22 -11.22 11
+    //1.[+-]可有可无
+    //2.整数部分可以是一位或多位(第一位不可以是0)
+    //3.小数点部分可有可无
+    var reg = /^[+-]?(\d|[1-9]\d+)(\.\d+)?$/;
+    console.log(reg.test("0.5"));
+
+   /*
+   ->验证邮箱  登录名@主机名.域名
+   123@qq.com 123-aa@qq.com   aa123@qq.com.cn  aa_123@qq.cn.com  123@-.com  _-@qq.com
+   1.登录名：常用的字符- 一到多个
+   2.主机名: 由字母或横杠 一到多个组成
+   4.域名: （.+字母(2~5)）出现次数一次或两次
+   */
+
+   var reg = /^[\w-]+@([a-zA-Z-]+)(\.[a-zA-Z]{2,5}){1,2}$/;
+   console.log(reg.test("aa_123@qq.cn.com"));
+
+
+</script>

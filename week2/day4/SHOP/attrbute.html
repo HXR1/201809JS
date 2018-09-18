@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="oDiv" data-price="18" style="height: 20px"></div>
+<div id="oDiv1" data-price="18" style="height: 20px;background: limegreen"></div>
+
+<script>
+    var oDiv = document.getElementById('oDiv')
+    // 私有属性1.0
+    // oDiv['price'] = 12
+    // console.log(oDiv['price'])
+    // 私有属性2.0
+    // oDiv.getAttribute('data-price')
+    // 获取在页面上的私有属性
+    console.log(oDiv.getAttribute('data-price'), '>>>.')
+
+
+    // DOM映射
+    // 浏览器在渲染的时候给每一个DOM都添加的一些内置属性
+    // 当我们用JS获取到DOM并对DOM的内置属性就行修改的时候
+    // 浏览器会重新渲染这个DOM
+    oDiv.style.background = 'black'
+
+    var myUl = document.getElementById('list')
+    var lis = myUl.getElementsByTagName('li')
+    for (var i = 0; i < lis.length; i++) {
+        myUl.appendChild(lis[i])
+        // 这个过程并不是在UL新增一个新的LI，
+        // 而是将原来的LI进行位置的调整
+    }
+
+    // DOM 的重绘和回流
+    // 重绘 当JS改变DOM的一些样式(不能改变大小和位置) 浏览器会重新渲染这个DOM
+    // 回流 当JS改变DOM的大小或者位置的时候，其他DOM也受影响，所以浏览器需要重新计算这个页面布局 然后渲染
+
+</script>
+</body>
+</html>

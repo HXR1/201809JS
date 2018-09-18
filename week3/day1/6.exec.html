@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    //exec 捕获的方法
+    //贪婪 和 懒惰
+    /*var reg = /\d+/;   //正常情况能多拿绝不少拿
+    var reg = /\d+?/;   //量词后面加？解决贪婪性  能少绝不多拿
+    var str = "2018zhufeng2019";
+    console.log(reg.exec(str));*///数组，第一项匹配到的内容 第二项匹配内容的起始索引 第三项 原字符串
+
+    var reg = /\d+/g; //加修饰符g解决懒惰性  修改reg.lastIndex的值，reg.lastIndex决定从字符串哪个位置开始查找
+    var str = "2018zhufeng2019";
+   /* console.log(reg.lastIndex);//0
+    console.log(reg.exec(str));//["2018"]
+    console.log(reg.lastIndex);//4  匹配内容的后一个字符的索引
+    console.log(reg.exec(str));//["2019"]
+    console.log(reg.lastIndex);//15
+    console.log(reg.exec(str));//null
+    console.log(reg.lastIndex);//0
+    console.log(reg.exec(str));//["2018"]*/
+
+    //["2018","2019"];
+    RegExp.prototype.allExec = function(str){
+        //先判断下是否加g this.global ->true
+        if(!this.global) return this.exec(str);
+        //this 指 reg
+        var res = null;
+        var ary = [];
+        while(res = this.exec(str)){
+            ary.push(res[0]);
+        }
+        return ary;
+
+    }
+    console.log(reg.allExec(str));
+    console.log(str.match(reg));//一次性拿到所有匹配的内容
+
+</script>

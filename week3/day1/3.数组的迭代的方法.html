@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    //1.forEach  遍历数组  第一个参数是一个回调函数，第二个参数是context(改变回调函数中this关键字)
+    var ary = [11,2,55,33,17];
+    /*for(var i = 0;i<ary.length;i++){  //编程式
+        console.log(ary[i]);
+    }*/
+    var res = ary.forEach(function(item,index,arr){  //声明式
+        //item 指数组中每一项
+        //index 每一项对应的索引
+        //arr 原数组
+        //console.log(item);
+        //console.log(this);
+    },{})
+    //console.log(res);//undefined
+
+    //2.map 遍历数组  第一个参数是一个回调函数，第二个参数是context(改变回调函数中this关键字)  map方法有返回值
+    var ary = [1,2,3,4,5];
+    var res = ary.map(function(item,index,arr){
+        return item*2   //把回调函数执行的返回值放在一个新数组中，最后将新数组作为map方法的返回值
+    },{})
+
+    //3.some true/false   有一个为真则返回true,所有为假才返回false
+      var ary = [1,2,3,4,5];
+      var res = ary.some(function(item,index,arr){
+          return item>2&&item<4;
+      })
+    console.log(res);
+    //4.every true/false  有一个为假则会返回false,所有为真才为true
+    var ary = [1,2,3,4,5];
+    var res = ary.every(function(item,index,arr){
+        return item>2;
+    })
+    console.log(res);
+    //5.filter 过滤 把满足条件的留下，不满足的过滤掉  返回一个新数组
+    var ary = [1,2,3,4,5];
+    var res = ary.filter(function(item,index,arr){
+        return item>2;
+    });
+    console.log(ary);//[1,2,3,4,5]
+    console.log(res);//[3,4,5]
+
+    //6.find 返回满足条件的这一项，一旦找到不会继续往下查找   找不到返回undefined
+    //  findIndex  返回满足条件的这一项的索引   找不到返回-1
+    var ary = [1,2,13,14,15];
+    var res = ary.find(function(item,index,arr){
+        return item>15;
+    })
+    console.log(res);// undefined
+
+    //7.reduce和reduceRight 对每一项累计的结果  例如每一项累加
+    var ary = [10,2,13,14,15];
+    //reduce 第一个参数 回调函数  第二个参数用来设置累计项初始值
+    var res = ary.reduce(function(prev,cur){
+        //prev 累计项  cur 数组的每一项
+        //prev 若没有设置prev的初始值，则它的初始值是数组的第一项
+        return prev+cur
+        /*
+        *      prev  cur
+        * 1.   5     10     15
+        * 2.   15     2     17
+        * 3.   17     13    30
+        * 4.   30     14    44
+        * 5.   44     15    59
+        * */
+    },5);
+    console.log(res);
+
+
+</script>

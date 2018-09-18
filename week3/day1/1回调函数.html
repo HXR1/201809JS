@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    //回调函数：把一个函数的定义（A）作为参数传给另一个函数(B),函数A称为B的回调函数  B函数运行完后才会运行A函数
+    /* var ary = [1,3,2];
+     ary.sort(function(a,b){
+         return a-b;
+     })
+     window.setTimeout(function (){
+         console.log(1);
+     },1000)
+      */
+    function a(n, m) {
+        console.log(n + m);
+    }
+
+    function b(fn) {//把b函数内部在相应的地方把回调函数给执行
+        for(var i = 0;i<5;i++){
+            fn(2, 3);
+        }
+    }
+    b(a);
+    b(function (n, m) {
+        console.log(n + m);
+    })
+
+
+</script>

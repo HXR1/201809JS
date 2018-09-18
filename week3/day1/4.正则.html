@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    /*var reg = /^\d?\w+$/;
+    var str = "ds2225a31";
+    console.log(reg.test(str));*/
+
+    /*var reg = /\.+/;
+    var str = "12.5a";
+    console.log(reg.test(str));*/
+
+    /*var reg = /\w{5}\b/; //不仅仅是空格，特殊字符#%&*$都算单词的边界
+    var str ="hello$world";
+    console.log(reg.test(str));*/
+
+    //var reg = /[^a-zA-Z]+/;
+     var str = "123a";
+     //var reg = /^[!-.]$/;//[]中*.+?都表示字符本身含义 \d\w还是表示特殊字符
+    var reg = /^[\u0021-\u002E]$/ ;//用十六进制表示没法操作的字符 不足四位在前面补零
+    var reg = /^[\u4e00-\u9fa5]{2,5}$/; //匹配中文字符2位~5位
+    var reg = /^(1[8-9]|[2-5]\d|6[0-5])$/;   //匹配年龄18-65  18-19  20-59 60-65
+    console.log(reg.test("18"));
+
+    var reg = /^18|19$/;//18开头或者19结尾的字符串
+    var reg = /^(18|19)$/;//表示只能是18或19
+    console.log(reg.test("19"));
+
+    var reg = /[a-z]+/i;
+    console.log(reg.test("aaaZZCCC"));
+
+
+    var name = "zhufeng";
+    //var  reg = /\d+name\d+/g; //name表示普通字符，不表示变量
+    var reg = new RegExp("\\d+"+name+"\\d+","g"); //1.构造函数的方式可以表示变量，字面量不行 2.构造函数中\\代表一个\
+    console.log(reg.test("2018zhufeng2019"));
+
+
+</script>
