@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    var str = "asfffsssaaaadddeedd";
+    //var ary = str.split("");
+    var ary = [].slice.call(str);
+    ary.sort(function(a,b){
+        return a.localeCompare(b);
+    })
+    str = ary.join("");
+    //console.log(str);//"aaaaadddddeefffssss";
+    //匹配字符串中连续出现的相同的字母
+    var reg = /(\w)\1*/g; //反向引用
+    //利用假设法
+    var maxStr = null;
+    var max = 1;
+    str.replace(reg,function($0,$1){
+        //$0,$1 形参名称 叫什么都可以
+        //console.log($0,$1);
+        if($0.length>max){
+            max = $0.length;
+            maxStr = $1;
+        }else if($0.length===max){
+            maxStr+=","+$1;
+        }
+    });
+    console.log(maxStr,max);
+
+
+
+     var str = "woow";
+     var reg = /^(\w)(\w)\2\1$/;//\n表示跟第n个分组匹配到的内容一样
+    console.log(reg.test(str));
+    /*var ary2 = ["张三","李四","王五"];
+    ary2.sort(function(a,b){
+        return a.localeCompare(b);//"zh" 按照字典顺序进行排序
+    })
+    console.log(ary2);*/
+
+
+</script>

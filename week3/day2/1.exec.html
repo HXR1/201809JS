@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+
+    var reg = /\d+/g;
+    var str = "2018zhufeng2019";
+    /*console.log(reg.lastIndex);//0
+    console.log(reg.exec(str));//每次只会查找一次匹配的内容
+    console.log(reg.lastIndex);//4
+    console.log(reg.exec(str));
+    console.log(reg.lastIndex);//15
+    console.log(reg.exec(str));//null
+    console.log(reg.lastIndex);*///0
+
+    //把所有匹配的内容放在数组中返回 ["2018","2019"]
+    RegExp.prototype.allExec = function(str){
+        //this表示实例
+        //1.先判断下是否加g this.global->true
+        if(!this.global){return this.exec(str)};
+        //2.判断 this.exec(str)返回值是否为null,若不为null，则把返回值的第一项放入新数组中
+        var newAry = [];
+        var res = null;
+        while(res = this.exec(str)){
+            newAry.push(res[0]);
+        }
+        return newAry;
+    };
+    console.log(reg.allExec(str));
+    console.log(str.match(reg));//把匹配的内容放入数组中返回
+
+
+    //面试题
+  /*  var str1 = "abc44ccc";
+    var str2 = "55ddff22";
+    var reg = /\d+/g;
+    console.log(reg.lastIndex);
+    console.log(reg.exec(str1));//["44"]
+    console.log(reg.lastIndex);
+    console.log(reg.exec(str2));//["22"]
+    console.log(reg.lastIndex);
+    console.log(reg.exec(str1));//null
+    console.log(reg.lastIndex);
+    console.log(reg.exec(str2));//["55"]
+    console.log(reg.lastIndex);
+    console.log(reg.exec(str1));//["44"]*/
+
+
+    var reg = /[+-]?([1-9]\d{3})(\.\d+)?/g;   //(?:) 匹配不捕获
+    var str = "2018.09zhufeng2017";
+    console.log(reg.exec(str));//第一项：正则匹配的内容 从第二项开始是分组的内容  倒数第二项是匹配内容的起始索引 倒数第一项原字符串
+    //先调用exec或test方法，才能通过RegExp.$1~$99直接获取分组的内容
+    console.log(RegExp.$1);
+    console.log(RegExp.$2);
+
+
+
+
+</script>

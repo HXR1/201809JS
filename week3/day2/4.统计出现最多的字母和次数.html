@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    var str = "asfffsssaaaadddeedd";
+    //利用对象不重名的特征 把每个字母存入对象，属性名是字母，属性值是字母出现的次数
+    //遍历字符串
+    var obj = {};
+    for(var i = 0;i<str.length;i++){
+      var cur = str[i];//每个字母
+      if(obj[cur]){
+          obj[cur]++;//若已经出现，次数得累加
+      }else{
+         obj[cur]=1; //若第一次出现，次数为1
+      }
+    }
+    //console.log(obj);//{a: 5, s: 4, f: 3, d: 5, e: 2}
+   //利用假设法，求出出现次数最多的字母及次数
+    var max = 1; //假设出现最多的次数
+    var maxStr = null;//假设出现次数最多的字母
+    for(var key in obj){
+        if(obj[key]>max){
+            max = obj[key];
+            maxStr = key;
+        }else if(obj[key]===max){
+            maxStr+=","+key;
+        }
+    }
+    console.log(maxStr,max);
+
+</script>

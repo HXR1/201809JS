@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    //replace 是字符串的方法
+    //var str ="2018珠峰2019珠峰";
+    //str = str.replace("珠峰","zhufeng").replace("珠峰","zhufeng");
+    //str = str.replace(/珠峰/g,"zhufeng");
+    //console.log(str);
+
+    var str = "11a22b33c";
+    //回调函数参数，次数(匹配的次数)，返回值(可有可无 需要替换原字符串内容时要写return )
+    str= str.replace(/((\d)+)/g,function($0,$1,$2){
+        /*正则不加分组
+        参数部分：
+        第一个参数：匹配的内容
+        第二个参数：匹配内容的起始索引
+        第三个参数：原字符串
+        正则加了分组 能把分组里的内容单独提取出来
+        第一个参数：匹配的内容
+        从第二个参数开始是分组匹配的内容
+        倒数第二项 匹配内容起始索引
+        倒数第一项 原字符串
+        */
+        console.log(arguments);
+        //console.log($0,$1,$2);
+        return $0*2  //用return 后的值替换匹配的内容
+    })
+    console.log(str);
+
+    //1. 11  "22a22b33c"
+    //2. 22  "22a44b33c"
+    //3. 33  "22a44b66c"
+
+    var str ="a.b.c";
+    var reg = /(\w)\.(\w)\.(\w)/;
+    str = str.replace(reg,"$3.$2.$1");//$1~$99
+    console.log(str);
+
+   /* var str = "zhufeng peixun";
+    var reg = /(\w+)\s(\w+)/;
+    str = str.replace(reg,"$2 $1");
+    console.log(str);*/
+</script>

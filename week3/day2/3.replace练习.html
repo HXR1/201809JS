@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    /*var str = "14800";
+    var a = ["零","壹","贰","叁","肆","伍","陆","柒","捌","玖"];
+    str = str.replace(/\d/g,function($0){
+        return a[$0];
+    })
+    console.log(str);
+
+    // 模板引擎替换原理
+    var str = "my name is {0},i am {1},i come from {2}";
+    var ary = ["珠峰培训",8,"beijing"];
+    //1.写个正则匹配字符串中模板部分
+    var reg = /\{(\d)\}/g;
+    //2.用数组的内容替换对应模板部分
+    str = str.replace(reg,function($0,$1){
+        return ary[$1];
+    })
+    console.log(str);*/
+
+    //es6模板字符串替换原理
+    let name = 'zfpx';
+    let age = 9;
+    let str1 = `名字是:${name}年龄是:${age}`;
+    let reg1 = /\$\{(\w+)\}/g;
+    str1 =  str1.replace(reg1,function($0,$1){
+        return eval($1);
+    })
+    console.log(str1);
+
+
+</script>
