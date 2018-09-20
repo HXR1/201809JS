@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        #div1{
+            width: 100px;
+            height: 100px;
+            background: red;
+        }
+    </style>
+</head>
+<body>
+<div id="div1"></div>
+</body>
+</html>
+<script src="utils.js"></script>
+<script>
+    var oDiv = document.getElementById("div1");
+    console.log(utils.css(oDiv, "width")); //获取css属性
+    utils.css(oDiv,"fontSize","30px");//单个设置css属性
+    utils.css(oDiv,{  //批量设置css属性
+        color:"green",
+        opacity:0.5
+    });
+</script>

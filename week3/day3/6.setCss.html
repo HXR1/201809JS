@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        #div1{
+            width: 1000px;
+            background: red;
+            font-size: 30px;
+           /* opacity: 0.5;
+            filter:alpha(opacity=50);*/
+        }
+    </style>
+</head>
+<body>
+<div id="div1">珠峰培训</div>
+</body>
+</html>
+<script>
+    //设置css属性只能通过行内式的方式
+     var oDiv = document.getElementById("div1");
+     function setCss(ele,attr,value){
+          if(attr ==="opacity"){
+              ele.style.opacity = value;
+              ele.style.filter = "alpha(opacity = "+value*100+")";
+              return;  //中止函数运行，不写return会继续往下运行
+          }
+         //value进行单位处理  哪些属性需要加单位，哪些属性不需要加?
+         //width|height|padding|margin|left|top|right|bottom 这些要加单位
+         var reg = /^(width|height|(padding|margin)?(left|right|top|bottom)?)$/i;
+         if(reg.test(attr)){
+             if(!isNaN(value)){//对没有带单位加单位
+                 value+="px";
+             }
+         }
+         ele.style[attr] = value;
+     }
+    setCss(oDiv,"width","100px");
+    setCss(oDiv,"height","100");
+    setCss(oDiv,"color","green");
+    //思考:对同一元素批量设置属性 setGroup
+    /*setGroup(oDiv,{
+        width:100,
+        color:"green"
+    })*/
+</script>

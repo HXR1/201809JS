@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        #div1{
+            width: 1000px;
+            height: 100px;
+            background: red;
+            font-size: 30px;
+            color: green;
+        }
+    </style>
+</head>
+<body>
+<div id="div1">珠峰培训</div>
+</body>
+</html>
+<script>
+    /**
+     *
+     * @param ele 当前操作的元素
+     * @param attr  css属性
+     */
+    function getCss(ele,attr){
+        //->属性判断的方式
+        /*if("getComputedStyle" in window){
+          return  window.getComputedStyle(ele,null)[attr]
+        }else{
+            return ele.currentStyle[attr];
+        }*/
+        //变量不存在不可以直接用，但可以直接检测
+
+        //->检测数据类型的方式
+       /* if(typeof getComputedStyle==="function"){
+            return  window.getComputedStyle(ele,null)[attr]
+        }else{
+            return ele.currentStyle[attr];
+        }*/
+
+       //->检测浏览器的方式
+        if(!/MSIE [6-8]\.0/.test(navigator.userAgent)){
+            return  window.getComputedStyle(ele,null)[attr]
+        }else{
+            return ele.currentStyle[attr];
+        }
+
+    }
+    var oDiv = document.getElementById("div1");
+    console.log(getCss(oDiv, "fontSize"));
+</script>

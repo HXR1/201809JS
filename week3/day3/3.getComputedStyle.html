@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        #div1{
+            width: 1000px;
+            height: 100px;
+            background: red;
+            font-size: 30px;
+            color: green;
+        }
+        #div1::before{
+            content:"今天天气不错~";
+            color: deepskyblue;
+            font-size: 20px;
+        }
+        #div1::after{
+            content:"适合出去玩~";
+            color: palegreen;
+            font-size: 35px;
+        }
+    </style>
+</head>
+<body>
+<div id="div1">珠峰培训</div>
+</body>
+</html>
+<script>
+    //可以获取任意css属性值
+    var oDiv = document.getElementById("div1");
+   // window.getComputedStyle(oDiv, null)//返回值是一个对象，css属性集合
+    //console.log(window.getComputedStyle(oDiv, "after").fontSize);
+
+    //ie6~ie8支持属性 currentStyle
+    // console.log(oDiv.currentStyle); //->属性值是对象是css属性集合
+   // console.log(oDiv.currentStyle.backgroundColor);
+
+</script>

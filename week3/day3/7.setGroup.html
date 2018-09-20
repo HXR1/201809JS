@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        #div1{
+            width: 1000px;
+            background: red;
+            font-size: 30px;
+        }
+    </style>
+</head>
+<body>
+<div id="div1">珠峰培训</div>
+</body>
+</html>
+<script>
+    function setCss(ele,attr,value){
+        if(attr ==="opacity"){
+            ele.style.opacity = value;
+            ele.style.filter = "alpha(opacity = "+value*100+")";
+            return;
+        }
+
+        var reg = /^(width|height|(padding|margin)?(left|right|top|bottom)?)$/i;
+        if(reg.test(attr)){
+            if(!isNaN(value)){//对没有带单位加单位
+                value+="px";
+            }
+        }
+        ele.style[attr] = value;
+    }
+     var oDiv = document.getElementById("div1");
+    function setGroup(ele,obj){
+        //1.检测obj是否是一个对象
+        if(Object.prototype.toString.call(obj)!=="[object Object]") return;
+        //2.分别给obj中每个css属性设置值
+        for(var key in obj){
+            if(obj.hasOwnProperty(key)){//私有的属性
+                setCss(ele,key,obj[key]);
+            }
+        }
+    }
+    setGroup(oDiv,{
+        width:100,
+        color:"green"
+    })
+</script>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        #div1{
+            width: 1000px;
+            height: 100px;
+            background: red;
+            font-size: 30px;
+            color: green;
+        }
+    </style>
+</head>
+<body>
+<div id="div1">珠峰培训</div>
+</body>
+</html>
+<script>
+    //对width|height|margin|padding|top|left|right|bottom|opacity...把这些属性的单位去掉，转换成number类型的数据返回
+    //若返回值是"有效数+单位"，把单位去掉，并转换成number类型，若不是，则原值返回
+    function getCss(ele,attr) {
+        var res = null;
+        if(window.getComputedStyle){
+            res =  window.getComputedStyle(ele,null)[attr];
+        }else{
+            res =  ele.currentStyle[attr];
+        }
+        var reg = /^[+-]?(\d|[1-9]\d+)(\.\d+)?(px|pt|em)?$/;
+        return reg.test(res) ? parseFloat(res) :res;
+    }
+    var oDiv = document.getElementById("div1");
+    console.log(getCss(oDiv, "width"));
+    console.log(getCss(oDiv, "color"));
+</script>
