@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .box {
+            width: 1050px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+        .box ul {
+            width: 200px;
+            float: left;
+            margin-right: 10px;
+            list-style: none;
+        }
+
+        .box ul li {
+            width: 100%;
+            background: #ddd url(img/default.gif) no-repeat center center;
+            margin: 10px 0;
+        }
+
+        .box ul li img {
+            width: 100%;
+            display: none;
+        }
+        #top{
+            width: 100px;
+            height: 100px;
+            line-height: 100px;
+            position: fixed;
+            right: 20px;
+            bottom:20px;
+            background: palegreen;
+            color: #fff;
+            border-radius: 50%;
+            text-align: center;
+            font-size: 30px;
+            cursor: pointer;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div class="box" id="box">
+    <ul></ul>
+    <ul></ul>
+    <ul></ul>
+    <ul></ul>
+    <ul></ul>
+</div>
+<div id="top">top</div>
+</body>
+</html>
+<script src="utils.js"></script>
+<script>
+    let data = ["1.jpg", "2.jpg", "3.jpg", "4.jpg", "5.jpg", "6.jpg", "7.jpg", "8.jpg", "9.jpg", "10.jpg"];
+
+    //1.创建li,每个li的高度是80~200之间的随机数
+    function createLi() {
+        let oLi = document.createElement("li");
+        let index = utils.random(0, data.length - 1);
+        oLi.innerHTML = `
+            <img src="" realImg = "img/${data[index]}">
+        `;
+        oLi.style.height = utils.random(80, 200) + "px";
+        return oLi;
+    }
+
+    let oUls = document.getElementsByTagName("ul");
+    let aUls = [...oUls];
+
+    //创建50个li ,每个li往最短的ul标签里放
+    function li50() {
+        //按ul标签的高度排序
+        for (var i = 0; i < 50; i++) {
+            aUls.sort(function (a, b) {
+                return a.offsetHeight - b.offsetHeight;
+            });
+            var short = aUls[0];//排序后最短的ul标签
+            var oLi = createLi();
+            short.appendChild(oLi);
+        }
+    }
+
+    li50();
+    let winH = utils.win("clientHeight");
+    let oBox = document.getElementById("box");
+    let oLis = oBox.getElementsByTagName("li");
+    function showImg() {
+        //一屏的高度+卷出去的高度 >图片(li)底部到body顶部的距离  ->就可以加载图片
+        let scrollT = utils.win("scrollTop");
+        [...oLis].forEach(function(item){
+            let oLiH = utils.offset(item).t+item.offsetHeight;//每个li到body顶部的距离
+            if(winH+scrollT>=oLiH){
+                loadImg(item.children[0]);
+            }
+        })
+    }
+    function loadImg(oImg){
+        if(oImg.loaded) return;
+        //先让图片在后台加载，等在加载成功后，再把图片的路径给要显示的img的src属性
+        //1.创建图片对象
+        var tempImg = new Image(); //相当于document.createElement("img")
+        tempImg.src = oImg.getAttribute("realImg");//在后台加载
+        tempImg.onload = function(){//加载成功
+            oImg.src = this.src; //把真实的图片路径赋值给显示的img
+            oImg.loaded = true; //防止图片重复加载
+            window.setTimeout(function(){
+                oImg.style.display = "block";
+                oImg.parentNode.style.height = "auto";//让li的高度跟图片一样
+            },500);
+        };
+        tempImg.onerror = function(){//加载失败
+            oImg.loaded = true;
+        }
+    }
+    window.setTimeout(showImg,1000);
+    function scrollFn(){//当滚动条发生改变时触发
+        btnDisplay();
+        showImg();
+        //滚动条距离底部200px时再创建50li
+        //一屏的高度+卷出去的高度+200  = 文档的真实的高度
+        var scrollT = utils.win("scrollTop");
+        var scrollH = utils.win("scrollHeight");
+        if(winH+scrollT+200>=scrollH){
+            li50();
+            showImg();
+        }
+    };
+    window.onscroll = scrollFn;
+    //当卷出去的高度大于一屏时，top按钮才显示，否则都是隐藏
+    var oTop = document.getElementById("top");
+    function btnDisplay(){
+        var scrollT = utils.win("scrollTop");
+        if(scrollT>winH){
+            oTop.style.display = "block";
+        }else{
+            oTop.style.display = "none";
+        }
+    }
+    btnDisplay();
+    //定时的匀速运动
+    oTop.onclick = function(){
+        clearInterval(oTop.timer);//防止定时器积累
+        window.onscroll = null;//把滚动条绑定的行为去掉
+        var duration = 500;//总时间
+        var interval = 15;//间隔时间
+        var pos = utils.win("scrollTop");//卷出去的高度就是总共要走的距离
+        var step = interval/duration*pos; //每步走的距离
+        oTop.timer = window.setInterval(function(){
+            pos=pos-step;//指剩余路程，也就是走完单步后，现在滚动条卷出去的高度
+            if(pos<=0){
+                clearInterval(oTop.timer);
+                oTop.timer = null;
+                window.onscroll = scrollFn;//重新添加滚动条绑定的行为
+            }
+            utils.win("scrollTop",pos);
+        },interval);
+    }
+</script>
