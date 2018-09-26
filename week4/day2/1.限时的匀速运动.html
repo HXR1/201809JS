@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        #div1{
+            width: 100px;
+            height: 100px;
+            background: red;
+            position: absolute;
+            left:100px;
+            top:100px;
+        }
+    </style>
+</head>
+<body>
+<div id="div1"></div>
+</body>
+</html>
+<script src="utils.js"></script>
+<script>
+    var oDiv = document.getElementById("div1");
+    //已走的路程/总路程 = 已走的时间/总时间
+    //当前位置 = 已走的路程+起始位置
+    //当前位置 = 已走的时间/总时间*总路程+起始位置
+    //当前位置 = 已走的时间/总时间*（目标位置-起始位置）+起始位置
+    var interval = 15;
+    var duration = 500;
+    var times = 0;//累加已走的时间
+    var target = utils.win("clientWidth")-oDiv.offsetWidth;
+    var begin = utils.css(oDiv,"left");
+    var change = target - begin;
+    var timer = window.setInterval(function(){
+        times+=interval;
+        if(times>=duration){
+            clearInterval(timer);
+            utils.css(oDiv,"left",target);
+            return;
+        }
+        var pos = times/duration*change+begin;
+        utils.css(oDiv,"left",pos);
+    },interval);
+
+
+</script>

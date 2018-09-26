@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        #div1{
+            width: 100px;
+            height: 100px;
+            background: red;
+            position: absolute;
+            left:100px;
+            top:100px;
+        }
+    </style>
+</head>
+<body>
+<div id="div1"></div>
+</body>
+</html>
+<script src="utils.js"></script>
+<script>
+    var oDiv = document.getElementById("div1");
+    function move(ele,attr,target,duration){
+        clearInterval(ele.timer);//把上次move方法运行时开启的定时器清除掉
+        var interval = 15;
+        var times = 0;//累加已走的时间
+        var begin = utils.css(ele,attr);
+        var change = target - begin;
+        ele.timer = window.setInterval(function(){
+            times+=interval;
+            if(times>=duration){
+                clearInterval(timer);
+                utils.css(ele,attr,target);
+                return;
+            }
+            var pos = times/duration*change+begin;
+            utils.css(ele,attr,pos);
+        },interval);
+    }
+   move(oDiv,"opacity",0.1,500);
+
+</script>

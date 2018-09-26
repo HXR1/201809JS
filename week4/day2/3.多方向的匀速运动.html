@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        #div1{
+            width: 100px;
+            height: 100px;
+            background: red;
+            position: absolute;
+            left:100px;
+            top:100px;
+        }
+    </style>
+</head>
+<body>
+<div id="div1"></div>
+</body>
+</html>
+<script src="utils.js"></script>
+<script>
+    var oDiv = document.getElementById("div1");
+    function Linear(t,d,c,b){//匀速运动的公式
+        return t/d*c+b;
+    }
+    function move(ele,obj,duration,callback){
+        clearInterval(ele.timer);
+        var interval = 15;
+        var times = 0;
+        //把每个属性的起始位置和总路程保存下来
+        var begin = {};
+        var change = {};
+        for(var attr in obj){
+            begin[attr] = utils.css(ele,attr);
+            change[attr] = obj[attr] - begin[attr];
+        }
+        ele.timer = window.setInterval(function(){
+                times+=interval;
+                if(times>=duration){
+                    clearInterval(ele.timer);
+                    for(var attr in obj){
+                        utils.css(ele,attr,obj[attr]);
+                    }
+                   /* if(typeof callback =="function") callback();*/
+                    callback&&callback.call(ele);
+                    return;
+                }
+                for(var attr in begin){
+                    var pos = Linear(times,duration,change[attr],begin[attr]);
+                    utils.css(ele,attr,pos);
+                }
+
+        },interval)
+    }
+    function fn(){
+        this.style.background = "green";
+    }
+    move(oDiv,{
+        width:400,
+        height:400,
+        opacity:0.1
+    },500,fn);
+
+</script>
