@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+//    function Promise(callback){
+//        this.aa  = 100;
+//        callback()
+//    }
+    //Promise是构造函数  new 去运行
+    //参数是一个回调函数,回调函数有两参数，resolve(执行成功的回调) reject(执行失败的回调)
+    //then 是Promise类原型上的方法 ，通过实例调用  then有两个参数，第一个表示成功回调 ，第二个参数表示失败回调 then方法返回的是新的promise实例，所以可以继续调用then方法 (类似于jquery的链式写法)
+    //promise有三种状态 第一种是pending(等待) 第二种是fulfilled （成功状态） 第三种状态 rejected （失败）
+
+   let p =  new Promise(function(resolve,reject){
+       var xhr = new XMLHttpRequest();
+       xhr.open("get","data1.json",true);
+       var data = null;
+       xhr.onreadystatechange = function(){//监听请求的状态  事件  异步的
+           if(xhr.readyState === 4 && /^2\d{2}$/.test(xhr.status)){
+               resolve(JSON.parse(xhr.responseText));
+           }
+           if(/^(1|[3-5])\d{2}$/.test(xhr.status)){
+               reject();
+           }
+
+       };
+       xhr.send(null);
+
+    });
+    p.then(function(data){
+        console.log(data);//拿到数据后，动态绑定数据
+    }).catch(function(){
+        console.log("处理失败的状态");
+    })
+</script>

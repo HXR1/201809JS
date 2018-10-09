@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        #div1{
+            width: 100px;
+            height: 100px;
+            background: red;
+        }
+    </style>
+</head>
+<body>
+<div id="div1"></div>
+</body>
+</html>
+<script>
+
+    var oDiv = document.getElementById("div1");
+    function fn(){
+        alert(10);
+    }
+    /*oDiv.onclick = function(){//事件绑定的行为  DOM0级事件绑定
+        alert(1);
+    };
+    oDiv.onclick = function(){
+        alert(2);
+    }*/
+    //oDiv.onclick = fn;
+
+    //标准浏览器 DOM2级事件绑定
+    //第一个参数事件类型  第二个参数 事件绑定的行为  第三个参数  事件传播的方式
+    //oDiv.addEventListener("click",fn,false);
+    //oDiv.addEventListener("click",fn,false);//处理了重复绑定
+    //oDiv.removeEventListener("click",fn,false); //移除
+
+     //IE6~8 DOM2级事件绑定
+     //oDiv.attachEvent("onclick",fn);
+     oDiv.attachEvent("onclick",fn);//执行了两次，没有做重复绑定处理
+     oDiv.detachEvent("onclick",fn);//移除
+
+</script>

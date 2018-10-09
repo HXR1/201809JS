@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    //浏览器提供了同步和异步的机制，但js是单线程，提供了两个队列，一个是主队列，另一个是异步队列(队列池)
+    //同步：所有的代码按顺序执行，每一部分代码执行完后，才能执行下面的代码
+    //异步：这块代码执行后，可以去做其他事情，等这块代码执行完后再回来处理这里的事项
+    //异步性能会比较高 例如：回到函数，ajax，定时器，事件...
+    //同步和异步的区别 先执行同步的代码，然后再执行异步代码
+    //同步代码执行完后才会执行异步代码
+    window.setTimeout(function(){
+        console.log("a");
+    });//定时器没有写间隔时间，也是有的，一般5ms~10ms之间
+    console.log("hello");
+//    while(true){
+//       console.log("c");
+//    }
+    console.log("world");
+    window.setTimeout(function(){
+        console.log("b");
+    },50);
+   /* for(let i = 0;i<10;i++){
+        oLis[i].onclick = function(){
+            alert(i);
+        }
+    }*/
+
+    //思考题：5个相同长度的li,每隔1s,下一个li会相对于上一个li往前移动100px
+
+
+
+</script>
