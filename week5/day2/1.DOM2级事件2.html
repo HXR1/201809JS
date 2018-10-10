@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        #div1{
+            width: 100px;
+            height:100px;
+            background: red;
+        }
+    </style>
+</head>
+<body>
+<div id="div1"></div>
+</body>
+</html>
+<script>
+    function fn1(){
+        alert(1);
+    }
+    function fn2(){
+        alert(2);
+    }
+    var oDiv = document.getElementById("div1");
+    function on(ele,type,fn){
+      if(ele.addEventListener){
+          ele.addEventListener(type,fn,false);
+      }else{
+          ele.attachEvent("on"+type,fn);
+      }
+    }
+    function off(ele,type,fn){
+        if(ele.removeEventListener){
+            ele.removeEventListener(type,fn,false);
+        }else{
+            ele.detachEvent("on"+type,fn);
+        }
+    }
+    on(oDiv,"click",fn1);
+    on(oDiv,"click",fn2);
+    off(oDiv,"click",fn2);
+
+
+</script>

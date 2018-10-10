@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<a href="http://www.zhufengpeixun.cn" >珠峰培训</a>
+</body>
+</html>
+<script>
+    var oA = document.querySelector("a");
+    /*oA.onclick = function(e){
+        alert(1);
+        //return false; //阻止默认行为
+        e.preventDefault();
+    }*/
+    oA.addEventListener("click",function(e){
+        alert(1);
+        e.preventDefault(); //DOM2级事件绑定只能通过e.preventDefault()来阻止
+    },false)
+
+</script>

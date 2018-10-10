@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #lBox {
+            width: 400px;
+            height: 400px;
+            position: absolute;
+            left: 100px;
+            top: 50px;
+            box-shadow: 2px 2px 10px #333;
+            cursor: move;
+        }
+
+        #lBox img {
+            width: 100%;
+            height: 100%;
+        }
+
+        #mask {
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: yellow;
+            opacity: 0.5;
+            filter: alpha(opacity=50);
+            display: none;
+        }
+
+        #rBox{
+            width: 400px;
+            height: 400px;
+            position: absolute;
+            left:600px;
+            top:50px;
+            display: none;
+            overflow: hidden;
+        }
+        #rBox img{
+            width: 400%;
+            height: 400%;
+            position: absolute;
+            left:0;
+            top:0;
+        }
+
+    </style>
+</head>
+<body>
+<div id="lBox">
+    <img src="img/1.jpg" alt="">
+    <div id="mask"></div>
+</div>
+<div id="rBox">
+    <img src="img/2.jpg" alt="">
+</div>
+</body>
+</html>
+<script>
+    //mask/lBox = rBox/rImg  100/400 = 400/rImg
+    //1.当划过lBox时(mouseenter) mask显示并设置mask位置
+    //2.在lBox移动时(mousemove) mask随着鼠标而移动
+    //3.当划出lBox时(mouseleave) mask得隐藏
+    var lBox = document.getElementById("lBox");
+    var mask = document.getElementById("mask");
+    var rBox = document.getElementById("rBox");
+    var rImg = document.querySelector("#rBox>img");
+    lBox.onmouseenter = function (e) {//划过时
+        e = e || window.event;
+        mask.style.display = "block";
+        rBox.style.display = "block";
+        //鼠标如何在遮罩层盒子的中间位置 = 鼠标的坐标 - 大盒子的偏移量- 遮罩层盒子宽（高）的一半
+        mask.style.left = e.clientX - lBox.offsetLeft - mask.offsetWidth / 2 + "px";
+        mask.style.top = e.clientY - lBox.offsetTop - mask.offsetHeight / 2 + "px";
+
+    };
+    lBox.onmousemove = function (e) {//移动时
+        var posX = e.clientX - lBox.offsetLeft - mask.offsetWidth / 2;
+        var posY = e.clientY - lBox.offsetTop - mask.offsetHeight / 2;
+        var minL = 0;//横向移动的最小值
+        var maxL = this.offsetWidth - mask.offsetWidth;//横向移动的最大值
+        var minT = 0;//纵向移动的最小值
+        var maxT = this.offsetHeight - mask.offsetHeight;//纵向移动的最大值
+        posX = posX > maxL ? maxL : posX < minL ? minL : posX;
+        posY = posY > maxT ? maxT : posY < minT ? minT : posY;
+        mask.style.left = posX + "px";
+        mask.style.top = posY + "px";
+        //rImg往左或往上移动  移动距离是遮罩层移动距离的4倍
+        rImg.style.left = -4*posX+"px";
+        rImg.style.top = -4*posY+"px";
+
+    };
+    lBox.onmouseleave = function () {//离开时
+        mask.style.display = "none";
+        rBox.style.display = "none";
+    }
+
+
+</script>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #lBox {
+            width: 400px;
+            height: 400px;
+            position: absolute;
+            left: 100px;
+            top: 50px;
+            box-shadow: 2px 2px 10px #333;
+            cursor: move;
+        }
+
+        #lBox img {
+            width: 100%;
+            height: 100%;
+        }
+
+        #mask {
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: yellow;
+            opacity: 0.5;
+            filter: alpha(opacity=50);
+            display: none;
+        }
+
+        #rBox {
+            width: 400px;
+            height: 400px;
+            position: absolute;
+            left: 600px;
+            top: 50px;
+            display: none;
+            overflow: hidden;
+        }
+
+        #rBox img {
+            width: 400%;
+            height: 400%;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+    </style>
+</head>
+<body>
+<div id="lBox">
+    <img src="img/1.jpg" alt="">
+    <div id="mask"></div>
+</div>
+<div id="rBox">
+    <img src="img/2.jpg" alt="">
+</div>
+</body>
+</html>
+<script src="jquery.js"></script>
+<script>
+    var $lBox = $("#lBox");
+    var $mask = $("#mask");
+    var $rBox = $("#rBox");
+    var $rImg = $rBox.children("img");
+    $lBox.on("mouseenter", function (e) {
+        $mask.show();
+        $rBox.show();
+        getComputedPos(e);
+    }).on("mousemove", function (e) {
+        getComputedPos(e)//设置遮罩层和大图移动的距离
+    }).on("mouseleave", function () {
+        $mask.hide();
+        $rBox.hide();
+    });
+
+    function getComputedPos(e) {
+        var posX = e.clientX - $lBox.offset().left - $mask.outerWidth() / 2;
+        var posY = e.clientY - $lBox.offset().top - $mask.outerHeight() / 2;
+        var maxL = $lBox.outerWidth() - $mask.outerWidth();
+        var maxT = $lBox.outerHeight() - $mask.outerHeight();
+        posX = posX > maxL ? maxL : posX < 0 ? 0 : posX;
+        posY = posY > maxT ? maxT : posY < 0 ? 0 : posY;
+        $mask.css({"left":posX+"px",top:posY+"px"});
+        $rImg.css({"left":-4*posX+"px",top:-4*posY+"px"});
+    }
+</script>
