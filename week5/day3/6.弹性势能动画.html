@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        *{
+            margin:0;
+            padding:0
+        }
+        #div1{
+            width: 100px;
+            height: 100px;
+            background: red;
+            position: absolute;
+            top:100px;
+            left:100px;
+            cursor: move;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+<div id="div1"></div>
+</body>
+</html>
+<script>
+
+    var oDiv = document.getElementById("div1");
+    oDiv.onmousedown = down;
+    function down(e){//按下时
+        e = e ||window.event;
+        this.x = this.offsetLeft; //盒子初始位置
+        this.y  = this.offsetTop;
+        this.mx = e.clientX;//按下时鼠标的坐标
+        this.my = e.clientY;
+        if(this.setCapture){//为了将盒子跟鼠标绑一起
+            this.setCapture();
+            this.onmousemove = move;
+            this.onmouseup = up;
+        }else{
+            document.onmousemove = move.bind(this);
+            document.onmouseup  = up.bind(this);
+        }
+        window.clearInterval(this.flyTimer);
+    }
+    function move(e){//移动时
+         e = e ||window.event;
+         this.style.left = this.x + (e.clientX - this.mx)+"px";
+         this.style.top =  this.y +(e.clientY - this.my)+"px";
+         if(!this.prevX){  //初始化
+           this.prevX = this.mx;
+         }
+         //每次移动时都要出速度
+          this.speedX = e.clientX - this.prevX;
+         //现在鼠标的坐标 e.clientX得保存在this.prevX， 方便小球移动后能找到上次鼠标的坐标
+          this.prevX = e.clientX;
+    }
+    function up(e){//松开鼠标时
+        e = e ||window.event;
+        if(this.releaseCapture){
+            this.releaseCapture();//解绑
+            this.onmousemove = null;
+            this.onmouseup = null;
+        }else{
+            document.onmousemove = null;
+            document.onmouseup = null;
+        }
+        fly.call(this);
+    }
+
+
+
+    //速度 = 路程/单位时间
+    //单位时间内走的路程称为速度
+    //每次移动小球时，浏览器都有个反应时间5ms-6ms ,把浏览器反应的时间看成是单位时间，把小球拖拽时移动的距离看成速度
+    //松开鼠标前最后一次拖拽的距离当成速度，松开鼠标后，小球每隔一段时间就累加这个速度，若到了边界反弹回来，速度得有个摩擦力，最后在摩擦力的作用下停下来
+
+    function fly(){
+       window.clearInterval(this.flyTimer);//清除定时器，防止定时器积累
+       this.flyTimer = window.setInterval(()=>{
+           this.speedX*=0.98;//设置速度的摩擦力
+           let duration = this.offsetLeft+this.speedX;
+           let minL = 0;
+           let maxL = (document.documentElement.clientWidth||document.body.clientWidth) - this.offsetWidth;
+           if(duration>=maxL){//处理最大的边界 到了边界，则从边界位置反弹回来
+               duration = maxL;
+               this.speedX*=-1;//反弹回来
+           }else if(duration<=0){//处理最小的边界
+               duration = minL;
+               this.speedX*=-1;
+           }
+           this.style.left = duration+"px";
+           //何时清除定时器？小球停下来时可以清除定时器，如何判断小球停下来
+           //速度的绝对值小于0.5时小球停下来了
+           if(Math.abs(this.speedX)<0.5){
+               clearInterval(this.flyTimer);
+           }
+       },30)
+    }
+
+</script>
+

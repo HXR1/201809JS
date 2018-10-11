@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        #box{
+            width: 500px;
+            background: -webkit-linear-gradient(-45deg,palegreen,paleturquoise,palegoldenrod,pink);
+            background: linear-gradient(-45deg,palegreen,paleturquoise,palegoldenrod,pink);
+        }
+        #box ul li{
+            line-height:30px;
+            font-size: 15px;
+        }
+        #box ul li  span.open:before{/*展开*/
+            content: "-";
+            font-size: 25px;
+            color: red;
+            font-weight: bold;
+            padding-right: 5px;
+
+        }
+        #box ul li  span.close:before{/*关闭*/
+            content: "+";
+            font-size: 23px;
+            color: red;
+            font-weight: bold;
+            padding-right: 5px;
+        }
+    </style>
+</head>
+<body>
+<div id="box">
+    <ul>
+        <li>
+            <span>第一级菜单</span>
+            <ul>
+                <li>
+                    <span>第二级菜单</span>
+                    <ul>
+                        <li>
+                            <span>第三级菜单</span>
+                            <ul>
+                                <li>第四级菜单</li>
+                                <li>第四级菜单</li>
+                                <li>第四级菜单</li>
+                            </ul>
+                        </li>
+                        <li>第三级菜单</li>
+                        <li>第三级菜单</li>
+                        <li>第三级菜单</li>
+                    </ul>
+                </li>
+                <li>第二级菜单</li>
+                <li>第二级菜单</li>
+            </ul>
+        </li>
+        <li>
+            <span>第一级菜单</span>
+            <ul>
+                <li>第二级菜单</li>
+                <li>第二级菜单</li>
+                <li>第二级菜单</li>
+            </ul>
+        </li>
+        <li>第一级菜单</li>
+        <li>第一级菜单</li>
+    </ul>
+</div>
+
+</body>
+</html>
+<script src="jquery.js"></script>
+<script>
+    let $oSpans = $("#box").find("span");
+    $oSpans.each(function (index,item) {
+        let $oUl = $(item).next("ul");
+        if($oUl&&$oUl.length>0){
+          $oUl.hide();
+          item.className = "close";
+       }
+    });
+
+    $("#box").on("click","span",function(){//第二个参数表示指定事件源
+        let $oUl = $(this).next();
+        if($oUl&&$oUl.length>0){
+            if($oUl.is(":visible")){//true 显示  false 隐藏
+                $oUl.hide();
+                this.className = "close";
+                let $oUls = $oUl.find("ul");
+                $oUls.each(function(index,item){
+                    $(item).hide();
+                    $(item).prev().get(0).className = "close";
+                })
+            }else{
+                $oUl.show();
+                this.className = "open";
+            }
+        }
+    })
+
+
+</script>

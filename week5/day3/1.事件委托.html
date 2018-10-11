@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        body *{
+            margin: 0 auto;
+        }
+        div{
+            width: 300px;
+            background: orange;
+            overflow: hidden;
+        }
+        p{
+            width: 200px;
+            height: 40px;
+            margin-top:10px;
+            background: palegreen;
+        }
+
+    </style>
+</head>
+<body>
+<div id="div1">
+    <p>p1</p>
+    <p>p2</p>
+    <p>p3</p>
+    <p>p4</p>
+</div>
+</body>
+</html>
+<script>
+   /* let oPs = document.getElementsByTagName("p");
+    [...oPs].forEach((item,index)=>{
+       item.onclick = function(){
+           alert(this.innerHTML);
+       }
+    });
+    //动态绑定数据
+    let oDiv = document.getElementById("div1");
+    let str = "";
+    for(let i = 0;i<10;i++){
+        str+=`<p>p${i}</p>`;
+    }
+    oDiv.innerHTML += str;*///oDiv.innerHTML = oDiv.innerHTML+str;
+
+    //1.若遍历元素比较多时，性能会比较低
+    //2.后期再添加新元素时 ,之前元素所处理的逻辑会失效
+
+    //->利用事件冒泡的机制，由于事件会传播，触发当前元素事件时 ，最终会触发祖先元素，所以可以给祖先元素绑定事件，也就是说把事件的绑定委托在祖先元素上 ->事件委托
+   //事件委托是高性能解决事件绑定的方案,解决了动态绑定问题
+
+    document.body.onclick = function(e){
+        e.target = e.target ||e.srcElement;  //事件源
+        if(e.target.nodeName === "P"){//通过事件源的判断对具体标签进行处理
+           alert(e.target.innerHTML);
+        }
+   };
+   let oDiv = document.getElementById("div1");
+   let str = "";
+   for(let i = 0;i<10;i++){
+       str+=`<p>p${i}</p>`;
+   }
+   oDiv.innerHTML += str;
+</script>

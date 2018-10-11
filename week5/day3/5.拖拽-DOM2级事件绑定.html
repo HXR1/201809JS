@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        *{
+            margin:0;
+            padding:0
+        }
+        #div1{
+            width: 100px;
+            height: 100px;
+            background: red;
+            position: absolute;
+            top:100px;
+            left:100px;
+            cursor: move;
+        }
+    </style>
+</head>
+<body>
+<div id="div1"></div>
+</body>
+</html>
+<script>
+    //按着盒子进行拖拽
+    //鼠标按下时 mousedown  鼠标移动时 mousemove  松开鼠标时 mouseup
+    var oDiv = document.getElementById("div1");
+    oDiv.addEventListener("mousedown",down,false);
+    function down(e){
+        this.x = this.offsetLeft; //盒子的初始位置
+        this.y = this.offsetTop;
+        this.mx = e.clientX; //按下时鼠标的坐标
+        this.my = e.clientY;
+        this.MOVE = move.bind(this);//把绑定的方法记录下来方便移除
+        this.UP = up.bind(this);
+        document.addEventListener("mousemove",this.MOVE,false);
+        document.addEventListener("mouseup",this.UP,false);
+        e.preventDefault();//阻止默认行为
+    }
+    function move(e){
+        //现在盒子的位置 = 盒子的初始位置+鼠标移动的距离（现在鼠标的坐标-按下时鼠标的坐标）
+        this.style.left = this.x +(e.clientX - this.mx)+"px";
+        this.style.top = this.y +(e.clientY-this.my)+"px";
+
+    }
+    function up(e){
+        document.removeEventListener("mousemove",this.MOVE,false);
+        document.removeEventListener("mouseup",this.UP,false);
+    }
+
+
+
+
+</script>
+
