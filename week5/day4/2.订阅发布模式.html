@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="div1"> </div>
+</body>
+</html>
+<script>
+    //让代码具有可维护性，可复用性，可移植性
+    //不再单纯的专注于代码本身，站在宏观角度思想代码，想着如何规划和管理代码
+    //低耦合，高内聚
+    //低耦合：每个模块之间的代码没有关联性
+    //高内聚：每个模块内部是由关联性很强代码组成，都是用来实现单一个功能，得遵守单一职责原则
+    //如何将每个单独的功能在需要执行的地方执行了？->订阅发布模式
+    //订阅发布模式 - >订阅 和发布
+    //订阅 ->做计划
+    //发布 ->执行计划
+    //取消订阅->取消计划
+
+    /*function fn1(){alert(1)}
+    function fn2(){alert(2)}
+    document.addEventListener("click",fn1,false)
+    document.addEventListener("click",fn2,false)
+    document.removeEventListener("click",fn2,false)*/
+    // 鼠标点击时这件事发生时  事件类型
+    // 做计划   对事件添加绑定的行为 fn1,fn2
+    // 取消计划  对事件解除绑定的行为 fn2
+    // 做计划  用户点击时
+
+
+
+    function on(ele,type,fn){
+        //有个事件池，里面放着跟事件相关的行为
+        //如何定义一个跟事件类型相关的事件池（数组） ele["my"+type]
+        if(!ele["my"+type]){
+            ele["my"+type] = [];
+        }
+        var a =  ele["my"+type];
+        for(var i = 0;i<a.length;i++){//处理重复绑定
+            if(a[i]===fn){
+             return;
+            }
+        }
+       a.push(fn);//把行为放入事件池中
+    }
+    function off(ele,type,fn){
+        //1.先获取事件池
+        var a = ele["my"+type];
+        //遍历事件池，查看是否有这个行为（计划）
+        if(a&&a.length>0){
+            for(var i = 0;i<a.length;i++){
+                if(a[i]===fn){
+                    a[i] = null;//防止数组发生塌陷，假移除
+                }
+            }
+        }
+    }
+    function fire(type){//发布计划  把事件池中的行为执行
+        var a = this["my"+type];
+        if(a&&a.length>0){
+            for(var i = 0;i<a.length;i++){
+                if(typeof a[i] ==="function"){
+                    a[i].call(this);//把事件的行为执行，并改变绑定行为中的this关键字
+                }else{
+                    a.splice(i,1);
+                    i--;
+                }
+            }
+        }
+    }
+    //司文鹏结婚这件事发生时
+    //做计划 1.给红包   2.喝喜酒  3.抢新娘
+    //取消计划  抢新娘
+    //10月15日  发布计划
+    //marry 自定义事件
+    //做计划  on
+    //取消计划 off
+    //执行计划 fire
+    function fn1(){
+        alert("给红包")
+    }
+    function fn2(){
+        alert("喝喜酒")
+    }
+    function fn3(){
+        alert("抢新娘")
+    }
+    var  oDiv = document.getElementById("div1");
+    on(oDiv,"marry",fn1);
+    on(oDiv,"marry",fn2);
+    on(oDiv,"marry",fn3);
+    off(oDiv,"marry",fn3);
+
+    window.setTimeout(function(){
+        //发布计划
+        //结婚这件事发生
+        fire.call(oDiv,"marry");
+    },2000);
+
+
+
+
+</script>

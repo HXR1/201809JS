@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        *{
+            margin:0;
+            padding:0;
+        }
+        #div1{
+            width: 100px;
+            height: 100px;
+            background: red;
+            position: absolute;
+            left:100px;
+            top: 100px;
+            cursor: move;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+    <div id="div1"></div>
+</body>
+</html>
+<script>
+    var oDiv = document.getElementById("div1");
+    oDiv.addEventListener("mousedown",down,false);
+    function down(e){
+        //按下时要记录鼠标的坐标和盒子的位置
+        this.x = this.offsetLeft;
+        this.y = this.offsetTop;
+        this.mx = e.clientX;
+        this.my = e.clientY;
+        this.MOVE = move.bind(this);
+        this.UP = up.bind(this);
+        document.addEventListener("mousemove",this.MOVE,false);
+        document.addEventListener("mouseup",this.UP,false);
+        e.preventDefault();
+        clearInterval(this.flyTimer);
+        clearInterval(this.dropTimer);
+    }
+    function  move(e){
+        //盒子新的位置 = 盒子的初始位置 + 鼠标移动的距离(现在鼠标的坐标-按下时鼠标的坐标)
+         this.style.left = this.x + (e.clientX - this.mx)+ "px";
+         this.style.top = this.y + (e.clientY - this.my) + "px";
+         if(!this.prevX){//this.prevX记录上次鼠标坐标，初始值是按下时鼠标坐标
+             this.prevX = this.mx;
+         }
+         this.speedX = e.clientX - this.prevX; //速度 = 鼠标移动距离 = 现在鼠标坐标 - 上次鼠标坐标
+         this.prevX  = e.clientX;//把现在鼠标坐标保存下来，作为盒子移动后上次鼠标坐标
+    }
+    function up(e){
+        document.removeEventListener("mousemove",this.MOVE,false);
+        document.removeEventListener("mouseup",this.UP,false);
+        fly.call(this);
+        drop.call(this);
+    }
+    function fly(){
+        clearInterval(this.flyTimer);
+        //小球每隔30ms累加速度
+        this.flyTimer = window.setInterval(()=>{
+            this.speedX *= 0.98; //设置摩擦力
+            let minL = 0;
+            let maxL = (document.documentElement.clientWidth ||document.body.clientWidth) - this.offsetWidth;
+            let duration = this.offsetLeft+this.speedX;
+            //判断下duration是否超出边界，若超出边界则从边界位置反弹回来
+            //如何反弹?让速度*-1
+            if(duration<minL){
+                duration = minL;
+                this.speedX*=-1;
+            }else if(duration>maxL){
+                duration = maxL;
+                this.speedX*=-1;
+            }
+            this.style.left = duration+"px";
+            //若小球停下来，则需要清除定时器
+            console.log(this.speedX);
+            if(Math.abs(this.speedX)<0.5){ //表示小球停下来
+                clearInterval(this.flyTimer);
+            }
+        },30)
+    }
+//    let g = 9.8;
+    let flag = 0;
+    function drop(){
+        //让小球每隔30ms累加重力加速度
+        //dropSpeed保存速度
+        clearInterval(this.dropTimer);
+        this.dropTimer = window.setInterval(()=>{
+            if(!this.dropSpeed){
+                this.dropSpeed = 9.8;
+            }else{
+                this.dropSpeed += 9.8;//每次速度得累加
+            }
+            this.dropSpeed*=0.98;//设置摩擦力
+            let duration = this.offsetTop+this.dropSpeed;
+            let maxT =(document.documentElement.clientHeight||document.body.clientHeight) - this.offsetHeight;
+            if(duration>=maxT){
+                duration = maxT;
+                this.dropSpeed*=-1;
+                flag++;
+            }else{
+                flag = 0;
+            }
+            this.style.top = duration+"px";
+            //如何判断小球停下来了?flag值大于等于2时，表示小球停下来
+            if(flag>=2){
+                clearInterval(this.dropTimer);
+            }
+        },30);
+    }
+
+</script>
