@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        *{
+            margin:0;
+            padding:0;
+        }
+        #box{
+            width: 480px;
+            height: 640px;
+            padding:5px;
+            background: paleturquoise;
+            margin: 0  auto;
+            position: relative;
+        }
+        ul li{
+            float: left;
+            width: 150px;
+            height: 150px;
+            background: yellow;
+            margin: 5px;
+            list-style: none;
+        }
+        ul li img{
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <ul>
+            <li ><img src="img/1.png" alt=""></li>
+            <li ><img src="img/2.png" alt=""></li>
+            <li><img src="img/3.png" alt=""></li>
+            <li><img src="img/4.png" alt=""></li>
+            <li><img src="img/5.png" alt=""></li>
+            <li><img src="img/6.png" alt=""></li>
+            <li><img src="img/7.png" alt=""></li>
+            <li><img src="img/8.png" alt=""></li>
+            <li><img src="img/9.png" alt=""></li>
+            <li><img src="img/10.png" alt=""></li>
+            <li><img src="img/11.png" alt=""></li>
+            <li><img src="img/12.png" alt=""></li>
+        </ul>
+    </div>
+</body>
+</html>
+<script src="js/event.js"></script>
+<script src="js/drag.js"></script>
+<script src="js/animate.js"></script>
+<script>
+    //offsetLeft 和left区别
+    //offsetLeft是从边框以外开始计算到参照物距离是包含margin值
+    // left从margin值以外到参照物的距离，是不包含margin
+    let oLis = document.querySelectorAll("#box li");
+    for(let i = oLis.length-1;i>=0;i--){
+        let oLi = oLis[i];
+        //把每个li原来的位置保存在自定义属性l和t
+        oLi.style.left = (oLi.l = oLi.offsetLeft)+"px";
+        oLi.style.top = (oLi.t = oLi.offsetTop)+"px";
+        oLi.style.position = "absolute";
+        oLi.style.margin = 0;
+        new Drag(oLi);
+        on(oLi,"dragStart",increase);
+        on(oLi,"draging",hited);
+        on(oLi,"dragEnd",changePos);
+    }
+    let index = 0;
+    function increase(){
+        this.style.zIndex = ++index;
+    }
+    function isHited(a,b){ //用来检测是否碰撞上，若碰撞上则返回true ,若没碰撞上返回false
+        //a指是拖拽的元素  b其他盒子
+        let left = b.offsetLeft+b.offsetWidth<a.offsetLeft;
+        let right = a.offsetLeft+a.offsetWidth<b.offsetLeft;
+        let top = b.offsetTop+b.offsetHeight <a.offsetTop;
+        let bottom = a.offsetTop+a.offsetHeight<b.offsetTop;
+        if(left||right||top||bottom){ //有一个成立就表示没有碰撞上
+            return false;
+        }else{
+            return true;
+        }
+
+    }
+    function hited(){
+        //this 指的是拖拽的元素
+        //给碰撞上盒子背景色设成粉色，没有碰撞上的背景色还是原来的颜色
+        //定义一个数组保存碰撞上的盒子
+        this.aHited = [];
+        let a = this.aHited;
+        [...oLis].forEach((item,index)=>{
+            if(item === this) return;
+            if(isHited(this,item)){ //为true则表示碰撞上了，需放入数组中
+                a.push(item);
+                item.style.background = "pink";
+            }else{
+                item.style.background = "yellow";
+            }
+        })
+    }
+    function changePos(){
+        //从碰撞的盒子里查找到距离拖拽元素最短的盒子，然后跟其交换位置
+        let a = this.aHited;
+        if(a&&a.length>0){
+            a.forEach((item,index)=>{
+                //item每一个碰撞上的盒子
+                item.distance = Math.pow(this.offsetLeft-item.offsetLeft,2)+Math.pow(this.offsetTop-item.offsetTop,2);
+            });
+            //让每个碰撞上的li按照distance值排序，找出最短的li
+            a.sort(function(prev,next){
+                return prev.distance - next.distance;
+            });
+            //距离最短的li
+            let short = a[0];
+            //值类型的数据交换位置 借助于中间变量
+            let temp = {};
+            temp.l = short.l;
+            temp.t = short.t;
+            animate(short,{left:this.l,top:this.t},100);
+            animate(this,{left:temp.l,top:temp.t},100,function(){
+                a.forEach((item,index)=>{ //把碰撞上的所有盒子的背景色变成原来的颜色
+                    item.style.background = "yellow";
+                })
+            });
+            //位置交换后，记录位置自定义属性l和t的值也得更新过来
+            short.l = this.l;
+            short.t = this.t;
+            this.l = temp.l;
+            this.t = temp.t;
+        }else{
+            animate(this,{left:this.l,top:this.t},100);//回到原来的位置
+        }
+        this.aHited = [];//清空保存碰撞上盒子的数组
+    }
+</script>

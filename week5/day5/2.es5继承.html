@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    //es5继承
+    function F(name){
+        this.name = name;
+    }
+    F.prototype.writeCss = function(){
+        console.log("css");
+    };
+    var f = new F();
+    //先在实例上查找，若没有则通过__proto__去所属类的原型上查找...
+    //__proto__ 是实现继承的关键  F类能查找到Object类原型上的属性，我们说F类继承于Object
+   // console.log(f.hasOwnProperty("name"));//true
+    //console.log(F.prototype.__proto__ === Object.prototype);//true  F类是Object类子类，子类是可以调用父类原型上属性
+
+    function  S(age){
+        this.age = age;
+    }
+    S.prototype = Object.create(F.prototype); //寄生式组合继承  ie6~8不支持 S.prototype会指向F.prototype
+    S.prototype.writeJs = function(){console.log("js")};
+    //想要实现S类是F类的子类，S类的实例就能调用F类的公有的属性
+    //S.prototype.__proto__  = F.prototype;
+    var s = new S(20);
+    s.writeCss();
+    console.log(s);
+</script>

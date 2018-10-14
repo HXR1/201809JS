@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    class F{
+        constructor(name){
+            this.name = name;
+        }
+        writeCss(){
+            console.log("css");
+        }
+        static fn(){
+            console.log("fn");
+        }
+    }
+    class S extends F{ //S类继承于F类
+        constructor(age,name){
+            super(name);  //若写了extends 则constructor必须写super() ,相当于F.call(name);
+            this.age = age
+        }
+        writeJs(){
+            console.log("js");
+        }
+    }
+    let s = new S(20,"lucy");
+    //console.log(s.name);//"lucy"
+    //s.writeCss();//"css"
+    //S.fn();
+    console.log(s);
+    //es6继承：私有属性，公有属性 静态属性
+</script>

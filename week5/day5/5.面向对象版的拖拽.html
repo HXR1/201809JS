@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        *{
+            margin:0;
+            padding:0;
+        }
+        div{
+            width: 100px;
+            height: 100px;
+
+            position: absolute;
+            left:100px;
+            top:100px;
+        }
+    </style>
+</head>
+<body>
+    <div style="background: red"></div>
+    <div style="background: green"></div>
+    <div style="background: orange"></div>
+    <div style="background: yellow"></div>
+</body>
+</html>
+<script src="js/event.js"></script>
+<script src="js/drag.js"></script>
+<script>
+
+    //拖拽的元素是私有属性 拖拽过程的处理是公有的
+    //类，实例，原型  this指的是实例
+    let index = 0;
+    function creaseIndex(){
+        this.style.zIndex  = ++index;
+    }
+    function borderRadius(){
+        this.style.borderRadius = "50%";
+    }
+    function changeColor(){
+        this.style.background = "blue";
+    }
+    let oDivs = document.querySelectorAll("div");
+    for(let i= 0;i<oDivs.length;i++){
+        let oDiv = oDivs[i];
+        new Drag(oDiv);
+        on(oDiv,"dragStart",creaseIndex);
+        on(oDiv,"draging",borderRadius);
+        on(oDiv,"dragEnd",changeColor);
+    }
+</script>

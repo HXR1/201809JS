@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+//    function F(name){
+//        this.name = name; //私有属性
+//    }
+//    F.prototype.writeCss = function(){//原型上
+//        console.log("writeCss");
+//    };
+//    F.writeJS = function(){console.log("js")}; //把函数当成对象，给它添加属性   静态属性，是添加在类上的
+//    let f = new F();
+//    f.writeCss();
+//    F.writeJS();
+
+    //es6中构造函数称为类 class
+    class F{
+        constructor(name){ //私有的属性  constructor的内容相当于es5中构造函数里放的内容
+            this.name = name;
+        };
+        writeCss(){//原型上的方法
+            console.log("writeCss");
+        }
+        static writeJs(){ //静态属性
+            console.log("js");
+        }
+    }
+    let f = new F("lily");
+    console.log(f);
+
+    F.writeJs();
+
+
+</script>

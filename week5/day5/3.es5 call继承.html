@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    //es5继承
+    function F(name){
+        this.name = name;
+    }
+    F.prototype.writeCss = function(){
+        console.log("css");
+    };
+    function  S(age,name){
+        this.age = age;
+        F.call(this,name);//this指的是S类的实例s  s.name = "lucy";  复制父类得私有属性到子类实例上
+    }
+    S.prototype = Object.create(F.prototype);
+    S.prototype.writeJs = function(){console.log("js")};
+
+    var s = new S(20,"lucy");
+    console.log(s.name);
+
+    //子类继承父类 私有属性和公有的属性
+</script>
