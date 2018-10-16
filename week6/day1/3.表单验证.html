@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        /*验证通过时输入框变成绿色*/
+        /*验证没通过时输入框变成红色*/
+        input[type="text"]:valid{ /*验证通过*/
+           border:3px solid green;
+        }
+        input[type="text"]:invalid{/*验证不通过*/
+            border:3px solid red;
+        }
+
+        input[type="text"]:valid + span:after{
+            content:"通过";
+            color:green;
+            font-size: 18px;
+        }
+        input[type="text"]:invalid + span:after{
+          content:"没通过";
+          color:red;
+          font-size:18px;
+        }
+    </style>
+</head>
+<body>
+<form>
+    <input type="text" pattern="^\d{2}$"  required name="text" id="text">
+    <span>111</span>
+    <input type="submit" value="确定">
+</form>
+<div data-my-zf="px" id="div1"  hidden>1111</div>
+<textarea col="10" row="10" spellcheck="false"></textarea> <!--不会出现红色波浪线-->
+<div contenteditable>111</div> <!--把这个标签变成可编辑-->
+
+<input type="text" tabindex="2">
+<input type="text" tabindex="3">
+<input type="text" tabindex="1" autofocus>
+</body>
+</html>
+<script>
+    var oText = document.getElementById("text");
+    oText.addEventListener("invalid",function(){
+       if(this.validity.patternMismatch){//正则匹配不通过
+           //console.log(this.validity.customError);//false
+           this.setCustomValidity("请输入两位的数字");
+           //console.log(this.validity.customError)//true
+       }else{
+           this.setCustomValidity("");
+       }
+    },false);
+    //valid   默认是true  验证不通过时为false
+    //valueMissing 必须输入内容 默认值是false 没有输入时为true  required
+    //typeMismatch  类型是否匹配 默认值是false  类型不匹配时值为true
+    //patternMismatch  对正则的验证 默认值为false 正则不匹配时值为true
+    //设置自定义规则前为false，设置后为true
+
+    var oDiv  = document.getElementById("div1");
+//  console.log(oDiv.dataset.zf);
+    console.log(oDiv.dataset.myZf);//获取自定义属性的值
+    oDiv.dataset.myName = "zf";//设置
+    console.log(oDiv.dataset.myName);//获取
+
+
+
+</script>

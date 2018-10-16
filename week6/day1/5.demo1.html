@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        body{
+            background: #2192bc;
+        }
+        div{
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background:#2d9cc3 url(img1.png) no-repeat center center;
+            margin: 50px auto;
+            box-shadow:0 0 0 30px transparent;
+            transition: box-shadow 1s ;
+        }
+        div:hover{
+            box-shadow:0 0 0 0 white;
+        }
+        /*过渡动画效果剖析思路：
+        1.css属性  box-shadow
+        2.起始值(没划之前)    结束值（划过后）
+           30px transparent   0 white
+        3.transition放置的位置*/
+    </style>
+</head>
+<body>
+<div></div>
+</body>
+</html>

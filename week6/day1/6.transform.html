@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        #div1{
+            width: 200px;
+            height: 200px;
+            background: red;
+            margin: 100px auto;
+        }
+        #div1:hover{
+            /*transform:rotate(-45deg);!*正->顺时针  负->逆时针*!*/
+            /* transform:skew(45deg,45deg);*/
+            /*transform:scale(0.5,2);默认值是1，比1小表示缩小，比1大表示放大*/
+            transform:translate(100px,-100px); /*第一个参数表示水平方向移动的距离  正往右 负往左 第二个参数表示垂直方向移动的距离 正往下  负的值往上 */
+            transition:1s;
+        }
+    </style>
+</head>
+<body>
+<div id="div1"></div>
+</body>
+</html>

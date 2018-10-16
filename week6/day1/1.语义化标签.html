@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--布局时常用的语义化标签  section article aside nav  header footer main hgroup figure figcaption-->
+<header class="header">
+    <div class="top"></div>
+    <nav class="nav"></nav>
+    <div class="banner"></div>
+</header>
+<main>
+   <section class="jobInfo"></section>
+    <section class="left">
+        <section></section>
+        <section></section>
+        <section></section>
+        <!--....-->
+    </section>
+    <section class="right">
+        <aside></aside>
+        <aside></aside>
+        <aside></aside>
+        <!--....-->
+    </section>
+</main>
+<footer>
+
+</footer>
+
+
+<!--设置表单元素默认提醒的信息-->
+<input  type="text"  list="shopCars"/>
+<datalist id="shopCars"> <!--为表单设置可选值-->
+    <option value="aa"></option>
+    <option value="ab"></option>
+    <option value="c"></option>
+</datalist>
+
+<details open>
+    <summary>标题</summary>  <!--详细信息的标题-->
+    <ul>
+        <li>111</li><li>222</li><li>333</li>
+    </ul>
+</details>
+
+<form oninput="x.value= parseInt(a.value)+parseInt(b.value)">
+    <input type="range" id="a" max="100" min="0" value="50"/>+
+    <input type="number" id="b" value="50"/>
+    <output name="x" for="a b">150</output>
+</form>
+
+
+
+</body>
+</html>
