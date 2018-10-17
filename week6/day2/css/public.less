@@ -1,0 +1,29 @@
+@color:white;
+@url:"../images";
+.pos(@position:absolute,@left:0,@right:auto,@top:0,@bottom:auto,@zIndex:0){
+  position: @position;
+  left:@left;
+  top:@top;
+  right: @right;
+  bottom:@bottom;
+  z-index: @zIndex;
+}
+.transition(@property:all,@duration:1s,@timingFunction:ease,@delay:0){
+ /* -webkit-transition: @property @duration @timingFunction @delay;
+  -moz-transition: @property @duration @timingFunction @delay;
+  -ms-transition: @property @duration @timingFunction @delay;
+  -o-transition: @property @duration @timingFunction @delay;
+  transition: @property @duration @timingFunction @delay;*/
+  -webkit-transition: @arguments;
+  -moz-transition: @arguments ;
+  -ms-transition: @arguments ;
+  -o-transition: @arguments ;
+  transition: @arguments;
+}
+.css3(@k,@v){
+  -webkit-@{k}:@v;
+  -moz-@{k}:@v;
+  -ms-@{k}:@v;
+  -o-@{k}:@v;
+  @{k}:@v
+}

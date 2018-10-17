@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--meta:vp 按tab键-->
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <style type="text/css">
+        #div1{
+            width: 100px;
+            height: 100px;
+            background: red;
+        }
+        /*@media all and (max-width: 375px){!*设备宽度小于等于375条件成立*!
+            #div1{
+                background: yellow;
+            }
+        }
+        @media all and (min-width: 376px) and (max-width: 414px){!*设备宽度大于376，小于414*!
+            #div1{
+                background: blue;
+            }
+        }
+        @media all and (min-width: 415px) {!*屏幕宽度大于等于415*!
+            #div1{
+                background: pink;
+            }
+        }*/
+        @media all and (orientation: landscape) {/*横向*/
+            #div1{
+                background: blue;
+            }
+        }
+        @media all and (orientation: portrait ) {/*纵向*/
+            #div1{
+                background: pink;
+            }
+        }
+
+    </style>
+</head>
+<body>
+<div id="div1"></div>
+</body>
+</html>
