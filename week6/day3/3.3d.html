@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        .wrap{
+            width: 200px;
+            height: 200px;
+            margin: 0 auto;
+            position: relative;
+            transform-style: preserve-3d;/*3d空间展示*/
+            perspective:2000px;/*视距 隔着多远看物体*/
+            top:100px;
+        }
+        .item{
+            width: 200px;
+            height:200px;
+            background: red;
+        }
+        .item:hover{
+            /*transform: rotateX(-45deg); 正 往前翻 负 往后翻*/
+            /*transform:rotateY(-45deg);正 往右 负 往左*/
+            /*transform:rotateZ(100deg);*//*效果等同于rotate效果，但是这个是在z轴上旋转*/
+            /*z轴永远跟x轴和y轴垂直*/
+            /*transform:translateZ(100px);正往前移动，往前移动离你近了，看上去物体会变大，负的值往后移动，离你远了，看上去物体会变小*/
+            /*scaleZ不能单独使用，得配合其他变形方法一起使用，才能有效果*/
+           /* transform: scaleZ(5) rotateX(45deg);*/
+            transform:rotateX(45deg) rotateY(15deg);
+            /*transform:rotate3d(1,0,0,45deg);*//*rx ry rz 向量坐标  a角度*/
+            transition: 1s;
+
+        }
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <div class="item"></div>
+</div>
+</body>
+</html>

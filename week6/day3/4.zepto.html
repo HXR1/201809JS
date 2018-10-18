@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        #div1{
+            width: 300px;
+            height: 300px;
+            background: red;
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+<div id="div1"></div>
+</body>
+</html>
+<script src="zepto.min.js"></script>
+<script>
+       /* $("#div1").animate({
+            opacity: 0.25,
+            left: '50px',
+            color: '#abcdef',
+            rotateZ: '45deg',
+            translate3d: '0,10px,0'
+
+        })*/
+
+       /*touch事件
+       * tap  碰到元素时触发  相当于touchstart
+       * singleTap  单击
+       * doubleTap  双击
+       * longTap 按住元素超过750ms后表示长按
+       * swipe(划过), swipeLeft（往左划过）, swipeRight（往右划）, swipeUp（往上划）, swipeDown（往下划）
+       * */
+       $("#div1").swipeDown(function(){
+           $(this).css({"transform":"translate(0,100px)","transition":"1s"});
+       });
+</script>

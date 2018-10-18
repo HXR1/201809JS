@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <style type="text/css">
+        #div1{
+            width: 150px;
+            height: 150px;
+            background: red;
+        }
+    </style>
+</head>
+<body>
+<div id="div1"></div>
+</body>
+</html>
+<script src="fastclick.js"></script>
+<script>
+    //click 有300ms的延迟 等看你会不会再按一下或长按
+    //fastclick.js解决click延迟问题
+   /* if ('addEventListener' in document) {
+        document.addEventListener('DOMContentLoaded', function() {
+            FastClick.attach(document.body);
+        }, false);
+    }*/
+    //调用之后，还是正常的使用click事件，但是在移动端页面不会再有延迟问题
+    //document.body.onclick = function(){}
+
+    //触摸事件  单指事件 touchstart（按下时触发）   touchmove（移动时触发）  touchend（手指离开屏幕时触发） touchcancel(手机发生意外时触发)
+
+    var oDiv = document.getElementById("div1");
+    var startX = 0;
+    var startY = 0;
+    oDiv.addEventListener("touchstart",function(e){
+       // console.log(e);
+       // e.touches  //触摸点集合
+       // e.touches[0] 第一个触摸点信息
+        //console.log(e.touches[0]); //clientX clientY pageX pageY
+        this.downX =  e.touches[0].clientX;
+        this.downY  = e.touches[0].clientY;
+    },false);
+    oDiv.addEventListener("touchmove",function(e){
+        var moveX = e.touches[0].clientX;
+        var moveY = e.touches[0].clientY;
+        this.posX = moveX - this.downX;
+        this.posY = moveY-this.downY;
+        //console.log(moveX - this.downX,moveY-this.downY);
+        this.style.webkitTransform = "translate("+(startX+this.posX)+"px,"+(startY+this.posY)+"px)";
+    },false);
+    oDiv.addEventListener("touchend",function(e){
+        /*startX = startX+this.posX;
+        startY = startY+this.posY;*/
+        startX += this.posX;
+        startY += this.posY;
+    },false);
+
+</script>

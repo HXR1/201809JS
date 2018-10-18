@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <style type="text/css">
+       /* @media all and (max-width: 640px) {
+            html{
+                font-size: 100px;
+            }
+        }
+        @media all and (max-width: 414px) {
+            html{
+                font-size: 50px;
+            }
+        }
+        @media all and (max-width: 375px) {
+            html{
+                font-size: 30px;
+            }
+        }
+*/
+       /*html{
+           font-size: 100px;!*假如设备宽度是750，根元素字体大小设置成100，方便计算*!
+       }*/
+
+        img{
+            width: 3.36rem;
+            height:2.1rem;
+        }
+        /*图片的大小得根据设备的宽度缩放 不能用固定单位 px,而是用相对单位rem
+        rem是相对于根元素（html）字体大小
+        得各个设备元素尺寸不一样，只需更改根元素字体大小就可以了，根元素尺寸变化了，元素的尺寸就会发生改变
+        通过媒体查询更改根元素字体大小会有如下问题：1.设置的是设备宽度的范围，不精准 2.根元素字体大小设置多少合适，不太好设置
+        ->应该根据各个设备宽度，从而设置各个设备的根元素的字体大小
+        ->元素的尺寸设置多少rem合适
+
+        //假设各个设备宽度都是750 ，设计稿宽度也是750,如何设置元素的尺寸
+        设备宽度      根元素字体大小   元素尺寸
+        750          100               3.36rem*2.1rem        336px*210px
+        375          50                  3.36rem*2.1rem       168px*105px
+        414           x
+
+        设备宽度/根元素字体大小 = 设计稿宽度(750)/100
+        414/x = 750/100  x = 55.2
+        */
+    </style>
+    <script>
+        //处理dpr为2的设备
+        //设计稿宽度(750)/100  = 设备宽度/根元素字体大小
+        ~(function(desW){
+            var clientW = document.documentElement.clientWidth;
+            //desW/100 = clientW/x
+            //x = clientW/desW*100
+            document.documentElement.style.fontSize = clientW/desW*100+"px";
+        })(750);
+    </script>
+</head>
+<body>
+
+    <img src="1.png" alt="" >
+</body>
+</html>
+<script>
+    //大型的项目 PC端一套（固定布局），移动端一套（移动适配）
+    //1.dpr 设备像素比
+    //dpr 1.0  2.0  3.0   普通屏幕 高清屏幕 超高清屏幕   dpr = 物理像素/css像素
+    // iphone3  dpr 1.0   375*667
+    // iphone4 dpr 2.0 320*640  设计稿 640 （早两年）
+    // iphone6  750*1334 物理像素   375*667  css像素 dpr = 2  设计稿是750
+    // iphone6 plus  1242*2208     414*736  dpr=3 设计稿 1242
+    // 移动适配 根据设计稿，在各个移动设备上呈现的效果是一样（布局是一样的），但是由于设备的宽度各不一样，图片的尺寸，文字的大小，内容间距等会发生的改变
+</script>
