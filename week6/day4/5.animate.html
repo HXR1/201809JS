@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+   <!-- <link rel="stylesheet" href="animate.css">-->
+    <style type="text/css">
+        @-webkit-keyframes slideOutRight {
+            from {
+                -webkit-transform: translate3d(0, 0, 0);
+                transform: translate3d(0, 0, 0);
+            }
+
+            to {
+                visibility: hidden;
+                -webkit-transform: translate3d(100%, 0, 0);
+                transform: translate3d(100%, 0, 0);
+            }
+        }
+        @keyframes slideOutRight {
+            from {
+                -webkit-transform: translate3d(0, 0, 0);
+                transform: translate3d(0, 0, 0);
+            }
+
+            to {
+                visibility: hidden;
+                -webkit-transform: translate3d(100%, 0, 0);
+                transform: translate3d(100%, 0, 0);
+            }
+        }
+        div{
+            font-size: 40px;
+            animation: slideOutRight 1s 3 both;
+        }
+    </style>
+</head>
+<body>
+<!--<div class="animated hinge">珠峰培训</div>-->
+<div>珠峰培训</div>
+</body>
+</html>

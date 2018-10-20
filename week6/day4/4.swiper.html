@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="swiper.min.css">
+    <style type="text/css">
+        .swiper-container{
+            width: 500px;
+            height: 300px;
+        }
+    </style>
+</head>
+<body>
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide" style="background: red">1</div>
+            <div class="swiper-slide" style="background: palegreen">2</div>
+            <div class="swiper-slide" style="background: pink">3</div>
+            <div class="swiper-slide" style="background: orange">4</div>
+        </div>
+        <!-- 如果需要分页器 -->
+        <div class="swiper-pagination"></div>
+        <!-- 如果需要导航按钮 -->
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+    </div>
+</body>
+</html>
+<script src="swiper.min.js"></script>
+<script>
+   var mySwiper  = new Swiper(".swiper-container", {
+       direction: 'horizontal',//方向 horizontal 横向  vertical 纵向
+       autoplay: 1000,
+       autoplayDisableOnInteraction:false,
+       loop: true,//循环
+       // 如果需要分页器
+       pagination: '.swiper-pagination',
+       // 如果需要前进后退按钮
+       nextButton: '.swiper-button-next',
+       prevButton: '.swiper-button-prev',
+       effect:"coverflow"  /*默认是"slide" fade(淡入) cube（方块）coverflow（3d流）"flip"（3d翻转）*/
+   })
+</script>
