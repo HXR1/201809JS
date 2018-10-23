@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    let ajax = (options)=>{
+        //对象解构赋值的方式拿到每个参数，并对参数设置初始值
+        let {
+            url,
+            type="get",
+            async="true",
+            cache="true",
+            data={},
+            dataType="json",
+            success,
+            error
+        } = options;
+        //判断请求的方式是get系列还是post系列
+        //若是get系列需要处理data数据和缓存
+        //若是post系列则需把data放在请求体里发送过去
+        //响应成功时执行success，响应失败执行error
+    };
+    ajax({
+        url:"data.json",
+        type:"get",
+        async:true,
+        cache:false,
+        data:{},
+        dataType:"json",
+        success:function(){
+
+        },
+        error:function(){
+
+        }
+
+    })
+    //思考题：
+    //1.如何减少页面请求?(页面优化的方式中的一种)
+    //2.304缓存的过程是什么样
+    //3.自己试着封装ajax库
+
+</script>

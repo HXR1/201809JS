@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    //1.创建ajax对象
+
+    var xhr = new XMLHttpRequest();
+    console.dir(xhr);
+//    console.log(xhr.readyState);
+    //2.设置请求的链接地址
+    //第一个参数表示请求的方式 get|head|post|put|options
+    //第二个参数表示请求的接口地址 /add /delAA   data.json
+    //第三个参数表示同步还是异步 默认true表示异步 false 表示同步
+    //第四个和第五个参数设置user-name,user-password (一般不用)
+    xhr.open("get","data.json",true);
+//    xhr.overrideMimeType('text/plain'); 不起作用
+    //3.监听请求的状态    xhr.readyState 请求状态码 xhr.status  http状态码
+    xhr.onreadystatechange = function() {/*事件 异步*/
+        if (xhr.readyState === 4 && /^2\d{2}$/.test(xhr.status)) {
+//            console.log(xhr.response);
+            /*获取响应的数据*/
+//            console.log(xhr.getResponseHeader("Date"))//获取服务器响应时间
+
+        }
+    };
+    //4.将请求主体的内容发送给服务器
+    xhr.send(null) //send里放请求体的内容
+
+</script>
