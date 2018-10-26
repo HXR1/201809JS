@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script src="axiosPromis.js"></script>
+<script>
+    /*axiosPromise({
+        url:"https://www.easy-mock.com/mock/5b0412beda8a195fb0978627/temp/info",
+        method:"get",
+        async:true,
+        cache:false,
+        params:{id:1},
+        data:{name:"lucy"},
+        dataType:"json"
+    }).then(function(data){
+        console.log(data);
+    }).catch(function(error){
+        console.log(error);
+    });*/
+    axiosPromise.get("https://www.easy-mock.com/mock/5b0412beda8a195fb0978627/temp/info",{
+        params:{
+            id:9
+        },
+        cache:false
+    }).then(function(res){
+        console.log(res);
+    })
+   /* axiosPromise.post("https://www.easy-mock.com/mock/5b0412beda8a195fb0978627/temp/add",{
+        name:"lucy"
+    },{
+        dataType:"json"
+    }).then((res)=>{
+        console.log(res);
+    })*/
+</script>

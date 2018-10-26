@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script src="axios.js"></script>
+<script>
+    //axios是基于promise的ajax库，可以用在浏览器或node.js中
+    /*axios({
+        url:"",
+        method:"post",
+        params:{},
+        data:{
+            name:"lucy"
+        }
+    }).then(function(res){
+        console.log(res.data);
+    });*/
+    axios.get("https://www.easy-mock.com/mock/5b0412beda8a195fb0978627/temp/info",{
+       params:{
+           id:9
+       },
+        dataType:"json"
+    }).then(function(res){
+        console.log(res.data);
+    }).catch(function(error){
+        console.log(error);
+    });
+    axios.post("https://www.easy-mock.com/mock/5b0412beda8a195fb0978627/temp/add",{
+       name:"lily"
+    },{
+        dataType:"json"
+    }).then(function(res){
+        console.log(res.data);
+    });
+</script>
