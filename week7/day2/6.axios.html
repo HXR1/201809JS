@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script src="axios.js"></script>
+<script>
+    /*axios是一个基于promise的ajax库，可以用在浏览器和node.js*/
+    //axios()
+    /*axios({
+        url:"",
+        method:"post",
+        data: {   /!*data中的数据是放在请求体中发送给服务器端*!/
+            firstName: 'Fred',
+            lastName: 'Flintstone'
+        }
+
+    });*/
+  /*  axios({
+        url:"https://www.easy-mock.com/mock/5b0412beda8a195fb0978627/temp/info",
+        method:"get",
+        params: {   /!*params中数据是放在url地址中发送给服务器端*!/
+            ID: 12345
+        }
+    }).then(function(res){
+        //console.log(res);
+        //res.config  //axios的所有配置信息
+        //res.data 响应成功后返回的数据
+        //res.headers 服务器响应的头
+        //res.status  状态码
+        //res.statusText 状态码的描述信息
+    })*/
+
+  /*axios.get("https://www.easy-mock.com/mock/5b0412beda8a195fb0978627/temp/info",{
+      params:{
+          id:12345
+      }
+  }).then(function(res){
+      console.log(res);
+  })*/
+
+  /*axios.post("https://www.easy-mock.com/mock/5b0412beda8a195fb0978627/temp/add",{
+  }).then(function(res){
+      console.log(res);
+  })
+*/
+
+    function getUserAccount() {
+        return axios.get('https://www.easy-mock.com/mock/5b0412beda8a195fb0978627/temp/info');
+    }
+
+    function getUserPermissions() {
+        return axios.get('https://www.easy-mock.com/mock/5b0412beda8a195fb0978627/temp/list');
+    }
+    //异步并发问题
+    axios.all([getUserAccount(), getUserPermissions()])
+        .then(axios.spread(function (acct, perms) { /*axios.spread方法调用后，能拿到每个异步请求成功后的数据*/
+            // 两个请求现在都执行完成
+            console.log(acct,perms);
+    }));
+
+
+</script>

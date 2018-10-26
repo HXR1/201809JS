@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script src="jquery.js"></script>
+<script>
+    //Promise.race对个异步操作同时进行，以先返回的结果为这次异步操作的结果
+    let p1 = new Promise(function(resolve,reject){
+        $.ajax({
+            url:"https://www.easy-mock.com/mock/5b0412beda8a195fb0978627/temp/info2",
+            type:"get",
+            dataType:"json",
+            success:resolve,
+            error:reject
+        })
+    });
+    let p2 = new Promise(function(resolve,reject){
+        $.ajax({
+            url:"https://www.easy-mock.com/mock/5b0412beda8a195fb0978627/temp/list",
+            type:"get",
+            dataType:"json",
+            success:resolve,
+            error:reject
+        })
+    });
+    //以先返回的状态决定是成功状态还是失败的状态
+    Promise.race([p1,p2]).then(function(res){
+      console.log(res);//先返回的那个异步的结果
+    },function(err){
+        console.log(err);
+    });
+
+</script>

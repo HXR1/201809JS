@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    //promise 用来解决异步嵌套的问题
+    // promise有三种状态 等待状态  成功状态 失败的状态
+    //Promise类原型上的方法：then,catch
+    //then的第一个参数表示成功的回调  第二个参数表示失败的回调
+    let p = new Promise(function(resolve,reject){
+        window.setTimeout(function(){
+            resolve("aaa");
+        },1000)
+    });
+    p.then(function(data){  /*then第一个参数是resolve,第二个参数是reject*/
+        console.log(data);
+        //return data;  /*return 后是个数值，则会把return后面的值作为参数传给下个then的成功回调函数*/
+        return new Promise(function(resolve,reject){  /*若返回的是promise对象，则下个then走哪个回调函数，是由promise状态决定的*/
+            window.setTimeout(function(){
+                resolve("ccc");
+            },1000)
+        })
+    },function(data){
+        console.log("1error");
+        //throw  new Error("1error");
+    }).then(function(data){
+        console.log("success:"+data);
+    },function(data){
+        console.log("error:"+data);
+    })
+
+</script>

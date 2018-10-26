@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script src="jquery.js"></script>
+<script>
+    $.ajax({
+        url:"data.json",
+        type:"get",/*请求的方式默认get方式*/
+        async:true,/*默认为true*/
+        cache:true,/*默认为true需要缓存，false不需要缓存*/
+        contentType:"application/json",
+        data:{},/*post设置请求体的数据 get将数据通过传参的方式发送的过去*/
+        dataType:"json",/*xml,json,html,text,jsonp*/
+        headers:{},/*设置请求头的信息*/
+        beforeSend:function(){/*发送请求前执行*/
+
+        },
+        success:function(data){
+            console.log(data);/*自动会转换成对象  响应数据*/
+        },
+        error:function(XMLHttpRequest, textStatus, errorThrown){ /*响应失败时执行的回调函数*/
+            console.log(errorThrown);
+        },
+        complete:function(){/*请求结束后，不管成功或失败都会调用*/
+
+        }
+    })
+    $.get();
+    $.post();
+</script>

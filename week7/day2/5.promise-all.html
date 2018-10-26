@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script src="jquery.js"></script>
+<script>
+    //Promise.all处理异步并发问题  异步逻辑都处理完后再做其他事情
+    let p1 = new Promise(function(resolve,reject){
+        $.ajax({
+            url:"https://www.easy-mock.com/mock/5b0412beda8a195fb0978627/temp/info",
+            type:"get",
+            dataType:"json",
+            success:resolve,
+            error:reject
+        })
+    });
+    let p2 = new Promise(function(resolve,reject){
+        $.ajax({
+            url:"https://www.easy-mock.com/mock/5b0412beda8a195fb0978627/temp/list",
+            type:"get",
+            dataType:"json",
+            success:resolve,
+            error:reject
+        })
+    });
+    Promise.all([p1,p2]).then(function(res){
+      let [info,list] = res;
+      console.log(info,list);
+    })
+
+</script>
