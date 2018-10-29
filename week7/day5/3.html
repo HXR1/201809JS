@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    function Father(x,y){
+        this.x = x;
+        this.y = y;
+    }
+    Father.prototype.fn = function(){console.log("fn")};
+    function Son(x,y,z){
+        this.z = z;
+        Father.call(this,x,y);//把父类的私有属性拷贝到子类的实例上
+    }
+    //Son.prototype.__proto__ = Father.prototype; 最优的方案 忽视IE
+    //Son.prototype  = new Father(); //Son.prototype作为Father类的实例，这样Son.prototype原型对象上的__proto__就指向Father类型的原型
+    Son.prototype = Object.create(Father.prototype);//寄生式组合继承 最优的
+    var s = new Son(10,20,30);
+    //console.log(s.fn());
+    console.log(s);
+
+
+
+
+    //var f = new Father(10,20);
+    //console.log(f.x);//先在实例上，找到则往所属类的原型查找，再不到再往父类的原型上查找....一直找到Object类的原型，若还没找到则返回undefined
+</script>

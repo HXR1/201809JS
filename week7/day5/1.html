@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="div1" style="font-size: 14px">11</div>
+<div>22</div>
+<div>333</div>
+</body>
+</html>
+<script>
+    //console.log(String.prototype);
+    var str = "abcdefabc";
+    //console.log(str.includes("a"));//结果true
+    //console.log(str.includes("abf"));//结果false
+
+    //console.log(str.startsWith("d"));//false
+    //console.log(str.startsWith("abc"));//true
+    //console.log(str.startsWith("d",3));//true
+
+    console.log(str.endsWith("c"));//true
+    console.log(str.endsWith("abf"));//true
+    console.log(str.endsWith("d", 4));//true
+
+    console.log("a".repeat(3));//将字符重复n次
+    console.log("abc".repeat(3));//将字符重复n次
+
+    var obj = {name:"lily",age:18,gender:true,hobby:"work"};
+    console.log(obj.name);
+    console.log(obj["name"]);//[]中一定要加引号
+
+    //若属性存在，再赋值则表示修改，若不存则表示添加
+    obj.width = "100px";//添加
+    obj.name = "lucy";//修改
+
+    //删除
+    //真删除  完全从对象中把属性移除掉  delete obj.name
+    //假删除  还需要保留位置 obj.name = null
+    obj.name = null;
+    console.log(obj);
+    for(var attr in obj){
+        //attr 对象中每一个属性名
+        //obj[attr] 对象中每个属性值
+        console.log(attr,obj[attr])
+    }
+
+    var oDivs = document.getElementsByTagName("div");
+    var aDivs = Array.from(oDivs);
+    console.log(aDivs instanceof Array);//true
+    var str = "abc";
+    console.log(Array.from(str));
+
+
+    var ary = [10,2,4,15,3,7];
+    console.log(ary.copyWithin(4, 1, 3));//[10,2,3,4,15,2,4]
+    console.log(ary.copyWithin(4, 1, 4));//[10,2,3,4,15,2,4]  数组的长度不变
+
+    var ary = ["lily","20","gender"];
+    for(let value of ary){
+        console.log(value); //value指数组的每一项
+    }
+    for(let key of ary.keys()){
+        console.log(key); //索引
+    }
+    for(let ele of ary.entries()){
+       // console.log(ele);//[索引,成员]
+        let [key,value] = ele;
+        console.log(key,value);
+    }
+</script>

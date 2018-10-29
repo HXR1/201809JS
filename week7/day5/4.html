@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    class Father{
+        constructor(x,y){
+            this.x = x;
+            this.y = y;
+        }
+        fn(){
+            console.log("fn");
+        }
+        static fn2(){ /*静态方法，是定义在Father类上的方法*/
+            console.log("fn2")
+        }
+    }
+     class Son extends Father {
+            constructor(x,y,z){
+                super(x,y);//Father.call(x,y); 子类调用父类私有的属性 只要写extends了，super()必须写
+                this.z = z;
+            }
+            writeCss(){
+                console.log("writeCss");
+            }
+     }
+     //es6继承 父类的公有属性，私有属性，静态属性
+     var s = new Son(10,20,30);//必须要加new运行不能当成普通函数，只能是类
+     s.fn();
+     console.log(s.x);
+</script>

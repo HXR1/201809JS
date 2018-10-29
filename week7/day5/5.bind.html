@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    //柯里化函数的思想 （预处理的思想机制）
+    //bind 改变方法中的this关键字，返回一个函数的定义
+    function fn(a,b,c){
+        console.log(this);
+        return a+b+c
+    }
+    var res =  fn.bind({},10,20); //返回值是一个小函数
+    console.log(res(30));//返回的小函数运行时才会让方法fn运行
+
+    //bind方法运行：1.bind的第一个参数保存下来  2.把从第二个参数开始的实参保存下来  3.返回值是一个函数定义
+    //bind返回值运行 ：1.改变fn的this关键字  2.把所有的参数传给fn 3.让fn执行
+
+    Function.prototype.myBind = function(context){
+        var context = context ||window;
+        var arg1 = [].slice.call(arguments,1);
+        var that = this;
+        return function(){
+            var arg2 = [].slice.call(arguments);
+            var arg = [].concat(arg1,arg2);  //参数合并后的数组
+           return  that.apply(context,arg);
+        }
+    }
+
+    var res2 = fn.myBind({},10,20);
+    console.log(res2(30));
+
+</script>
