@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div>通过jsonp实现跨域</div>
+</body>
+</html>
+<script>
+    function fn(data){
+        console.log(data);
+    }
+</script>
+<script src ="http://localhost:9090/getList?cb=fn"></script>
+<!--
+    jsonp (json width padding )  json格式的数据被包围着
+    主要利用script，img可以跨域获取数据
+    jsonp格式的数据 ->json格式的数据被一个方法包围着返回 fn(data)
+    客户端的操作要求请求后面要携带参数，参数值得是一个全局方法
+    服务器端的要求 ：把数据放在客户端传过来的方法里拼接成一个字符串"fn(data)"
+-->
