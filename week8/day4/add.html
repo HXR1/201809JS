@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        .addBox{
+            border:2px solid orange;
+            padding:20px;
+            width:400px ;
+            margin:20px auto;
+        }
+        .addBox div{
+            height: 32px;
+            line-height: 32px;
+            margin: 10px 0;
+            text-align: center;
+        }
+        .addBox div label{
+            padding-right: 10px;
+        }
+        .addBox div input{
+            border:1px solid #eeeeee;
+            height: 30px;
+            width: 250px;
+        }
+        #btn{
+            width: 160px;
+            margin: 0 auto;
+            background: orange;
+            text-align: center;
+            border:none;
+            color: #fff;
+            display: block;
+
+        }
+    </style>
+</head>
+<body>
+    <div class="addBox">
+       <div>
+           <label for="username">姓名:</label>
+           <input type="text" name="name" id="username">
+       </div>
+        <div>
+            <label for="userTel">电话:</label>
+            <input type="tel" name="tel" id="userTel">
+        </div>
+        <div>
+            <input type="button" value="提交" id="btn">
+        </div>
+    </div>
+</body>
+</html>
+<script src="js/axios.min.js"></script>
+<script src="js/add.js"></script>

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<!--{user:"lily",arr:[1,2,3,4]}-->
+<body>
+    <div>你好：<%=user%></div>
+    <ul>
+        <%arr.forEach((item,index)=>{ %>
+        <li><%=item%></li>
+        <%})%>
+    </ul>
+</body>
+</html>
