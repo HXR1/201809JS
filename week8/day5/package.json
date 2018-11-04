@@ -1,0 +1,18 @@
+{
+  "name": "day5",
+  "version": "1.0.0",
+  "description": "cookie是为了辩别用户身份，进行会话跟踪而存储在客户端上的数据\r - 可能被客户端篡改，使用前验证合法性\r - 不要存储敏感数据，比如用户密码，账户余额\r - 使用httpOnly保证安全防止XSS攻击产生\r - 设置正确的domain和path，减少数据传输",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.4"
+  },
+  "devDependencies": {
+    "cookie-parser": "^1.4.3"
+  }
+}
