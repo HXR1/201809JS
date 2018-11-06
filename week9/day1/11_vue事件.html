@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>珠峰培训</title>
+</head>
+<body>
+
+<div id="app">
+    <!--上边是全称 下边是简写-->
+    <button v-on:click="fn">点我</button>
+    <button @click="fn2">点我</button>
+</div>
+</body>
+</html>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:"#app",
+        data:{
+            // fn(){alert(123)}
+        },
+        methods:{
+            fn(){
+                alert('v-on')
+            },
+            fn2(){
+                alert('@')
+            }
+        }
+
+    })
+</script>  

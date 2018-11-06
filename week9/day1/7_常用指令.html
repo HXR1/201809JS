@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>珠峰培训</title>
+    <style>
+        [v-cloak]{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<div id="app">
+    <h1 v-cloak>{{name}}</h1>
+    <h2 v-text="name"></h2>
+    {{div}}
+    <div v-text="div"></div>
+    <!--<div v-html='div' v-once></div>-->
+    <div v-pre>
+        <h2></h2>
+        <h2></h2>
+        <h2></h2>
+        <h2></h2>
+        <h2></h2>
+        <h2></h2>
+        <h2></h2>
+        <h2></h2>
+        <h2></h2>
+        <h2></h2>
+        <h2></h2>
+        <h2></h2>
+        <h2></h2>
+        <h2></h2>
+        <h2></h2>
+        <h2></h2>
+        <h2></h2>
+        <h2></h2>
+        <h2></h2>
+        <h2></h2>
+        <h2></h2>
+        <h2></h2>
+    </div>
+
+    <input type="text" v-model="name" placeholder="请输入名字">
+    <textarea v-model="div"></textarea>
+</div>
+</body>
+</html>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script>
+
+    /*
+    * 绑定 html模板的方法
+    * 1、el
+    * 2、$mount
+    * 3、直接写 template 属性
+    * */
+
+    /*
+    *  vue 是一个声明式的框架
+    * 指令  在VUE中是指的 元素中的 以 v- 开头的  行内属性
+    * 指令后边跟的都是变量 这里的变量是用引号包起来的
+    * v-text 等同于 小胡子语法 {{}}
+    * v-html 把变量对应的字符串 渲染成DOM结构
+    * v-once 这个标签只渲染一次
+    * v-pre  旨在编译速度 ；提升性能用的一个指令
+    * v-cloak 解决网速慢时 显示小胡子的 问题;需要配合css 使用；
+    *
+    * v-model 用 input标签 或  textarea标签上
+    * 通过 这个指令 我们能实现 视图驱动数据更新
+    *
+    * */
+    let vm = new Vue({
+        // el:'#app',
+        // template:'<h1>珠峰培训</h1>',
+        data:{
+            name:'珠峰',
+            div:'<h2>珠峰培训2018</h2>'
+        }
+    }).$mount('#app')
+</script>  

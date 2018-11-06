@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>珠峰培训</title>
+</head>
+<body>
+<div class="app">
+    {{name}}
+</div>
+<div class="app">
+    {{name}}
+</div>
+{{name}}
+<h1>珠峰培训</h1>
+</body>
+</html>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script>
+    /*
+    * vue 本身也是一个自定义类
+    * */
+    /*let vm = new Vue({
+        el:'.app',// 决定哪个元素是 vue的html 模板
+        data:{
+            name:"珠峰培训2018"
+        }
+    })*/
+
+    let vm = new Vue({
+        el:'div',// 决定哪个元素是 vue的html 模板 ;值就是一个css 选择器；但是只对第一个元素起作用
+        data:{
+            name:"珠峰培训2018"
+        }
+    })
+</script>  

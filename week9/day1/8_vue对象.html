@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>珠峰培训</title>
+</head>
+<body>
+
+<div id="app">
+    <h2>{{obj}}</h2>
+    <!--页面中不会显示undefined vue 默认把undefined处理成了 空字符传 -->
+    {{undefined}}
+    <h2>{{obj.c}}</h2>
+    <div style="display: none">{{t}}</div>
+</div>
+</body>
+</html>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:'#app',
+        data:{
+            name:"珠峰培训2018",
+            obj:{
+                a:12,
+                b:0
+            },
+            t:0
+        }
+    });
+    /*
+    * 对于 vue 中的数据来说； 改变数据 触发试图更新 关键看该数据有没有get 和 set;
+    * 只有那些有get和set的属性；并且这些属性还需要用到页面上；值更改时才能触发视图更新
+    *
+    * 1、自定义个无关变量； 每次拿到数据之后 ；更新 无关变量（前提是这个变量需要用到页面上，可以用display none 隐藏该元素）
+    *
+    * 2、直接用新创建一个对象；用新创建的对象 整个替代原对象
+    * 3、一开始直接写死；把你需要所有属性都写到data中
+    * 4、使用vue自带的 方法 $set(target,key,value)
+    *       targe : 要添加属性所属的对象
+    *       key :要添加的属性名
+    *       value: 要添加属性的属性值
+    *
+    *
+    *    这种方法 会把value中所有的属性 不管有多少层；都会加上 get 和 set;
+    * 方法1 只是为了触发试图更新；不会给新增的元素加上 get 和 set;但方法4 会全部加上
+    * */
+    // vm.$set(vm.obj,'c',12)
+    vm.$set(vm.obj,'c',{
+        aa:12,
+        bb:13
+    })
+</script>  

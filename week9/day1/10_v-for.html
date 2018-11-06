@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>珠峰培训</title>
+</head>
+<body>
+
+<div id="app">
+    <ul>
+        <!--
+            循环这个数组
+            循环产生对应的标签
+            val是自定义的变量
+            i 是 val 对应的索引
+        -->
+        <!--<li v-for="val in ary">{{val}}</li>-->
+        <li v-for="(val,i) in ary">{{val}}{{`索引是${i}`}}</li>
+    </ul>
+</div>
+</body>
+</html>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:"#app",
+        data:{
+            ary:[11,22,33,44,55]
+        }
+    })
+</script>  

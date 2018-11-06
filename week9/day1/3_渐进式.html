@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>珠峰培训</title>
+</head>
+<body>
+<div id="app">
+
+</div>
+<h1>珠峰培训</h1>
+</body>
+</html>
+<script>
+    /*
+    * vue全家桶 vue-router vuex vue-cli
+    *
+    * mvc  m:model v-view  c-controller
+    * 数据双向绑定
+    * mvvm m:model v-view vm:view-model
+    *
+    * 优雅降级  有些功能实现不了  就用其他的类似的方案代替
+    * 渐进增强
+    *
+    * */
+    let obj = {};
+    let temp = {};
+    Object.defineProperty(obj,'name',{
+        // 第一个参数 是 要操作的对象
+        // 第二个参数 是 要操作的对象的属性名
+        // 第三个参数 是个对象
+        // value:'珠峰', // 给对应属性的 属性值
+        // writable:true,// 该属性是否可改写; true 代表可改写 ；false 不可改写；默认是fasle
+        // enumerable:true //该属性是否可枚举  默认值是false
+        get(){
+            // 当外界使用 obj.name 时就会触发该函数
+            // console.log(123);
+            return temp.name;
+        },
+        // 上边是简写的方式  正常的写法是  get:function get(){}
+
+        set(val){
+            // 当外界给name 设置值的时候才会触发
+            // console.log(val);
+            temp.name = val;
+            // obj.name = val; //是个死循环
+        }
+    })
+</script>  
