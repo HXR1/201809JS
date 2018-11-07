@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>珠峰培训</title>
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
+</head>
+<body>
+
+<div id="app">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th><input type="checkbox">全选</th>
+                <th>商品</th>
+                <th>商品名称</th>
+                <th>商品描述</th>
+                <th>单价</th>
+                <th>数量</th>
+                <th>小计</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr v-for="val in ary">
+                <td><input type="checkbox" v-model="val.isSelect"></td>
+                <td>
+                    <!-- v-bind:src='变量'  专门处理元素的行内属性的 -->
+                    <!-- v-bind 简写成  :src='变量' -->
+                    <!--<img v-bind:src="val.pic" alt="">-->
+                    <img :src="val.pic" :title="val.desc" alt="">
+                </td>
+                <td>{{val.title}}</td>
+                <td>{{val.desc}}</td>
+                <!--<td>{{(val.price/100).toFixed(2)}}</td>-->
+                <td>{{val.price+1 | money}}</td>
+                <!-- 过滤器的用法 使用 | 后边跟一个过滤器 -->
+                <td><input type="text" v-model="val.count"></td>
+                <!--<td>{{(val.count * val.price/100).toFixed(2)}}</td>-->
+                <td>{{val.count * val.price | money}}</td>
+                <td>
+                    <button type="button" class="btn btn-danger">删除</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <input type="text" v-model="name">
+    {{name | upper | lower | upper}}
+</div>
+</body>
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script src="../node_modules/axios/dist/axios.js"></script>
+<script>
+    axios.interceptors.response.use((res)=>{
+        return res.data
+    },(err)=>{
+        return Promise.reject(err)
+    });
+
+    //全局过滤器
+    Vue.filter('upper',function (val) {
+        return val.toUpperCase();
+    });
+    Vue.filter('lower',function (val) {
+        return val.toLowerCase()
+    });
+    let vm = new Vue({
+        el:"#app",
+        data:{
+            ary:[],
+            name:''
+        },
+        created(){
+            // 简单理解成实例被创建的时候
+            // console.log(this); this 是指向当前这个实例的
+            this.getData();
+        },
+        methods:{
+            getData(){
+                axios.get('./data.json').then((data)=>{
+                    console.log(data);
+                    this.ary = data || [];
+                }).catch((err)=>{
+                    console.log(err)
+                })
+            }
+        },
+        filters:{
+            // 过滤器
+            money(val){
+                // 创造一个过滤器
+                // console.log(arguments)
+                // val 就是 管道符前边的那个值
+                // return 'qqq'  过滤器使用的位置的值 是由 过滤器的返回值决定的
+                return (val/100).toFixed(2);
+            }
+        }
+    })
+</script>  

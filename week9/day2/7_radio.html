@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>珠峰培训</title>
+</head>
+<body>
+
+<div id="app">
+    <input type="checkbox" v-model="ary" value="1">苹果1
+    <input type="checkbox" v-model="ary" value="2">苹果2
+    <input type="checkbox" v-model="ary" value="3">苹果3
+    {{ary}}<!-- ary 中的每一项 都是 选中的input的value值 -->
+
+    <input type="radio" v-model="sex" value="1">男
+    <input type="radio" v-model="sex" value="2">女
+    <input type="radio" v-model="sex" value="3">女2
+    {{sex}} <!-- sex的值时 选中的 input 的value值 -->
+</div>
+</body>
+</html>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:"#app",
+        data:{
+            ary:[1,2,3], //默认选中3个
+            sex:[] //初始值是 对应的value 时;会默认选中对应的项
+        }
+    })
+</script>  

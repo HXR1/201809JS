@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>珠峰培训</title>
+</head>
+<body>
+
+<div id="app">
+    <button @click="getData2">获取数据</button>
+    {{obj.errorCode}}
+</div>
+</body>
+</html>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script src="./node_modules/axios/dist/axios.js"></script>
+<script>
+    // axios.defaults.baseURL = 'https://www.souyidai.com/soeasy/invest';
+
+    /*请求拦截*/
+    axios.interceptors.request.use(function (config) {
+        // 在发送请求之前做些什么
+        // 一般用来统一处理传给后台的参数
+        let obj = config.data;
+        obj.pc = true;
+        // console.log(config.data);
+        return config;
+    }, function (error) {
+        // 对请求错误做些什么
+        return Promise.reject(error);
+    });
+
+    /*响应拦截*/
+    axios.interceptors.response.use(function (response) {
+        // 对响应数据做点什么
+        // 一般用来统一处理从后台请求过来的数据
+        console.log(response);
+        return response.data;
+    }, function (error) {
+        // 对响应错误做点什么
+        return Promise.reject(error);
+    });
+
+    let vm = new Vue({
+        el:'#app',
+        data:{
+            obj:{},
+            para:{
+                type:'zt',
+                page:12,
+                a:22,
+                b:33
+            }
+        },
+        methods:{
+            getData(){
+                //get 请求 参数名必须写成 params
+                axios.get('/onlinelist2?t=12',{params:this.para})
+                    .then((data)=>{
+                        this.obj = data.data;
+                    })
+                    .catch(()=>{
+                        alert('error')
+                    })
+            },
+            getData2(){
+                axios.post('./package.json?t=12',{...this.para})
+                // axios.post('/onlinelist?t=12',this.para)
+                    .then((data)=>{
+                        console.log(data);
+                        this.obj = data;
+                    })
+                    .catch(()=>{
+                        alert('error')
+                    })
+            }
+        }
+    });
+    // axios.get('./package.json').then((data)=>{
+    //     console.log(data)
+    // },()=>{})
+
+    //知道 axios 的个体方法 和 post 方法怎么用，参数怎么传
+    // 知道有请求拦截 和 响应拦截 就可以了
+</script>  

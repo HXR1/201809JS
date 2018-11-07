@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>珠峰培训</title>
+</head>
+<body>
+
+<div id="app">
+    <!--
+        v-model 绑定的值 是用户选中的option的value值 ；
+        每一个 option；都有一个对应的value
+        用户选中某个option 会触发 select框的 change事件
+        当我们需要 有一个默认选中option时；只要把val的默认值给成对应option的value值即可
+        当我们需要 有 提示用户的选项时；添加一个value为空的option即可，并把初始的val 设置成 空字符串； 若不想让用户选中该提示；给该option加一个 disabled属性即可
+    -->
+    <select v-model="val" @change="fn">
+        <option value="" disabled>请选择</option>
+        <option value="1">苹果</option>
+        <option value="2">香蕉</option>
+        <option value="3">橘子</option>
+        <option value="4">葡萄</option>
+    </select>
+
+    <h1>{{val}}</h1>
+</div>
+</body>
+</html>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:"#app",
+        data:{
+            name:"珠峰",
+            val:''
+        },
+        methods:{
+            fn(e){
+                console.log(e);
+                console.log(this.val === e.target.value);
+            }
+        }
+    })
+</script>  
