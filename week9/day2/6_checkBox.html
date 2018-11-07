@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>珠峰培训</title>
+</head>
+<body>
+
+<div id="app">
+    <h1>{{name}}</h1>
+    <input type="checkbox" v-model="val" value="1">苹果
+    <input type="checkbox" v-model="val" value="2">桃子
+    <input type="checkbox" v-model="val" value="3">香蕉
+    <h2>{{val}}</h2>
+    <!--
+        一个checkbox 时； 绑定的v-model 要不就是true；要不就是false;
+        多个checkbox 时； 我们绑定同一个 变量；而且这个变量需要是个数组；
+                        并且每一个 input 必须有value值；
+
+    -->
+</div>
+</body>
+</html>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:"#app",
+        data:{
+            name:"珠峰培训",
+            val:[]
+        }
+    })
+</script>  

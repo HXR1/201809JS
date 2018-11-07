@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>珠峰培训</title>
+</head>
+<body>
+
+<div id="app">
+    <!--<button v-for="(val,i) in ary" @click="fn(val,i)">{{val}}</button>-->
+    <button
+            v-for="(val,i) in ary"
+            @click="fn2(val,i,$event)"
+    >{{val}}</button>
+    <!-- 一般 有需要自己单独传的参数时，我们才需要加上小括号； -->
+    <!-- 不加括号时 默认把事件对象传给函数；加小括号怎么得到事件对象？？？ -->
+    <!-- 加上括号时  我们要用 $event 传给函数对应的事件对象  -->
+
+
+</div>
+</body>
+</html>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm =new Vue({
+        el:"#app",
+        data:{
+            ary:[1,2,3,4,5]
+        },
+        methods:{
+            fn(value,n){
+                alert(n)
+            },
+            fn2(val,n,e){
+                console.log(val,n,e)
+            }
+        }
+    })
+</script>  

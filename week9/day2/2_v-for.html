@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>珠峰培训</title>
+</head>
+<body>
+
+<div id="app">
+    <ul>
+        <!--<li v-for="(val,i) in ary">-->
+        <li v-for="(val,i) in ary" v-text="val">
+            <!--val 是数组中的项；  i是val 对应的索引-->
+            <!-- 指令的内容执行的等级高于 小胡子 -->
+            {{val}}{{`索引是${i}`}}
+        </li>
+        <li v-for="(val,i,q) in obj">{{val}}--{{i}}--{{q}}</li>
+        <!--val 是 对象的属性值； i 是对象中的属性名; q 是索引-->
+        <!--{{val}}-->
+        <!--<li v-for="val of ary">2</li>-->
+
+        <li v-for="val in 10">number:{{val}}</li>
+        <li v-for="val in 'qwertyu'">string:{{val}}</li>
+    </ul>
+</div>
+
+</body>
+</html>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:"#app",
+        data:{
+            ary:[1,2,3,4,5],
+            obj:{
+                // a,
+                a:"aa",
+                b:'bb',
+                c:'cc'
+            }
+        }
+    })
+    // v-for 循环指定元素； 属性用到哪个标签上；就循环哪个标签
+    // 可以循环 数组  对象  字符串 数字
+
+
+</script>  

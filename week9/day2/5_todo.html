@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>珠峰培训</title>
+</head>
+<body>
+
+<div id="app">
+    <!--<input type="text" @keyup="fn" v-model="name">-->
+    <input type="text" @keyup.enter="fn2" v-model="name">
+    <!-- 按键修饰符  -->
+    <!-- @keyup.enter: 只有 按键是enter键时才会触发fn;  -->
+    <!--@keyup.13 : 只有 按键的 keyCode 是13时才会触发fn;-->
+    <ul>
+        <li v-for="(val,i) in ary">
+            {{val}}
+            <button @click="del(i)">删除</button>
+        </li>
+
+    </ul>
+</div>
+</body>
+</html>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:"#app",
+        data:{
+            name:'',
+            ary:[]
+        },
+        methods:{
+            fn(e){
+                if(e.keyCode == 13){
+                    this.name = this.name.trim();// 去除首位空格
+                    if(this.name){
+                        this.ary.unshift(this.name);
+                        this.name = '';//敲完回车后；把输入框的内容清空
+                    }
+                }
+            },
+            fn2(){
+                this.name = this.name.trim();// 去除首位空格
+                if(this.name){
+                    this.ary.unshift(this.name);
+                    this.name = '';//敲完回车后；把输入框的内容清空
+                }
+            },
+            del(n){
+                // this.ary.splice(n,1);
+                let arr = this.ary.filter((item,i)=>{
+                    return i !== n
+                });
+                this.ary = arr;
+            }
+        }
+    })
+</script>  

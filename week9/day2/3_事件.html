@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>珠峰培训</title>
+</head>
+<body>
+
+<div id="app">
+    <!--<button v-on:click="fn">按钮</button>-->
+    <button @click="fn2">按钮1</button>
+    <!--不加括号时  默认把 事件对象传给对应函数-->
+    <button @click="fn2()">按钮2</button>
+    <!--加括号时，括号里写什么就给该函数传递什么参数，不会默认传事件对象-->
+</div>
+</body>
+</html>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:"#app",
+        data:{
+            name:"珠峰培训",
+            // fn(){
+            //     alert(123)
+            // },
+            // fn:function fn() {
+            //     console.log(this)
+            // }
+            // data  就是一个普通对象； 属性名可以重复
+        },
+        methods:{
+            // methods 中的属性名不能和 data中的重复
+            /*fn(){
+                // Method "fn" has already been defined as a data property.
+                alert(333)
+            }*/
+            fn2(){
+                //methods 中的函数 中的this 都是指向本实例的
+                //data 中的 是指向window的
+                // console.log(this)
+                console.log(arguments)
+            }
+        }
+    })
+</script>  

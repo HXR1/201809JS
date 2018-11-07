@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>珠峰培训</title>
+    <style>
+        [v-cloak]{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<!--
+    npm i vue
+    cnpm i vue
+    yarn add vue
+    三者任选其一
+-->
+<div id="app">
+    <!--{{name = '123'}}  变量（data中的属性）  表达式 -->
+    <div v-cloak>
+        {{name}}
+    </div>
+    <h1 v-text="name"  v-once  wwww  v-pre>
+        www
+    </h1>
+    {{ele}}
+    <div v-text="ele"></div>
+    <div v-html="ele"></div>
+
+    <input type="text" v-model="name">
+    <textarea v-model="ele"></textarea>
+
+    <h2>{{obj}}</h2>
+    <h2>{{ary}}</h2>
+</div>
+    <!--<div id="app2">-->
+        <!--qqqqq-->
+        <!--{{name}}-->
+        <!---->
+    <!--</div>-->
+{{name}}
+</body>
+</html>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:'#app',// 优先级高于 $mount
+        // template:"<h1>eeeee</h1>",// 会用 这个属性代替整个 app
+        data:{
+            // data 中的数据最终都是挂在到 vm 这个实例上的
+            name:"珠峰培训",
+            ele:'<h2>this is h2</h2>',
+            obj:{
+                a:'qqq'
+            },
+            ary:[1,2,3,4,5]
+        }
+    });
+    // vm.$mount('#app2');
+    // v-text 等同于 {{}} ---》 v-text='name'
+    // v-html 可以渲染字符串中的标签  ---》 v-html='name'
+    // v-once 该标签只渲染一次 ---》 后边不跟内容
+    // v-cloak 解决小胡子显示的问题  配合着 css 使用； ---》 后边不跟内容
+    // v-pre  有这个属性的元素，vue不会对该元素及其所有子元素进行DOM编译，只是理解成普通的DOM结构
+    // v-model
+
+    // 1、自定义一个无关变量；由这个无关变量触发视图更新
+    // 2、创建一个新对象 然后整个替换
+    // 3、上来就写死（把需要的变量都写全）
+    // 4、vm.$set(targe,key,value)
+    // 想要触发视图的更新 两个前提 1、该属性有get 和 set； 2、该属性在HTML模板中有用到
+    vm.$set(vm.obj,'b',{
+        qqq:12,
+        www:{
+            aaa:12
+        }
+    })
+    // 对于数组来说 上边四个方式都可以使用；还可以使用数组变异的方法
+</script>  
