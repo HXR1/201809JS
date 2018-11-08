@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>珠峰培训</title>
+</head>
+<body>
+
+<div id="app">
+    <!--
+        v-if 是用来决定 该标签是否要加载的 true 代表这个元素要加载；false 代表这个元素不加载 ;
+        v-if v-else v-else-if  这些指令使用时 中间不能掺杂不相干的元素
+        用的时候 所在元素需要紧挨着
+    -->
+    <h1 v-if="isShow ==1 ">显示标签</h1>
+    <!--<span></span>-->
+    <h2 v-else-if="isShow == 2">标签2</h2>
+    <h2 v-else>VELSE</h2>
+
+    <!-- v-show 是控制这个标签是否显示；控制的是CSS属性  -->
+    <!-- v-if 是控制这个标签要不要加载的；-->
+    <h2 v-show="isShow">v____show</h2>
+
+
+    <div>
+        <button @click="fn(val)" v-for="val in 3">{{val}}</button>
+    </div>
+    <div v-if="num==1">1</div>
+    <div v-if="num==2">2</div>
+    <div v-if="num==3">3</div>
+
+    <div v-show="num==1">1</div>
+    <div v-show="num==2">2</div>
+    <div v-show="num==3">3</div>
+</div>
+</body>
+</html>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:"#app",
+        data:{
+            isShow:true,
+            num:1
+        },
+        methods:{
+            fn(n){
+                this.num = n;
+            }
+        }
+    })
+</script>  

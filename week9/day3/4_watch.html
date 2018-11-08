@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>珠峰培训</title>
+</head>
+<body>
+
+<div id="app">
+    <input type="text" v-model="name">
+    <h1>{{str}}</h1>
+    <h2>{{str2}}</h2>
+
+    <div>
+        请问问题 <input type="text" v-model="question">
+    </div>
+    <h2>{{answer}}</h2>
+    <img :src="pic" alt="">
+</div>
+</body>
+</html>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script src="./node_modules/axios/dist/axios.js"></script>
+<script>
+    let vm =new Vue({
+        el:"#app",
+        data:{
+            name:"珠峰",
+            str:'',
+            timer:null,
+            timer2:null,
+            str2:'',
+            question:'',
+            answer:'您的答案在这里',
+            pic:''
+        },
+        watch:{
+            // 侦听 data中的name属性
+            name(cur,prev){
+                //cur  代表新值
+                //prev 代表老值
+                //只有新旧两次值不一样时，才能触发该函数
+                console.log(cur,prev);
+                clearTimeout(this.timer);
+                this.timer = setTimeout(()=>{
+                    this.str = cur + '123'
+                },1000);
+
+                this.str2 = cur.split('').reverse().join('');
+            },
+            question(cur,prev){
+                clearTimeout(this.timer2);
+                this.timer2 = setTimeout(()=>{
+                    axios.get('https://yesno.wtf/api')
+                        .then((data)=>{
+                            console.log(data);
+                            this.answer = data.data.answer;
+                            this.pic = data.data.image;
+                        }).catch((err)=>{
+                        console.log(err)
+                    })
+                },1000);
+
+            }
+        }
+    })
+</script>  

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>珠峰培训</title>
+</head>
+<body>
+
+<div id="app">
+    <input type="text" v-model="name">
+    {{str}}
+    <h1>{{name.split('').reverse().join('')}}</h1>
+    <h2>{{reverse()}}</h2>
+    <!--<h2>{{reverse()}}</h2>
+    <h2>{{reverse()}}</h2>
+    <h2>{{reverse()}}</h2>
+    <h2>{{reverse()}}</h2>-->
+    <h2>{{name | res2(1,2,3,4)}}</h2>
+    <!--<h2>{{name | res2(1,2,3,4)}}</h2>
+    <h2>{{name | res2(1,2,3,4)}}</h2>
+    <h2>{{name | res2(1,2,3,4)}}</h2>
+    <h2>{{name | res2(1,2,3,4)}}</h2>-->
+    <h2>computed{{name2}}</h2>
+    <!--<h2>computed{{name2}}</h2>
+    <h2>computed{{name2}}</h2>
+    <h2>computed{{name2}}</h2>
+    <h2>computed{{name2}}</h2>-->
+    <h2>{{name3}}</h2>
+    <h2>{{name4}}</h2>
+</div>
+</body>
+</html>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:"#app",
+        data:{
+            name:"珠峰",
+            str:''
+        },
+        methods:{
+            reverse(){
+                console.log('reverse');
+                return this.name.split('').reverse().join('')
+            }
+        },
+        filters:{
+            res2(val,n1,n2,n3,n4){
+                console.log('filter');
+                return val.split('').reverse().join('');
+            }
+        },
+        computed:{
+            // 计算属性
+            name2(){
+                // 简写方式
+                // 只要name 不发生改变 那么 本函数就永远不会执行；
+                // DOM模板中使用的一直都是 name2的缓存值
+                // name2 完全依赖于 name;
+                console.log('computed');
+                return this.name.split('').reverse().join('');
+            },
+            name3(){
+                //name3 是否依赖于 this.name
+                // 只要这个函数中用某些变量； 那么这个计算属性就依赖于这些变量
+                // console.log(this.name);
+                console.log(this.str);
+                console.log(11111);
+                return 123;
+            },
+            name4(){
+                let a = this.str+'str';
+                let b = this.name + 'name';
+                return a+b;
+            },
+            name5:{
+                // 这个时全写的 内容 有一个get函数 和 一个set函数
+                // 简写只相当于有一个get函数
+                // 着两个函数 可以只写一个 get；但是不能只写一个set
+                get(){
+                    console.log('get');
+                    //get 的return值 就是 nam5的值
+                    return this.name
+                },
+                set(val){
+                    // val 就是设置给 name5的值
+                    console.log(val,'set')
+                }
+            }
+        }
+    })
+</script>  
