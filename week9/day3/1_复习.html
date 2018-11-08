@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>珠峰培训</title>
+</head>
+<body>
+
+<div id="app">
+    <h1 v-text="name" v-pre>培训2018{{name}}</h1>
+    <button @click="fn">点我</button>
+    <button @click="fn2($event,1,2,3)">点我2</button>
+    <!--<img src={{src1}} alt="">-->
+    <!--<img :src='src1' alt="">-->
+
+    <!--<input type="checkbox" v-model="bol">
+    {{bol}}-->
+
+    <!--多个checkbox 我们处理时 需要绑定同一个数组；并且每一个input 都需要有一个value值-->
+    <input type="checkbox" v-model="ary" :value="1">1
+    <input type="checkbox" v-model="ary" value="2">2
+    <input type="checkbox" v-model="ary" value="3">3
+    <input type="checkbox" v-model="ary" value="4">4
+    <input type="checkbox" v-model="ary" value="5">5
+    {{ary}}
+    <h1>您选中了 <span v-for="val in ary">{{val}}、</span></h1>
+
+    <!-- 需要我们绑定同一个变量，每一个radio都需要有一个value -->
+    <input type="radio" value="小红" v-model="per">小红
+    <input type="radio" value="小明" v-model="per">小明
+    <input type="radio" value="小兰" v-model="per">小兰
+    <h2>您选中了{{per}}</h2>
+
+
+    <!-- 绑定一个变量 变量的值选中的option给的值 ；每次选择都会触发 change事件 -->
+    <select v-model="opt" @change="fn">
+        <!-- opt 对应下边option的value值 -->
+        <option value="1">香蕉</option>
+        <option value="2">苹果</option>
+        <option value="3">橘子</option>
+        <option value="4">葡萄</option>
+    </select>
+    <h2>您选中了{{opt}}</h2>
+
+    <!--
+        axios 的get 和 post 怎么用？怎么传参 即可
+        axios.defaults.baseURL = '' // 设置基础路径
+        axios.get(url,{params:参数对象})
+        .then((data)=>{})
+        .catch((err)=>{console.log(err)})
+
+        axios.post(url,参数对象).then().catch()
+
+        //请求拦截器
+        axios.interceptors.request.use((config)=>{
+            config.data.pc = true;
+            return config
+        },(err)=>{
+            return Promise.reject(err)
+        })
+
+        //响应拦截器
+        axios.interceptors.response.use((res)=>{
+
+            return res.data
+        },(err)=>{
+            return Promise.reject(err)
+        })
+    -->
+
+    <input type="text" v-model="fil">
+    <!--<h2>{{fil | upper | reverse}}</h2>-->
+    <h2>{{fil | reverse | upper(1,2,3,4)}}</h2>
+
+    <button v-for="(val,i) in 5" @click="fn3(i)">{{val}}</button>
+
+
+</div>
+</body>
+</html>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script>
+    /*
+    * v-text='name'
+    * v-html='name'
+    * v-once
+    * v-pre
+    * v-cloak 结合 css 使用
+    * v-model 一般用到 input 标签上 ；textarea标签； select标签
+    * v-for='val in/of ary' 数组(val,index) 对象(val,key,index) 数字 字符串
+    *
+    * v-on:click='fn';  一般简写成 @click='fn'
+    *   fn 加小括号；括号中传什么参数，函数就接受什么参数；我们也可以通过$event 传递事件对象
+    *   fn 不加小括号； 默认传给函数一个事件对象；
+    *
+    * v-bind:src='val';  处理元素的行内属性用；
+    *
+    *
+    * */
+    Vue.filter('money',function (val,x,y,z) {
+       return (val/100).toFixed(2);
+    });
+    let vm = new Vue({
+        el:"#app",
+        data:{
+            name:'珠峰',
+            src1:'http://img4.imgtn.bdimg.com/it/u=597508291,3403159593&fm=26&gp=0.jpg',
+            bol:123,
+            ary:[],
+            per:'',
+            opt: '1',
+            fil:''
+        },
+        methods:{
+            // name(){},
+            fn(e){
+                console.log(e);
+            },
+            fn2(){
+                console.log(arguments);
+            },
+            fn3(n){
+                alert(n)
+            }
+        },
+        filters:{
+            upper(val,x,y,z,n){
+                // val 就是管道符前边的那个变量值
+                // 过滤器所在位置显示的值 是由 过滤器的 return 值 决定的
+                console.log(arguments);
+                // x,y,z,n 对应上边的 1，2，3，4； 过滤器传参是从第二项开始的
+                return val.toUpperCase();
+            },
+            reverse(val){
+                console.log(val);
+                return val.split('').reverse().join('');
+            }
+        }
+    })
+
+</script>  
