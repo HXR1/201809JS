@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>珠峰培训</title>
+</head>
+<body>
+
+<div id="app">
+    <h1 >{{name}}</h1>
+</div>
+</body>
+</html>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script>
+    // 钩子函数
+    // beforeCreate   created
+    // beforeMount    mounted
+    // beforeUpdate   updated
+    // beforeDestroy  destroyed
+    let vm = new Vue({
+        el:"#app",
+        // template:"<h2>sfsfsfdfsfsdf</h2>",
+        data:{
+            name:'123',
+            str:''
+        },
+        beforeCreate(){
+            console.group("----beforeCreate");
+            console.log(this.$el);
+            console.log(this.$data);
+        },
+        created(){
+            console.group("----created");
+            console.log(this.$el);
+            console.log(this.$data);
+        },
+        beforeMount(){
+            console.group("----beforeMount");
+            console.log(this.$el);
+            console.log(this.$data);
+        },
+        mounted(){
+            console.group("----mounted");
+            console.log(this.$el);
+            console.log(this.$data);
+        },
+        updated(){
+            //视图更新时触发
+            console.log('updated');
+            // this.name = Math.random(); 死循环
+        },
+        destroyed(){
+            console.log('destroyed')
+        }
+    })
+
+</script>  

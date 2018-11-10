@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>珠峰培训</title>
+</head>
+<body>
+
+<div id="app">
+    <ul>
+        <li ref="li">1</li>
+        <li ref="li">2</li>
+        <li ref="li">3</li>
+    </ul>
+    {{obj}}
+    <ul>
+        <li v-for="i in n" ref="li2">{{i+3}}</li>
+    </ul>
+</div>
+</body>
+</html>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:"#app",
+        data:{
+            n:3,
+            obj:{}
+        },
+        created(){
+            // console.log(this.n);
+            // console.log(this.$refs.li2);
+            this.$nextTick(()=>{
+                console.log(this.$refs)
+            })
+        },
+        mounted(){
+            // 获取元素的操作 一般都在 mounted 函数中
+            // 通过ref 获取元素 ；若是写死的元素；则只能获取最下边的那个元素
+            // 若是通过v-for循环出来的；那么都能获取到
+            // DOM 的渲染是异步的
+            // console.log(this.$refs)
+        }
+    });
+    vm.$set(vm.obj,'a',{name:123});
+    vm.obj.b= 12345;
+</script>  

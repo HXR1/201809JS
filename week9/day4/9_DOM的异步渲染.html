@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>珠峰培训</title>
+</head>
+<body>
+
+<div id="app">
+    <ul>
+        <li v-for="i in n" ref="a">{{i}}</li>
+    </ul>
+</div>
+</body>
+</html>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:"#app",
+        data:{
+            n:3
+        }
+    });
+    // vm.n = 5;console.log(vm.$refs.a);
+    vm.n = 5;vm.$nextTick(()=>{
+        console.log(vm.$refs.a)
+    })
+</script>  

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>珠峰培训</title>
+    <style>
+        *{
+            text-align: center;
+        }
+        .outer{
+            width: 400px;
+            height: 400px;
+            background: #e7e1cd;
+        }
+        .center{
+            width: 300px;
+            height: 300px;
+            background: #24ccc8;
+        }
+        .inner{
+            width: 200px;
+            height: 200px;
+            background: #cccccc;
+        }
+    </style>
+</head>
+<body>
+
+<div id="app">
+    <div class="outer" @click.capture="outer">
+        outer
+        <!--<div class="center" @click.stop="center">-->
+        <div class="center" @click.capture="center">
+            <!--
+                stop 阻止冒泡
+                prevent 组织默认行为
+                self 只有点击绑定的元素才能触发
+                once 绑定的元素只能点击一次
+                capture  @click.capture  ---》 addEventListener('click',fn,true) 事件要在捕获阶段触发
+                passive   针对onscroll事件  不加这个修饰符；它是先执行事件；再看事件中有没有组织默认行为；没有阻止才会触发默认行为。 加这个修饰符， 他就不管事件中是否有阻止默认，都会直接出发默认行为；
+
+            -->
+            center
+            <div class="inner" @click.capture="inner">
+                inner
+            </div>
+        </div>
+    </div>
+    <a href="https://baidu.com" @click="fn">百度</a>
+    <a href="https://baidu.com" @click.prevent="alert(1)">百度</a>
+
+    <!--<input type="text" v-model.number="name">-->
+    <input type="text" v-model.trim="name" style="text-align: left">
+    <!--  trim 去除首位空格；即使在输入框看着输入了空格；但是数据层的数据仍然是没有空格的数据    -->
+
+    <div class="center" @click.self="center2">
+        center
+        <div class="inner" @click.once="inner2">
+            inner
+        </div>
+    </div>
+    {{name2}}
+</div>
+</body>
+</html>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:"#app",
+        data:{
+            name:''
+        },
+        methods:{
+            outer(){
+                console.log('outer')
+            },
+            center(){
+                console.log('center')
+            },
+            center2(){
+                console.log('center2');
+            },
+            inner(e){
+                e.stopPropagation();
+                console.log('inner')
+            },
+            inner2(){
+                console.log('inner2');
+            },
+            fn(e){
+                e.preventDefault();
+                alert(1)
+            },
+            alert(){
+                alert(1)
+            }
+        },
+        computed:{
+            name2(){
+                console.log('++++'+this.name)
+            }
+        }
+    })
+
+</script>  

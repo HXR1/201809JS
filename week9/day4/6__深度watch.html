@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>珠峰培训</title>
+</head>
+<body>
+
+<div id="app">
+    <input type="text" v-model="obj.name">
+</div>
+</body>
+</html>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:"#app",
+        data:{
+            name:"123",
+            obj:{
+                name:456
+            }
+        },
+        watch:{
+            name(cur,prev){
+
+            },
+            // obj(cur,prev){
+            //     console.log(cur, prev);
+            // },
+            obj:{
+                handler(cur,prev){
+                    // handler 单词是固定的
+                    // console.log(arguments);
+                    // ??????
+                    console.log(cur,prev);
+                },
+                deep:true
+            }
+        }
+    })
+</script>  

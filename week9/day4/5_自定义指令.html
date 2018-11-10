@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>珠峰培训</title>
+</head>
+<body>
+
+<div id="app">
+    <h1 v-color-red="'red'">{{name}}</h1>
+    <h1 v-color-red>{{name}}</h1>
+</div>
+</body>
+</html>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:"#app",
+        data:{
+            name:"珠峰培训"
+        },
+        directives:{
+            // 自定义指令
+            colorRed(ele,obj){
+                ele.style.color = obj.value || 'red';
+                console.log(arguments);
+            }
+        }
+    })
+</script>  
