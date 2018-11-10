@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>珠峰培训</title>
+    <style>
+        *{
+            text-align: center;
+        }
+        .fade-enter-active,.fade-leave-active{
+            /*整个过渡期间的类名下的样式*/
+            transition: 1s  ease;
+            position: relative;
+        }
+        .fade-enter{
+            /*动画开始第一帧时的样式*/
+            opacity: 0;
+            position: relative;
+            left:200px;
+        }
+        .fade-enter-to{
+            /*动画的最后一帧时的样式；可以理解成最终的显示状态*/
+            left:0;
+            opacity: 1;
+        }
+        .fade-leave{
+            position: relative;
+            left:100px;
+            opacity: 1;
+        }
+        .fade-leave-to{
+            opacity: 0;
+            position: relative;
+            left: 200px;
+        }
+
+        .bounce-enter-active{
+            animation: bounceIn 1s;
+        }
+        .bounce-leave-active{
+            animation: bounceOut 1s;
+        }
+        @keyframes bounceIn {
+            0%{
+                transform: translateX(0px);
+                opacity: 0;
+            }
+            50%{
+                transform: translateX(200px);
+            }
+            100%{
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        @keyframes bounceOut {
+            0%{
+                transform: translateX(0px);
+                opacity: 1;
+            }
+            50%{
+                transform: translateX(200px);
+            }
+            100%{
+                transform: translateX(0);
+                opacity: 0;
+            }
+        }
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/animate.css@3.5.1" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<div id="app">
+    <button @click="change">按钮</button>
+    <transition name="fade">
+        <!--
+            这里的那么 是我们自己定义的 过渡类名的前称  默认的这些类名  是以 v开头的； v-enter v-enter-active v-enter-to
+
+            写了name(fade)  那么这些类名就变成了  fade-enter fade-enter-active  fade-enter-to
+
+            v-if 和 v-show 都能触发我们这些过渡效果
+
+
+        -->
+        <!--<h1 v-show="flag">hello</h1>-->
+        <h1 v-if="flag">hello</h1>
+    </transition>
+    <transition name="bounce">
+        <h2 v-show="flag">hello</h2>
+    </transition>
+
+    <transition
+            enter-active-class="animated tada"
+            leave-active-class="animated zoomOut"
+    >
+        <h2 v-if="flag">hello</h2>
+    </transition>
+</div>
+</body>
+</html>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:"#app",
+        data:{
+            flag:true
+        },
+        methods:{
+            change(){
+                this.flag = !this.flag;
+            }
+        }
+    })
+</script>  

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>珠峰培训</title>
+    <style>
+        .bg1{
+            background: blue;
+        }
+        .bg2{
+            background: red;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <button @click="change">按钮</button>
+    <!--<h1 :class=" bg=='bg1' ? 'bg2' : 'bg1'">{{name}}</h1>-->
+    <h1 :class="{bg1:flag,  bg2:!flag}">{{name}}</h1>
+    <!--<h1 :class="['bg1','bg2','qq','www']">{{name}}</h1>-->
+    <h1 :class="[bg]">{{name}}</h1>
+    <h1 :class="ary">{{name}}</h1>
+    <!--
+        {bg1:flag,       bg2:!flag} ：就是JS的普通对象
+        对象的这种写法  属性名是要添加的类名； 属性值 是布尔值，决定要不要添加这个类名
+
+        数组的用法  把数组中的每一项都添加给该元素的类名
+    -->
+
+    <h1 style="background: #ccc; color:#333; font-size: 23px">hello</h1>
+    <h1 :style="{background:'#ccc',color:col}">hello</h1>
+    <h1 :style="obj1">helloo</h1>
+    <h1 :style="{...obj1,...obj2}">helloo</h1>
+    <h1 :style="[obj1,obj2]">hello</h1>
+    <!--
+        绑定style的这种形式  对象的形式
+        属性名 是要加的 css属性
+        属性值 是要加的 css属性值 ；可以是变量；但是变量要有对应的值
+
+    -->
+</div>
+</body>
+</html>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:"#app",
+        data:{
+            name:"珠峰2018",
+            bg:'',
+            flag:true,
+            ary:['a','b'],
+            col:'#333',
+            obj1:{
+                background:'#ccc',
+                fontSize:'24px'
+            },
+            obj2:{
+                color:'blue'
+            }
+        },
+        methods:{
+            change(){
+                this.flag = !this.flag;
+                if(this.bg == 'bg1'){
+                    this.bg = 'bg2'
+                }else {
+                    this.bg = 'bg1'
+                }
+                // this.bg = this.bg=='bg1' ? 'bg2' : 'bg1';
+            }
+        }
+    })
+</script>  

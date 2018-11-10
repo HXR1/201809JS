@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>珠峰培训</title>
+</head>
+<body>
+
+<div id="app">
+    <!--<input type="text" v-model="name">-->
+    <!--<h1>{{name.split('').reverse().join('')}}</h1>
+    <h2>{{reverse1()}}</h2>
+    <h2>{{reverse1()}}</h2>
+    <h2>{{reverse1()}}</h2>
+    <h2>{{reverse1()}}</h2>
+    <h2>{{name | reverse2(1,2,3) | reverse2}}</h2>
+    <h2>{{name | reverse2(1,2,3) | reverse2}}</h2>
+    <h2>{{name2}}</h2>
+    <h2>{{name2}}</h2>
+    <h2>{{name2}}</h2>
+    <h2>{{name2}}</h2>
+    <h2>{{name2}}</h2>-->
+
+    <!--<h2>{{name3}}</h2>
+    <h2>{{name4}}</h2>
+    {{str}}-->
+
+    <input type="text" v-model="firstName">
+    <input type="text" v-model="secondName">
+    <input type="text" v-model="thirdName">
+    <h1>{{firstName}}·{{secondName}}·{{thirdName}}</h1>
+    <h2>{{FullName}}</h2>
+
+
+    <button @click="change">点我</button>
+    <!--<h2 v-if="flag">true</h2>
+    <h2 v-if="flag">true</h2>
+    <h2 v-if="flag">true</h2>
+    <h2 v-if="flag">true</h2>
+    <h2 v-if="flag">true</h2>
+    <h2 v-if="flag">true</h2>
+    <h2 v-if="flag">true</h2>-->
+    <template v-if="flag">
+        <h2>true</h2>
+        <h2>true</h2>
+        <h2>true</h2>
+        <h2>true</h2>
+        <h2>true</h2>
+        <h2>true</h2>
+    </template>
+    <!--<span></span>-->
+    <h3 v-else>false</h3>
+    <!--
+        v-if 标签是否加载
+        v-show 标签是否显示
+    -->
+</div>
+</body>
+</html>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:"#app",
+        data:{
+            name:"珠峰",
+            str:'',
+            firstName:'',
+            secondName:'',
+            thirdName:'',
+            FullName:'',
+            flag:true
+        },
+        methods:{
+            reverse1(){
+                console.log('reverse1');
+                return this.name.split('').reverse().join('')
+            },
+            change(){
+                this.flag = !this.flag;
+            }
+        },
+        filters:{
+            reverse2(val){
+                console.log('filters');
+                return val.split('').reverse().join('')
+            }
+        },
+        computed:{
+            name2(){
+                //name2 依赖于 this.name  this.str;
+                console.log(this.str);
+                console.log('computed');
+                let temp = this.name.split('').reverse().join('');
+                return temp;
+            },
+            name3:{
+                // 简写的那种方式 就是相当于只有一个 get
+                // 全写的这种方式  我们可以只写get 不写 set;
+                // 但是不能只有set 没有 get
+                get(){
+                    console.log('get');
+                    // return 123
+                    return this.name.split('').reverse().join('');
+                },
+                set(val){
+                    console.log('set___',val);
+                    this.name = val;
+                    // this.name3 = val;
+                }
+            },
+            name4(){
+                setTimeout(()=>{
+                    console.log(123456);
+                    this.str = this.name + '12345';
+                },1000);
+                return 123;
+            },
+            // FullName(){
+            //     return `${this.firstName}·${this.secondName}·${this.thirdName}`;
+            // }
+        },
+        watch:{
+            name(cur,prev){
+                setTimeout(()=>{
+                    console.log(1111)
+                },1000);
+                this.str = cur.split('').reverse().join('');
+            },
+            firstName(cur){
+                this.FullName = `${cur}·${this.secondName}·${this.thirdName}`;
+            },
+            secondName(cur){
+                this.FullName = `${this.firstName}·${cur}·${this.thirdName}`;
+            },
+            thirdName(cur){
+                this.FullName = `${this.firstName}·${this.secondName}·${cur}`;
+            }
+        },
+    })
+</script>  
