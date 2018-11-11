@@ -28,14 +28,15 @@
             // obj(cur,prev){
             //     console.log(cur, prev);
             // },
-            obj:{
+            'obj.name':{
                 handler(cur,prev){
                     // handler 单词是固定的
                     // console.log(arguments);
                     // ??????
                     console.log(cur,prev);
                 },
-                deep:true
+                deep:true,
+                immediate:true
             }
         }
     })

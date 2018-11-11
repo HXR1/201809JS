@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>珠峰培训</title>
+</head>
+<body>
+
+<div id="app">
+    <h1 :class="cla"></h1>
+    <h1 :class="{bg:true,bg1:false,bg2:true}"></h1>
+    <h1 :class="obj"></h1>
+    <h1 :class="['bg','bg1',cla]"></h1>
+
+    <h2 style="font-size: 25px"></h2>
+    <h2 :style="{fontSize:'25px'}"></h2>
+    <h2 :style="[obj1,obj2]"></h2>
+
+
+    <ul>
+        <li ref="a" v-color>{{'qqq'|upper}}eeee</li>
+        <li ref="a"></li>
+        <li ref="a"></li>
+    </ul>
+    <ul>
+        <li v-for="i in 3" ref="b" v-color="'red'">{{i}}</li>
+    </ul>
+
+    <!--
+        事件修饰符
+        .stop
+        .prevent
+        .once
+        .self
+
+        .capture ---》addEventListener('click',fn,true)
+        .passive
+
+        v-model修饰符
+        .trim 去除首尾空格
+        .number 跟parseFloat 处理方式相似 ；
+    -->
+</div>
+</body>
+</html>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:'#app',
+        data:{
+            cla:'bg',
+            obj:{
+                bg:true,bg1:false,bg2:true
+            },
+            obj1:{
+                color:'red'
+            },
+            obj2:{
+                padding:'12px'
+            }
+        },
+        watch:{
+            'obj1.color':{
+                handler(cur,prev){
+                    console.log(this)
+                },
+                deep:true
+            }
+        },
+        beforeCreate(){
+            // debugger;
+            // this.fn();
+        },
+        directives:{
+            color:(ele,obj)=>{
+                console.log(this);
+                ele.style.color = obj.value || 'red'
+            }
+        },
+        filters:{
+            upper(val){
+                console.log(this);
+                return val + '0000000'
+            }
+        },
+        created(){
+            // console.log(this.$refs);
+            // this.fn()
+        },
+        methods:{
+            fn(){
+                console.log(123111111)
+            }
+        },
+        mounted(){
+            console.log(this.$refs);
+        }
+    });
+    /*
+    * beforeCreate  created
+    * beforeMount   mounted
+    * beforeUpdate  updated
+    * beforeDestroy destroyed
+    *
+    * 所有生命周期钩子函数中的this 都是指向当前实例的；
+    * methods、computed、watch 中的this 都是指向当前实例的；
+    *
+    * directives、filters  中的函数中的this 不是指向 当前实例的
+    *
+    *
+    * created: 一般用来做一些接口请求
+    * mounted: 一般用来执行需要获取元素的那些函数
+    * updated: 视图  更新  才会触发这个函数
+    * */
+</script>  

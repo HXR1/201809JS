@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>珠峰培训</title>
+</head>
+<body>
+
+<div id="app">
+    <h1>{{name}}</h1>
+    <son @aaa="fn"></son>
+</div>
+</body>
+<template id="son">
+    <div>
+        这是子级组件
+        <button @click="add">给父组件加数</button>
+    </div>
+</template>
+</html>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script>
+    /*
+    * 子组件修改父组件的数据  ： 我们通过 自定义事件
+    * 在子组件行内写  @自定义事件名aaa  =  " 父组件对应的函数fn "
+    * 在子组件中  我们通过 this.$emit('自定义事件名aaa',其他参数。。。)
+    *
+    * */
+    let son = {
+        template:"#son",
+        data(){
+            return{
+                name:'son',
+                ary:[1,2,3,4,5]
+            }
+        },
+        methods:{
+            add(){
+                this.$emit('aaa',this.name,this.ary)
+            }
+        }
+    };
+    let vm = new Vue({
+        el:"#app",
+        data:{
+            name:123
+        },
+        components:{
+            son
+        },
+        methods:{
+            fn(a,b){
+                let t = b.toString();
+                this.name = a + t;
+            }
+        }
+    })
+
+</script>  

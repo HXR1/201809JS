@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>珠峰培训</title>
+</head>
+<body>
+
+<div id="app">
+    <!--<h2 v-for="i in 8">{{i}}</h2>-->
+    <aaa></aaa>
+    <my-name></my-name>
+    <my-age v-for="i in 3"></my-age>
+    <!--<my-age v-for="i in 3"/>-->
+    <login></login>
+</div>
+</body>
+</html>
+<template id="login">
+    <div>
+        这是个template模板
+        <button @click="fn">按钮</button>
+    </div>
+</template>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script>
+    /*
+    * 组件有什么好处？ 可维护性高 复用性强
+    * 高内聚 低耦合
+    * 功能组件  页面组件
+    *
+    * 全局组件 局部组件
+    *
+    * */
+
+    // 全局组件
+    Vue.component('aaa',{
+        // aaa 组件名称
+        // template 该组件要渲染的模板
+        template:"<h1>这是我自己定义的组件</h1>"
+    });
+    Vue.component('myName',{
+        // 若是 驼峰式命名 DOM模板中需使用 以-分割的命名方式
+        // 组件之间不共用数据
+        template:"<h1>我的名字是珠峰</h1>"
+    });
+    Vue.component('my-age',{
+        template:"<h1>我的年龄是 9{{name}}</h1>",
+        data:function () {
+            return {
+                name:123
+            }
+        }
+    });
+    Vue.component('login',{
+        template:'#login',
+        created(){
+            console.log(this.name)
+        },
+        data(){
+            return {
+                name:345
+            }
+        },
+        methods:{
+            fn(){
+                console.log(this);
+            }
+        }
+    });
+    let vm = new Vue({
+        el:"#app" ,//不能用 body 和 html
+        data:{
+            name:'qqq'
+        }
+    });
+    // Vue.component('my-age',{
+    //     template:"<h1>我的年龄是 9</h1>"
+    // });
+
+</script>  

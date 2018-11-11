@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>珠峰培训</title>
+</head>
+<body>
+
+<div id="app">
+    <grand-pa :aaa="name"></grand-pa>
+    <!-- grand-pa 组件想用 name 这个变量的值；
+     我们通过自定义属性  aaa 接收；
+     我们若想在 grand-pa 用到aaa ;则还需要我们在grand-pa 中 通过 props属性接收
+     -->
+</div>
+</body>
+</html>
+<template id="grandPa">
+    <div>
+        这是祖父级组件;{{aaa}}
+        <!--<parent :bbb="aaa"></parent>-->
+        <parent :aaa="aaa"></parent>
+    </div>
+</template>
+<template id="parent">
+    <div>
+        <!--这是父级组件{{bbb}}-->
+        <!--<son :ccc="bbb"></son>-->
+        这是父级组件{{aaa}}
+        <son :aaa="aaa"></son>
+    </div>
+</template>
+<template id="son">
+    <div>
+        这是子级组件{{aaa}}
+    </div>
+</template>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script>
+    /*
+    * 子组件想用父组件的数据  我们通过自定义属性传递;
+    *   父组件通过自定义属性传递；
+    *  子组件通过props 接收
+    *
+    *
+    *
+    * */
+    let son = {
+        template:'#son',
+        props:['aaa']
+    };
+    let parent = {
+        template:"#parent",
+        props:['aaa'],
+        created(){
+            console.log(this);
+            this.bbb = 666;
+        },
+        data(){
+            return{
+                bbb:this.aaa
+            }
+        },
+        components:{
+            son
+        }
+    };
+    let grandPa = {
+        template:"#grandPa",
+        props:['aaa'],
+        components:{
+            parent
+        }
+    };
+    let vm = new Vue({
+        el:"#app",
+        data:{
+            name:'123'
+        },
+        components:{
+            son,parent,grandPa
+        }
+    })
+</script>

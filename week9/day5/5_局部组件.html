@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>珠峰培训</title>
+</head>
+<body>
+
+<div id="app">
+    <my-son></my-son>
+    <son2></son2>
+</div>
+</body>
+</html>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script>
+    /*
+    * 先声明一个对象
+    * 在到对应的实例中注册；（components 中注册）
+    * 然后才能在对应的实例中使用
+    *
+    * */
+
+    let son2 = {
+        template:"<h1>这是2儿子组件</h1>",
+        data(){
+            return{
+                name:'son'
+            }
+        },
+    };
+    let son = {
+        template:"<h1>这是儿子组件 <son2></son2></h1>",
+        data(){
+            return{
+                name:'son'
+            }
+        },
+        components:{
+            son2
+        }
+    };
+
+    Vue.component('pub',{
+        template:'<div>这个是全局组件 <son></son></div>',
+        components:{
+            son
+        }
+    });
+
+    let vm = new Vue({
+        el:"#app",
+        data:{
+
+        },
+        components:{
+            // 这里边存的是要注册的组件
+            mySon:son,
+            son2
+        }
+    })
+</script>  
