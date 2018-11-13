@@ -29,18 +29,40 @@
     <button @click="fn('姓名')"> 显示姓名弹框</button>
     <my-dialog
             :title="til"
-            @close="close" v-show="flag"></my-dialog>
+            :type="2"
+            @close="close" v-show="flag">
+        <!-- type 1 显示 取消按钮；  type 2 显示 确认 和 取消 两个按钮    -->
+        <div slot="main">
+            <select name="" id="">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+            </select>
+            <ul>
+                <li v-for="i in 3">{{i}} </li>
+            </ul>
+        </div>
+        <!--<div slot="footer">
+            <button @click="fn1">确认</button>
+            <button @click="fn2">取消</button>
+        </div>-->
+    </my-dialog>
 </div>
 </body>
 </html>
 <template id="myDialog">
     <div class="bgBox">
         <div class="contentBox">
-            <h1>{{title}}</h1>
+            <h1>{{title || '默认标题'}}</h1>
             <div class="bodyBox">
-                这是中间部分
+                <slot name="main"></slot>
             </div>
-            <button @click="close">关闭弹框</button>
+            <!--<button @click="close">关闭弹框</button>-->
+            <!--<slot name="footer" v-if="$slots.footer"></slot>
+            <button @click="close" v-else>默认button</button>-->
+            <button>取消</button>
+            <button v-if="type == 2">确认</button>
         </div>
     </div>
 </template>
@@ -51,15 +73,18 @@
     });
     let myDialog = {
         template:"#myDialog",
-        props:['title'],
+        props:['title','type'],
         methods:{
             close(){
-                // this.$emit('close');
+                this.$emit('close');
                 // this.$parent.flag = false;
                 // this.$parent.close()
-                let f = this.$parent.close;
+                // let f = this.$parent.close;
                 // f.call(window); // 改不动
             }
+        },
+        created(){
+            console.log(this);
         }
     };
     let vm = new Vue({
@@ -79,6 +104,12 @@
             close(){
                 // console.log(this);
                 this.flag = false;
+            },
+            fn1(){
+                alert('fn1')
+            },
+            fn2(){
+                alert('fn2')
             }
         }
     })

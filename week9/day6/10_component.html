@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>珠峰培训</title>
+    <link href="https://cdn.jsdelivr.net/npm/animate.css@3.5.1" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<div id="app">
+    <!--  is ???? -->
+    <button v-for="i in 3" @click="change(i)">page{{i}}</button>
+    <!--
+        keep-alive 保持组件不销毁
+    -->
+    <transition
+        enter-active-class="animated tada"
+        leave-active-class="animated zoomOut"
+        mode="out-in"
+    >
+        <!--
+            mode  默认 同时进行显示和隐藏的动效
+                  in-out 先进行显示的动效  再 进行消失的动效
+                  out-in 跟上边正好相反；
+        -->
+        <keep-alive>
+            <component :is="type"></component>
+        </keep-alive>
+    </transition>
+
+    <button @click="fn(i)" v-for="i in 3">{{i}}</button>
+    <div v-for="i in 3" v-show="i == num">{{i}}</div>
+</div>
+</body>
+</html>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script>
+    let page1 = {
+        template:"<h1>this is page1</h1>",
+        mounted(){
+            console.log('page1')
+        },
+        destroyed(){
+            console.log(1)
+        }
+    };
+    let page2 = {
+        template:"<h1>this is page2</h1>",
+        mounted(){
+            console.log('page2')
+        }
+    };
+    let page3 = {
+        template:"<h1>this is page3</h1>",
+        mounted(){
+            console.log('page3')
+        }
+    };
+    let vm = new Vue({
+        el:'#app',
+        data:{
+            num:1,
+            type:'page1'
+        },
+        components:{
+            page1,page2,page3
+        },
+        methods:{
+            fn(n){
+                this.num = n;
+            },
+            change(n){
+                this.type = 'page'+n;
+            }
+        }
+    })
+
+</script>  

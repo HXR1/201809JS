@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>珠峰培训</title>
+</head>
+<body>
+
+<div id="app">
+    <!--
+        router-link
+        router-view 都是全局组件 ；这些是 vueRouter定义好的组件
+
+        router-link是用来控制跳转的
+        router-view是用来控制要显示的组件的
+
+    -->
+    <router-link to="/home">首页</router-link>
+    <router-link to="/list">列表页</router-link>
+    <router-view></router-view>
+</div>
+</body>
+</html>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script src="./node_modules/vue-router/dist/vue-router.js"></script>
+<script>
+    let home = {
+        template:'<h1>home</h1>'
+    };
+    let list = {
+        template:'<h1>list</h1>'
+    };
+    let router = new VueRouter({
+        routes:[
+            // 路由映射表
+            {
+                path:'/home',
+                component:home
+            },
+            {
+                path:'/list',
+                component:list
+            }
+        ]
+    });
+    let vm = new Vue({
+        el:"#app",
+        router:router
+    })
+
+</script>  

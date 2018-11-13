@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>珠峰培训</title>
+</head>
+<body>
+
+<div id="app">
+    <button @click="flag = !flag">按钮</button>
+    <son title="标题">
+        <template v-if="flag" slot="q">
+            <div>这是自己瞎写的1</div>
+            <div>这是自己瞎写的2</div>
+            <div>这是自己瞎写的3</div>
+        </template>
+        <!--<span></span>-->
+        <template v-else slot="w">
+            <div>这是自己瞎写的1w</div>
+            <div>这是自己瞎写的2w</div>
+            <div>这是自己瞎写的3w</div>
+        </template>
+    </son>
+</div>
+</body>
+</html>
+<template id="son">
+    <div>
+        <slot name="q"></slot>
+        <h1>这是个子组件;title是{{title}}</h1>
+        <slot name="w"></slot>
+        <slot name="default"></slot>
+    </div>
+</template>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script>
+    /*
+    * slot 插槽
+    *
+    * 再子组件使用的地方  用子组件包含的内容； 我们想把这部分内容加入到
+    * 子组件的 DOM模板中；  需要使用 slot;
+    * 包含的内容标签上  我们可以添加 slot='xxx'行内属性
+    * 在子组件模板中  我们使用 <slot name='xxx'></slot>来获取 子组件包含的对应内容； name 可以不写  ；默认走default
+    * ；
+    *
+    *
+    * */
+    let son = {
+        template:'#son',
+        props:{
+            title:{
+                default:'默认标题'
+            }
+        }
+    };
+    let vm = new Vue({
+        el:"#app",
+        data:{
+            name:"珠峰",
+            flag:true
+        },
+        components:{
+            son
+        }
+    })
+
+</script>  

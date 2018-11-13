@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>珠峰培训</title>
+</head>
+<body>
+
+<div id="app">
+    <brother1></brother1>
+    <brother2></brother2>
+</div>
+</body>
+</html>
+<template id="brother1">
+    <div>
+        <h1 :style="{background:col}">brother1</h1>
+        <button @click="fn1">变红</button>
+    </div>
+</template>
+<template id="brother2">
+    <div>
+        <h1 :style="{background:col2}">brother2</h1>
+        <button @click="fn2">变蓝</button>
+    </div>
+</template>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm2 = new Vue();// 新创建一个 vue 实例
+    Vue.component('brother1',{
+        template:"#brother1",
+        data(){
+            return{
+                col:'red'
+            }
+        },
+        created(){
+            vm2.$on('changeBro1',(val)=>{
+                //给 vm2 添加一个 事件
+                console.log(val);
+                this.col = val;
+            })
+        },
+        methods:{
+            fn1(){
+                vm2.$emit('changeBro2','red');
+            }
+        }
+    });
+    Vue.component('brother2',{
+        template:"#brother2",
+        data(){
+            return{
+                col2:'blue'
+            }
+        },
+        created(){
+            vm2.$on('changeBro2',(val)=>{
+                this.col2 = val
+            })
+        },
+        methods:{
+            fn2(){
+                vm2.$emit('changeBro1','blue')
+            }
+        }
+    });
+    let vm = new Vue({
+        el:'#app'
+    })
+</script>  
