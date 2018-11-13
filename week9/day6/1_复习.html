@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>珠峰培训</title>
+</head>
+<body>
+
+<div id="app">
+    <my-name></my-name>
+    <my-name></my-name>
+    <my-name></my-name>
+    <my-name></my-name>
+    <son></son>
+</div>
+</body>
+</html>
+<template id="myName">
+    <div>
+        <h1>这是个全局组件</h1>
+        {{name}}
+        <!--<son></son>-->
+    </div>
+    <!--<div></div>--> <!--只能有一个根元素-->
+</template>
+<template id="son">
+    <div>
+        <h2>这是son组件</h2>
+        <my-name></my-name>
+    </div>
+</template>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script>
+    let son = {
+        template:"#son"
+    };
+    Vue.component('my-name',{
+        template:"#myName",
+        data(){
+            return{
+                name:"珠峰"
+            }
+        },
+        components:{
+            son //son:son
+        }
+    });
+
+
+    let vm = new Vue({
+        el:'#app',
+        components:{
+            son
+        }
+    })
+
+</script>  

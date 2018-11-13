@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>珠峰培训</title>
+</head>
+<body>
+
+<div id="app">
+    <son :qqq="aaa"></son>
+</div>
+</body>
+</html>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script>
+    /*
+    * 父传子   通过 自定义属性； 子组件用过 props接收
+    * */
+    let son = {
+        template:"<h1>这是个父组件数据{{name}}</h1>",
+        props:['qqq'],
+        data(){
+            return{
+                name:this.qqq
+            }
+        }
+    };
+    let vm = new Vue({
+        el:"#app",
+        data:{
+            aaa:"hello app"
+        },
+        components:{
+            son
+        }
+    })
+
+</script>  

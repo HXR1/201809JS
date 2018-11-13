@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>珠峰培训</title>
+</head>
+<body>
+
+<div id="app">
+    {{aaa}}
+    <my-name @zzz="change"></my-name>
+</div>
+</body>
+</html>
+<template id="myName">
+    <div>
+        {{name}}
+        <button @click="fn">666</button>
+    </div>
+</template>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script>
+    /*
+    * 子传父  父组件调用子组件数据
+    * 通过 自定义事件； 子组件同$emit 触发父组件对应的事件；
+    *
+    * */
+    Vue.component('my-name',{
+        template:"#myName",
+        data(){
+            return{
+                name:'666'
+            }
+        },
+        methods:{
+            fn(){
+                this.$emit('zzz',this.name,1234)
+            }
+        }
+    });
+    let vm = new Vue({
+        el:"#app",
+        data:{
+            aaa:"珠峰"
+        },
+        methods:{
+            change(name,n){
+                this.aaa = name;
+                console.log(arguments);
+            }
+        }
+    })
+</script>  

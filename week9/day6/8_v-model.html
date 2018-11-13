@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>珠峰培训</title>
+</head>
+<body>
+
+<div id="app">
+    <h1>{{name}}</h1>
+    <!--
+        <input type="text" >
+        <textarea></textarea>
+        <select name="" id=""></select>
+    -->
+
+    <!--
+        v-model 可拆成两步
+        :value
+        @input
+
+        <son v-model="name"></son>
+        <son :value='name' @input="默认事件"></son>
+    -->
+    <son v-model="name"></son>
+</div>
+</body>
+</html>
+<template id="son">
+    <div>
+        这是个我自己的组件
+        <input type="text"
+               :value = 'value'
+               @input="fn">
+    </div>
+</template>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script>
+    let son = {
+        template:"#son",
+        props:['value'],
+        methods:{
+            fn(e){
+                this.$emit('input',e.target.value)
+            }
+        },
+        created(){
+            console.log('son');
+        },
+        mounted(){
+            console.log('son-mounted');
+        }
+    };
+    let vm = new Vue({
+        el:'#app',
+        data:{
+            name:"珠峰"
+        },
+        created(){
+            console.log('根实例')
+        },
+        mounted(){
+            console.log('vm-mounted')
+        },
+        components:{
+            son
+        }
+    })
+
+</script>  

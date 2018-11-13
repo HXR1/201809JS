@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>珠峰培训</title>
+</head>
+<body>
+
+<div id="app">
+    {{time}}{{arr}}
+    <son @gettime="fn" :ary="arr"></son>
+    <son @gettime="fn" ref="qqq"></son>
+    <!-- ref 不仅能获取 DOM ； 也能获取 组件 -->
+    <son @gettime="fn"></son>
+</div>
+</body>
+</html>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script>
+    /*
+    * 如果  父组件传给子组件一个引用数据类型； 那么 我们可以直接再子组件中变异 该引用数据类型；这种方式不建议使用；
+    *
+    * */
+    let son = {
+        template:"<h1>这是个子组件 <button @click='fn'>按钮</button></h1>",
+        methods:{
+            fn(){
+                let t = new Date().getSeconds();
+                console.log(t,this);
+                this.$emit('gettime',t,this);
+                // this.ary = []
+                // this.ary.pop();
+                // console.log(this.$parent === vm);
+
+                this.$parent.arr = [333];
+                // 我们也可以通过 $parent 这种方式直接找到父组件这个实例，进而去修改父组件中的相关内容
+            }
+        },
+        props:['ary']
+    };
+    let vm = new Vue({
+        el:"#app",
+        components:{
+            son
+        },
+        data:{
+            time:'',
+            arr:[1,2,3,4]
+        },
+        methods:{
+            fn(t,that){
+                this.time = t;
+                // $emit 自定义属性
+                // console.log(this.$children[1] === that);
+                console.log(this.$refs.qqq == that)
+            }
+        }
+    })
+</script>  

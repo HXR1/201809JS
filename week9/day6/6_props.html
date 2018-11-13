@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>珠峰培训</title>
+</head>
+<body>
+
+<div id="app">
+    <son :qqq="123" ></son>
+    <son :ary="[1,2,3,4]"></son>
+</div>
+</body>
+</html>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script>
+    let son = {
+        template:"<h1>{{qqq}} {{ary}}</h1>",
+        props:{
+            qqq:{
+                // type:String, 限定数据类型是 字符串
+                type:[String,Number],// 既可以是字符串，也可以是数字
+                default:'默认值',
+                // required:true, 是否必须；默认false
+            },
+            ary:{
+                type:Array,
+                // default:[]
+                default(){
+                    return []
+                },
+                validator(val){
+                    // val 就是传进来的参数或者该项数据的默认值
+                    // 做 自己定义的验证； 需要有返回值 true 或者false
+                    if(val.length > 3){
+                        return true
+                    }else {
+                        return false
+                    }
+                    // console.log(arguments);
+                }
+            }
+        }
+    };
+    let vm = new Vue({
+        el:'#app',
+        data:{
+            name:"珠峰"
+        },
+        components:{
+            son
+        }
+    })
+
+</script>  

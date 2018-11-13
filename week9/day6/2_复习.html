@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>珠峰培训</title>
+</head>
+<body>
+
+<div id="app">
+    <!--<name :qqq="myName"></name>-->
+    <age></age>
+</div>
+<template id="name">
+    <div>
+        {{www}}
+        <!--{{name}}-->
+        <!--{{qqq}}-->
+        <!--<button @click="name = 666">666</button>-->
+    </div>
+</template>
+<template id="age">
+    <div>
+        这是个age 组件
+        <name www="hello"></name>
+    </div>
+</template>
+</body>
+</html>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script>
+    Vue.component('name',{
+        template:"#name",
+        props:['qqq','www'],
+        data(){
+            return{
+                name:this.qqq,
+                // qqq:123
+            }
+        }
+    });
+    Vue.component('age',{
+        template:"#age",
+
+    });
+    let vm = new Vue({
+        el:'#app',
+        data:{
+            myName:"珠峰"
+        }
+    })
+
+</script>  
