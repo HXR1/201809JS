@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>珠峰培训</title>
+</head>
+<body>
+
+<div id="app">
+    <button @click="fn">显示SON</button>
+    <!--<router-link to="/son?">显示SON</router-link>-->
+    <router-view></router-view>
+</div>
+</body>
+</html>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script src="node_modules/vue-router/dist/vue-router.js"></script>
+<script>
+    let son = {
+        template:"<h1>son{{$route.query.n}}</h1>"
+    };
+    const routes = [
+        {
+            path:'/son',
+            component:son
+        }
+    ];
+    let router = new VueRouter({
+        routes
+    });
+    let vm = new Vue({
+        router,
+        methods:{
+            fn(){
+                setTimeout(()=>{
+                    let n = Math.random();
+                    // 编程式路由切换
+                    console.log(this);
+                    // push  把当前路由 切换成传进来的字符串
+                    this.$router.push(`/son?n=${n}`)
+                },200)
+            }
+        }
+    }).$mount('#app')
+
+
+</script>  

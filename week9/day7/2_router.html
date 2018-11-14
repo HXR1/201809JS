@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>珠峰培训</title>
+    <link href="https://cdn.jsdelivr.net/npm/animate.css@3.5.1" rel="stylesheet" type="text/css">
+    <style>
+        .router-link-active{
+            background: #24ccc8;
+        }
+    </style>
+</head>
+<body>
+
+<div id="app">
+    <!--<a href="#/home111">首页</a>
+    <a href="#/list111">列表页</a>-->
+
+    <!--
+        tag属性 可以控制 router-link 转化成的html标签； 默认转成 a标签
+        router-link-active  当前路由下 对应的标签具有的类名
+        active-class: 修改默认选中的类名；默认的类名时 router-link-active
+    -->
+    <!--<router-link active-class="current" to="/home111" tag="button">首页</router-link>
+    <router-link active-class="current" to="/list111" tag="button">列表页</router-link>-->
+
+    <router-link active-class="qqq" to="/home111" tag="button">
+        首页
+    </router-link>
+    <router-link to="/list111" tag="button">
+        列表页
+    </router-link>
+
+    <!-- 让对应组件在该位置显示-->
+    <transition
+        enter-active-class="animated zoomIn"
+        leave-active-class="animated zoomOut"
+        mode="out-in"
+    >
+        <keep-alive>
+            <router-view></router-view>
+        </keep-alive>
+    </transition>
+
+
+
+    <!--
+        路由的来回跳转  会触发组件的销毁；组件的生命周期钩子函数会重新走一遍；
+        若我们需要组件不销毁时；在 router-view外层套一个 keep-alive标签即可
+
+    -->
+
+    <!--
+           router-link 决定跳转到那个路由
+           router-view 决定该路由下显示那个组件
+    -->
+</div>
+</body>
+</html>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script src="node_modules/vue-router/dist/vue-router.js"></script>
+<script>
+    /*
+    * 1、先定义好各个组件
+    * 2、编写路由映射表
+    * 3、把路由实例router注册到vm根实例中
+    *
+    *
+    * 使用路由切换时 我们不需要进行 组件的注册
+    *
+    * */
+    let home = {
+        template:"<h1>首页</h1>",
+        destroyed(){
+            console.log('home')
+        }
+    };
+    let list = {
+        template:"<h1>列表页</h1>"
+    };
+    let routes = [
+        // 路由映射表
+        {
+            path:'/home111',
+            component:home
+        },
+        {
+            path:'/list111',
+            component:list
+        }
+    ];
+    let router = new VueRouter({
+        routes:routes,
+        linkActiveClass:'current' // 统一修改默认选中的类名
+    });
+    let vm = new Vue({
+        el:"#app",
+        router
+    })
+
+</script>  

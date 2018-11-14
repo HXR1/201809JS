@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>珠峰培训</title>
+</head>
+<body>
+
+<div id="app">
+    <!--<router-link exact-active-class="current1" :to="'/home111?a=12'">首页</router-link>-->
+    <router-link :to="{path:'/home111',query:obj}">首页</router-link>
+    <router-link :to="{name:'home',query:obj}">首页2</router-link>
+    <!--
+        对象的方式 添加路径 及参数
+        path要跳转的路径 ；
+        name要跳转路径对应的名字；
+        query 要传递的参数（Object） 一般称为 query传参
+
+        路径传参
+        1、修改路由映射表 path属性 需要写成 :参数名  的形式
+        2、在router-link上用的时候；需要用name属性 而不能用 path属性
+        3、需要传递的参数；我们要把他们放到一个 params对象中；params中的属性名必须根映射表中的保持一致
+     -->
+
+    <!--<router-link to="/list111/111/222">列表页</router-link>-->
+    <!-- 111、222 分别属于 age sex  -->
+    <!--<router-link
+            :to="{path:'/list111',params:{age:1,sex:2}}">列表页</router-link>-->
+    <router-link
+            :to="{name:'list',params:{age:1,sex:2}}">列表页</router-link>
+    <router-view></router-view>
+</div>
+</body>
+</html>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script src="node_modules/vue-router/dist/vue-router.js"></script>
+<script>
+
+    /*
+    * path name query params
+    *
+    * path    跳转路径
+    * name    根path一一对应的一个名字
+    * query   值是一个对象，里边是要添加到路径上的参数；以?&的形式存在
+    *         这种方式传参，我们既可以用path 也可以用 name
+    * params  值也是个对象，里边的参数(opt)，最终会转化成路径的形式；这种传参，需要我们的映射表中的path 的值 加上 :参数（opt）； 前后这两opt属性名必须保持一致；而且我们也只能用 name 的这种方式；不能用 path;
+    *
+    *
+    * 获取参数时；每个组件中 我们都可以通过 $route 获取相应的参数；
+    *
+    * */
+    let home = {
+        template:"<h1>首页 <span v-for='(val,key) in opt '>属性{{key}}是{{val}}</span></h1>",
+        created(){
+            console.log(this);
+            // $route中的存储的是当前路由的所有信息；
+            // 不管哪个组件 都能获取到这个属性
+        },
+        computed:{
+            opt(){
+                return this.$route.query
+            }
+        },
+        destroyed(){
+            console.log('home')
+        }
+    };
+    let list = {
+        template:"<h1>列表页 <span v-for='(val,key) in opt '>属性{{key}}是{{val}}</span></h1>",
+        computed:{
+            opt(){
+                return this.$route.params
+            }
+        }
+    };
+    let routes = [
+        // 路由映射表
+        {
+            path:'/home111',
+            name:'home',
+            component:home
+        },
+        {
+            path:'/list111/:age/:sex',// age sex是属于参数部分的；
+            name:'list',
+            component:list
+        }
+    ];
+    let router = new VueRouter({
+        routes:routes,
+        linkActiveClass:'current', // 统一修改默认选中的类名
+        linkExactActiveClass:'current2' // 精确匹配； 路径带着参数完全一样
+    });
+    let vm = new Vue({
+        el:"#app",
+        router,
+        data:{
+            obj:{a:12,b:13,c:14}
+        }
+    })
+</script>  

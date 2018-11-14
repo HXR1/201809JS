@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>珠峰培训</title>
+</head>
+<body>
+
+<div id="app">
+    <!--<son :name="name">
+        &lt;!&ndash;<div slot="default">1</div>
+        <div slot="default">2</div>&ndash;&gt;
+        <template slot="default">
+            <div slot="name">1</div>
+            &lt;!&ndash; 里边的slot 就成了 普通的行内属性了 &ndash;&gt;
+            <div>2</div>
+        </template>
+        <div slot="qqq">3</div>
+    </son>
+
+
+    <son2></son2>
+    &lt;!&ndash; 上下两者等同 &ndash;&gt;
+    <component is="son2"></component>-->
+=======================================================
+    <transition
+        enter-active-class=""
+        leave-active-class=""
+        mode = 'in-out'
+        mode = 'out-in'
+    >
+        <keep-alive>
+        <component :is="s"></component>
+        </keep-alive>
+    </transition>
+
+    <son2 ></son2>
+
+</div>
+</body>
+</html>
+<template id="son">
+    <div>
+        <slot name="qqq"></slot>
+        <h1>this is a son {{name}}</h1>
+        <h2>{{$parent.name}}</h2>
+        <slot></slot>
+    </div>
+</template>
+<template id="son2">
+    <div>
+        <slot name="qqq"></slot>
+        <h1>this is a son2 {{name}}</h1>
+        <h2>{{$parent.name}}</h2>
+        <slot></slot>
+    </div>
+</template>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script>
+    /*
+    *
+    * 父传子 子组件使用父组件的数据  我们通过自定义属性；:qqq='' 子组件通过props接收
+    *  props中的属性  name:{type:[String,Number],default,required,validator}
+    *
+    * 子传父 父组件调用子组件数据   我们通过自定义事件； @aaa='' ;子组件通过$emit 触发自定义事件
+    *
+    * 父传给子 一个数组； 子组件中修改数组（变异）；这种方式是可以修改数据的；
+    *
+    * $parent   $children  通过这种方法我们是可以直接获取到 当前对应实例的；那么我也就可以获取实例中的方法 和 属性
+    * $children 使用时需要注意组件的引用顺序；
+    * 直接再组件添加行内属性  ref ;我们也可以通过 $refs 来获取对应实例
+    *
+    *
+    * slot 再父组件模板中  我们要给元素加相应的 行内属性 slot = 'qqq'
+    *      在子组件模板中  我们使用 <slot name='qqq'></slot> 来获取对应的DOM结构
+    *
+    *
+    * component 内置组件  is 后边要跟字符串；用来决定要显示哪个组件；
+    * keep-alive 保持组件不被销毁；
+    *
+    *
+    * eventBus
+    * vm2 = new Vue();
+    * $on 订阅
+    * $emit  发布
+    *
+    *
+    *
+    * */
+
+
+    let son = {
+        template:'#son',
+        props:['name'],
+        created(){
+            console.log(this);
+        }
+    };
+    let son2 = {
+        template:'#son2',
+        props:{
+            name:{
+                type:[Array,String],
+                default(){
+                    return []
+                }
+            }
+
+        },
+        created(){
+            console.log(this);
+        }
+    };
+    let vm = new Vue({
+        el:'#app',
+        data:{
+            name:"珠峰",
+            s:'son'
+        },
+        components:{
+            son,son2
+        }
+    })
+</script>  
