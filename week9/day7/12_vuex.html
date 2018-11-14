@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>珠峰培训</title>
+</head>
+<body>
+
+<div id="app">
+    <brother1></brother1>
+    <brother2></brother2>
+</div>
+</body>
+</html>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script src="node_modules/vuex/dist/vuex.js"></script>
+<script>
+    let store = new Vuex.Store({
+        state:{
+            //  公用数据
+            // 只要这个count修改 那么所有用到这个count 的地方都会跟着修改
+            count:0
+        },
+        mutations:{
+            add(state){
+                //state 就是 store.state
+                state.count++;
+            }
+        }
+    });
+    let brother1 = {
+        template:`<div>
+                    <h1>{{count}}</h1>
+                    <button @click="add">按钮</button>
+                   </div>`,
+        computed:{
+            count(){
+                // console.log(this)
+                return this.$store.state.count;
+            }
+        },
+        methods:{
+            add(){
+                // 改变 store.state中的数据
+                // this.$store.state.count++;
+                this.$store.commit('add');//自动去mutations中查找add函数并执行
+            }
+        }
+    };
+    let brother2 = {
+        template:"<h1>{{count}}</h1>",
+        computed:{
+            count(){
+                // console.log(this);
+                return this.$store.state.count;
+            }
+        }
+    };
+    let vm = new Vue({
+        el:"#app",
+        store,
+        components:{
+            brother1,brother2
+        }
+    })
+
+</script>  

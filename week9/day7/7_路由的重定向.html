@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>珠峰培训</title>
+</head>
+<body>
+
+<div id="app">
+    <router-link to="/home">home</router-link>
+    <router-link to="/list">list</router-link>
+    <router-view></router-view>
+</div>
+</body>
+</html>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script src="node_modules/vue-router/dist/vue-router.js"></script>
+<script>
+    let home = {
+        template:"<h1>首页{{obj}}</h1>",
+        computed:{
+            obj(){
+                return this.$route.query
+            }
+        }
+    };
+    let list = {
+        template:'<h1>列表页{{obj}}</h1>',
+        computed:{
+            obj(){
+                return this.$route.query
+            }
+        }
+    };
+    let routes = [
+        {
+            path:'/',
+            // component:home
+            redirect:'/home' //路由的重定向
+        },
+
+        {
+            path:'/home',
+            component:home
+        },
+        {
+            path:'/list',
+            component:list
+        },
+        {
+            path:'/*',
+            // component:home
+            redirect:'/home'
+        }
+        // 路由的匹配是从上到下依次匹配的；
+    ];
+    let router = new VueRouter({
+        routes,
+        // linkActiveClass
+        mode:'hash' // hash  history; 默认 hash
+    });
+    let vm = new Vue({
+        el:"#app",
+        router
+    })
+</script>  

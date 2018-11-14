@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>珠峰培训</title>
+</head>
+<body>
+
+<div id="app">
+    <router-link to="/home">首页</router-link>
+    <router-link to="/list">列表页</router-link>
+    <router-link to="/user">个人中心</router-link>
+    <router-view></router-view>
+</div>
+</body>
+</html>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script src="node_modules/vue-router/dist/vue-router.js"></script>
+<script>
+    let home = {
+        template:"<h1>首页</h1>"
+    };
+    let list = {
+        template:"<h1>列表页</h1>"
+    };
+    let user = {
+        template:"<h1>个人中心</h1>"
+    };
+    const routes = [
+        {
+            path:'/home',
+            meta:{
+                til:"首页"
+            },
+            component:home
+        },
+        {
+            path:'/list',
+            meta:{
+                til:"列表页"
+            },
+            component:list
+        },
+        {
+            path:'/user',
+            meta:{
+                til:"个人中心"
+            },
+            component:user
+        }
+    ];
+    let router = new VueRouter({
+        routes:routes
+    });
+    router.beforeEach((to,from,next)=>{
+        //前置守卫
+        console.log(to, from);
+        let til = to.meta.til || '自定义';
+        document.title = til;
+        next();// 接着向下跳转
+    });
+    router.afterEach((to,from)=>{
+       console.log('跳转完成')
+    });
+    let vm = new Vue({
+        el:'#app',
+        router
+    })
+
+</script>  

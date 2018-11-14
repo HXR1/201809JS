@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>珠峰培训</title>
+</head>
+<body>
+
+<div id="app">
+    <!--<router-link :to="{path:'/home',query:{a:12}}" tag="button">home</router-link>
+    <router-link to="/list">list</router-link>-->
+    <button @click="fn">{{str}}</button>
+    <button @click="fn3">按钮</button>
+    <router-view></router-view>
+</div>
+</body>
+</html>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script src="node_modules/vue-router/dist/vue-router.js"></script>
+<script>
+    let home = {
+        template:"<h1>首页{{obj}}</h1>",
+        computed:{
+            obj(){
+                return this.$route.query
+            }
+        }
+    };
+    let list = {
+        template:'<h1>列表页{{obj}}</h1>',
+        computed:{
+            obj(){
+                return this.$route.query
+            }
+        }
+    };
+    let routes = [
+        {
+            path:'/home',
+            component:home
+        },
+        {
+            path:'/list',
+            component:list
+        }
+    ];
+    let router = new VueRouter({
+        routes,
+        // linkActiveClass
+        mode:'hash' // hash  history; 默认 hash
+    });
+    let vm = new Vue({
+        el:'#app',
+        router,
+        data:{
+            // str:'首页'
+        },
+        methods:{
+            fn(){
+                if(this.str == '首页'){
+                    // this.str = '列表页';
+                    // $router 调用方法
+                    // $route  调用属性
+
+                    // to='/list' :to="{path}"
+                    this.$router.push('/list')
+                    // this.$router.push({
+                    //     path:'/list',
+                    //     query:{
+                    //         name:"list"
+                    //     }
+                    // })
+                }else{
+                    // this.str = '首页';
+                    this.$router.push('/home')
+                }
+            },
+            fn2(){
+                if(this.str == '首页'){
+                    this.$router.replace('/list');
+                    /*
+                    * replace  不会产生历史；把当前路径替换成你要去的路径；这种替换是不会产生历史的
+                    * push 是会产生历史
+                    *
+                    * */
+                }else{
+                    this.$router.replace('/home')
+                }
+            },
+            fn3(){
+                // this.$router.go(2);// 向前跳几次 go(1)相当于点击左上角的前进按钮
+                // this.$router.go(-1);// 向后推几步  相当于点击左上角的后退按钮
+                // this.$router.go(1);
+                this.$router.back();//就是go(-1)
+            }
+        },
+        computed:{
+            str(){
+                if(this.$route.path == '/list'){
+                    return '列表页'
+                }else {
+                    return '首页'
+                }
+                // console.log(this.$route);
+            }
+        }
+    })
+</script>  
